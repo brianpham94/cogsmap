@@ -3,8 +3,8 @@
 Thomas Loh Story boards
 
 1. Story board with checking traffic at any time in history on routes
-![Story board 1](/cogsmap/Storyboard 1 Thomas Loh.jpg)
+![alt text](/images/Storyboard1-ThomasLoh.png "Thomas Loh Storyboard 1")
 
 
 2. Story board with checking foot traffic currently
-![GitHub Logo](/cogsmap/Storyboard 2 Thomas Loh.jpg)
+![alt text](/images/Storyboard2-ThomasLoh.png "Thomas Loh Storyboard 2")
