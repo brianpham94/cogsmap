@@ -13,5 +13,5 @@ Thomas Loh Story boards
 ![alt text](https://github.com/withyuns/cogsmap/blob/master/images/StoryBoard1-LaurenGong.JPG "Lauren Gong Storyboard 1")
 
 4. Story board with visualization of weather patterns in a specific region
-![alt text](https://github.com/withyuns/cogsmap/blob/master/images/StoryBoard2-LaurenGong.JPG" Lauren Gong Storyboard 2")
+![alt text](https://github.com/withyuns/cogsmap/blob/master/images/StoryBoard2-LaurenGong.JPG "Lauren Gong Storyboard 2")
 
