@@ -8,3 +8,4 @@ Thomas Loh Story boards
 
 2. Story board with checking foot traffic currently
 ![alt text](https://github.com/withyuns/cogsmap/blob/master/images/Storyboard2-ThomasLoh.jpg "Thomas Loh Storyboard 2")
+
