@@ -8,3 +8,4 @@ COGS 121 Project
    times of day or certain dates.
 4. A map displaying demographics in certain regions like gender, age, income, or ethnicity.
 5. A map showing the current environment status at the time and visualizes past weather/environment statuses
+6. A map displaying places for pets such as pet friendly restaurant, pet hospical, pet walk, and it also showing availability for places.
