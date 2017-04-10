@@ -21,3 +21,13 @@ Thomas Loh Story boards
 6. Story board with maps for pets to display pet friendly places, pet hospitals, and pet walk
 ![alt text](https://github.com/withyuns/cogsmap/blob/master/images/StoryBoard2-HyungyunKim.jpg "Hyungyun Kim Storyboard 2")
 
+Brian Pham Story boards
+
+7. Story board with checking foot traffic
+![alt text](https://github.com/withyuns/cogsmap/blob/master/images/StoryBoard1-BrianPham.jpg "Brian Pham Storyboard 1")
+
+8. Story board with displaying possibility to park at UCSD parking space
+![alt text](https://github.com/withyuns/cogsmap/blob/master/images/StoryBoard2-BrianPham.jpg "Brian Pham Story Board 2")
+
+
+
