@@ -3,7 +3,7 @@
 2. A Summary
 
 3. Storyboard
-![alt text](https://github.com/withyuns/cogsmap/blob/master/images/storyboard-proj.jpg "Storyboard for proposed project")
+![alt text](https://github.com/withyuns/cogsmap/blob/master/images/storyboard_proj.jpg "Storyboard for proposed project")
 
 4. Description of feedback from first set of storyboards
 
