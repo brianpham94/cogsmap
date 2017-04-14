@@ -11,7 +11,13 @@ Wonder what cool things people are doing near you? FootTracker can help you disc
 
 **4. Description of feedback from first set of storyboards**
 
-After receiving the variety of feedbacks from multiple teams throughout both class sessions, the consensus seems to be that most of our ideas were either really cool but not feasible, or too simple and had already been done before. One of the storyboards that stood out to the majority of the feedbacks was the foot-tracking idea. 
+After receiving a variety of feedbacks from multiple teams throughout both class sessions, the consensus seems to be that most of our ideas were either really cool but not feasible, or too simple and had already been done before. One of the storyboards that stood out to the majority of the feedbacks was the foot-tracking idea. So we decided to use this idea as the main focus point of our app and mostly discard the rest of the ideas that were flagged as too easy or simple and too hard or unrealistic. 
+
+However, one of the main feedbacks was that this idea may be too easy and not intricate enough for the level of this class. The tutor’s comments about our ideas also helped confirmed that it was indeed too simplistic. Reflecting upon the feedbacks and the tutor’s comments, we’ve decided to combine multiple ideas into one app.
+
+With this, we tried to avoid just doing ideas A+B+C. Instead, we ended up with the final idea of making the foot tracker app as our main underlying idea while adding some of our other ideas into this as additional features of the app.
+
+Since most of the feedbacks about the two ideas we’re trying to combine were about originality and simplicity, we thought the best solution to this was to combine the two ideas into an app that’s used for a completely new purpose. We also took some inspirations from ideas that we liked from other groups and incorporated into our idea, thus arriving with the final idea of FootTracker.
 
 **5. Description of proposed project's features**
 
