@@ -1,0 +1,40 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css"
+   integrity="sha512-07I2e+7D8p6he1SIM+1twR5TIrhUQn9+I6yjqD53JQjFiMf8EtC93ty0/5vJTZGF8aAocvHYNEDJajGdNx1IsQ=="
+   crossorigin=""/>
+
+   <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"
+   integrity="sha512-A7vV8IFfih/D732iSSKi20u/ooOfj/AGehOKq0f4vLT1Zr2Y+RX7C+w8A1gaSasGtRUZpF/NZgzSAu4/Gc41Lg=="
+   crossorigin=""></script>
+
+</head>
+
+<body>
+
+	<div id="mapid" style="height:500px"></div>
+
+	<div id='map' style='width: 400px; height: 300px;'></div>
+
+	<script>
+
+		var mymap = L.map('mapid').setView([32.7157, -117.1611], 13);
+
+		L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+    			attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+    			maxZoom: 18,
+    			id: 'your.mapbox.project.id',
+    			accessToken: 'your.mapbox.public.access.token'
+			}).addTo(mymap); 
+
+		var marker = L.marker([32.7157, -117.1611]).addTo(mymap);
+
+
+	</script>
+
+</body>
+
+</html>
