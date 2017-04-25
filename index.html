@@ -17,6 +17,7 @@
 </head>
 
 <body>
+    <!-- # Menubar: Menubar on the top -->
     <div class="row">
     <nav class="navbar navbar-inverse">
       <div class="container-fluid">
@@ -48,19 +49,21 @@
         </form>
       </div>
     </nav>
-    </div>
+    </div> <!-- End of menu on the top -->
     
     <div class="row">
-    <div class="col-md-2">
-       <button id="btn_all" class="btn btn-default btn-lg" value="color">All</button><br/>
-	   <button id="btn_circles" class="btn btn-default btn-lg" value="color">Circles</button><br/>
-	   <button id="btn_markers" class="btn btn-default btn-lg" value="gray">Markers</button>
-	   <br/><br/><br/>
-    </div>
-    <div class="col-md-10">
-        <div id="mapid" style="height:500px"></div>
-	    <div id='map' style='height: 300px;'></div>
-    </div>
+        <!-- # Menubar: Menubar on the left -->
+        <div class="col-md-2">
+           <button id="btn_all" class="btn btn-default" style="display: block; width: 100%;" value="color">All</button>
+           <button id="btn_circles" class="btn btn-default" style="display: block; width: 100%;" value="color">Circles</button>
+           <button id="btn_markers" class="btn btn-default" style="display: block; width: 100%;" value="gray">Markers</button>
+        </div>
+        
+        <!-- # Map: Main map part -->
+        <div class="col-md-10">
+            <div id="mapid" style="height:500px"></div>
+            <div id='map' style='height: 300px;'></div>
+        </div>
     </div>
 	<div id="mapCtrl"></div>
     
