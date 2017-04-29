@@ -58,7 +58,9 @@ redCircle.addTo(redcircles_layer);
 /* Event functions */
 onbtn_markers.onclick = function() {
     markers_layer.addTo(mymap);
-    circles_layer.remove();
+    redcircles_layer.remove();
+    orangecircles_layer.remove();
+    yellowcircles_layer.remove();
 }
 
 onbtn_redcircles.onclick = function() {
@@ -84,7 +86,9 @@ onbtn_yellowcircles.onclick = function() {
 
 onbtn_all.onclick = function() {
     markers_layer.addTo(mymap);
-    circles_layer.addTo(mymap);    
+    redcircles_layer.addTo(mymap);
+    orangecircles_layer.addTo(mymap);
+    yellowcircles_layer.addTo(mymap);    
 }
 
 
