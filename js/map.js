@@ -32,10 +32,10 @@ var redCircle = L.circle([32.7145, -117.156386], {
     radius: 500
     }).addTo(mymap);
 
-redCircle.bindPopup("I am a circle.");
-redCircle.addTo(redcircles_layer);
+    redCircle.bindPopup("I am a circle.");
+    redCircle.addTo(redcircles_layer);
 
-    orangeCircle = L.circle([32.7245, -117.136386], {
+var orangeCircle = L.circle([32.7245, -117.136386], {
     color: 'orange',
     fillColor: '#DC7633',
     fillOpacity: 0.5,
@@ -45,7 +45,7 @@ redCircle.addTo(redcircles_layer);
     orangeCircle.bindPopup("I am a circle.");
     orangeCircle.addTo(orangecircles_layer);
 
-    yellowCircle = L.circle([32.7045, -117.156386], {
+var yellowCircle = L.circle([32.7045, -117.156386], {
     color: 'yellow',
     fillColor: '#FFC300',
     fillOpacity: 0.5,
@@ -90,5 +90,20 @@ onbtn_all.onclick = function() {
     orangecircles_layer.addTo(mymap);
     yellowcircles_layer.addTo(mymap);    
 }
+
+/*Zoom on click*/
+
+redCircle.on('click', function(event){
+    mymap.fitBounds(redCircle.getBounds());
+});
+
+orangeCircle.on('click', function(event){
+    mymap.fitBounds(orangeCircle.getBounds());
+});
+
+yellowCircle.on('click', function(event){
+    mymap.fitBounds(yellowCircle.getBounds());
+});
+
 
 
