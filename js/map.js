@@ -14,6 +14,10 @@ L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
     			accessToken: 'your.mapbox.public.access.token'
 			}).addTo(mymap); 
 
+/*Get user's location*/
+
+mymap.locate({setView: true, maxZoom: 14});
+
 /* Layer as group */
 var redcircles_layer = new L.LayerGroup();
 var orangecircles_layer = new L.LayerGroup();
@@ -21,11 +25,11 @@ var yellowcircles_layer = new L.LayerGroup();
 var markers_layer = new L.LayerGroup();
 
 /* Elements */
-var marker = L.marker([32.7157, -117.1611]);
+var marker = L.marker([32.8801, -117.2340]);
 marker.bindPopup("<b>Hello world!</b><br>I am a popup.").openPopup();
 marker.addTo(markers_layer);
 
-var redCircle = L.circle([32.7145, -117.156386], {
+var redCircle = L.circle([32.8845, -117.2386], {
     color: 'red',
     fillColor: '#f03',
     fillOpacity: 0.5,
@@ -35,7 +39,7 @@ var redCircle = L.circle([32.7145, -117.156386], {
     redCircle.bindPopup("I am a circle.");
     redCircle.addTo(redcircles_layer);
 
-var orangeCircle = L.circle([32.7245, -117.136386], {
+var orangeCircle = L.circle([32.8700, -117.2310], {
     color: 'orange',
     fillColor: '#DC7633',
     fillOpacity: 0.5,
@@ -45,7 +49,7 @@ var orangeCircle = L.circle([32.7245, -117.136386], {
     orangeCircle.bindPopup("I am a circle.");
     orangeCircle.addTo(orangecircles_layer);
 
-var yellowCircle = L.circle([32.7045, -117.156386], {
+var yellowCircle = L.circle([32.8545, -117.2563], {
     color: 'yellow',
     fillColor: '#FFC300',
     fillOpacity: 0.5,
