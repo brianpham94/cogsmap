@@ -3,8 +3,7 @@
  * Module dependencies.
  */
 
-'use strict';
- const yelp = require('yelp-fusion');
+ var yelp = require('yelp-fusion');
  var express = require('express');
  var http = require('http');
  var path = require('path');
