@@ -1,18 +1,24 @@
-
+'use strict';
 /**
  * Module dependencies.
  */
 
-var express = require('express');
-var http = require('http');
-var path = require('path');
-var handlebars = require('express3-handlebars')
+ const yelp = require('yelp-fusion');
+ var express = require('express');
+ var http = require('http');
+ var path = require('path');
+ var handlebars = require('express3-handlebars')
 
-var index = require('./routes/index');
+ var index = require('./routes/index');
 // Example route
 // var user = require('./routes/user');
 
 var app = express();
+
+// Place holders for Yelp Fusion's OAuth 2.0 credentials. Grab them
+// from https://www.yelp.com/developers/v3/manage_app
+const clientId = 'RxvmZHZlOnBziBSwblGheQ';
+const clientSecret = 'kq7SKsZ1eQgMKuKN026UOqXwz35oLjCDDlLvfURvjeCoEfPMYvQRjeB5gsXRPcra';
 
 // all environments
 app.set('port', process.env.PORT || 3000);
@@ -31,8 +37,32 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // development only
 if ('development' == app.get('env')) {
-  app.use(express.errorHandler());
+	app.use(express.errorHandler());
 }
+
+var token;
+
+
+yelp.accessToken(clientId, clientSecret).then(response => {
+	token = response.jsonBody.access_token;
+	const client = yelp.client(token);
+	yelpCallBack(client);
+}).catch(e => {
+	console.log(e);
+});
+
+function yelpSearchCallBack(client) {
+	client.search({
+		term:'Four Barrel Coffee',
+		location: 'san francisco, ca'
+	}).then(response => {
+		console.log(response.jsonBody);
+	}).catch(e => {
+		console.log(e);
+	});
+
+}
+
 
 // Add routes here
 app.get('/', index.view);
@@ -40,5 +70,5 @@ app.get('/', index.view);
 // app.get('/users', user.list);
 
 http.createServer(app).listen(app.get('port'), function(){
-  console.log('Express server listening on port ' + app.get('port'));
+	console.log('Express server listening on port ' + app.get('port'));
 });
