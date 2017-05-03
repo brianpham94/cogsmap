@@ -1,4 +1,4 @@
-
+/*
 'use strict';
 
 const yelp = require('yelp-fusion');
@@ -38,3 +38,5 @@ exports.yelpSearch = function(req, res) {
 		});
 	}
 }
+
+*/
