@@ -40,29 +40,6 @@ if ('development' == app.get('env')) {
 	app.use(express.errorHandler());
 }
 
-var token;
-
-
-yelp.accessToken(clientId, clientSecret).then(response => {
-	token = response.jsonBody.access_token;
-	const client = yelp.client(token);
-	yelpCallBack(client);
-}).catch(e => {
-	console.log(e);
-});
-
-function yelpSearchCallBack(client) {
-	client.search({
-		term:'Four Barrel Coffee',
-		location: 'san francisco, ca'
-	}).then(response => {
-		console.log(response.jsonBody);
-	}).catch(e => {
-		console.log(e);
-	});
-
-}
-
 
 // Add routes here
 app.get('/', index.view);
