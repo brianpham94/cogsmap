@@ -84,7 +84,7 @@
   });
 
 
-  
+
   function yelpSearchSuccess(result){
     //You can get businesses which is returned as an array in this json format
     /*
@@ -134,8 +134,17 @@
     var strResult = JSON.stringify(result.businesses);
     var javaObject = JSON.parse(strResult);
     console.log(javaObject[0].review_count);
+    placeMarkers(javaObject);
   }
 
+  function placeMarkers(businesses) {
+    console.log("given businesses: " + businesses);
+    for(var i = 0; i < businesses.length; i++) {
+      console.log("given coordinates are: "+ businesses[i].coordinates);
+      console.log("Pin " + i + " was placed");
+      var marker = L.marker([businesses[i].coordinates.latitude, businesses[i].coordinates.longitude]).addTo(mymap);
+    }
+  }
   </script>
     <script src = "/js/map.js"></script>
     <script src="/js/bootstrap.min.js"></script>
