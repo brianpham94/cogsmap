@@ -189,7 +189,7 @@ yellowCircle.on('click', function(event){
     places_in_redcircles.remove();
 });
 
-*Search Function*/
+/*Search Function*/
 function initAutocomplete() {
         // var map = new google.maps.Map(document.getElementById('map'), {
         //   center: {lat: -33.8688, lng: 151.2195},
@@ -200,10 +200,10 @@ function initAutocomplete() {
         // Create the search box and link it to the UI element.
         var input = document.getElementById('search-input');
         var searchBox = new google.maps.places.SearchBox(input);
-        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+        mymap.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 
         // Bias the SearchBox results towards current map's viewport.
-        map.addListener('bounds_changed', function() {
+        mymap.addListener('bounds_changed', function() {
           searchBox.setBounds(map.getBounds());
         });
 
@@ -240,7 +240,7 @@ function initAutocomplete() {
 
             // Create a marker for each place.
             markers.push(new google.maps.Marker({
-              map: map,
+              map: mymap,
               icon: icon,
               title: place.name,
               position: place.geometry.location
@@ -253,7 +253,7 @@ function initAutocomplete() {
               bounds.extend(place.geometry.location);
             }
           });
-          map.fitBounds(bounds);
+          mymap.fitBounds(bounds);
         });
       }
 
