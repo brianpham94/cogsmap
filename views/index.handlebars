@@ -82,6 +82,9 @@
     event.preventDefault();
     $.post("/test", $("#searchID").serialize(), yelpSearchSuccess);
   });
+
+
+  
   function yelpSearchSuccess(result){
     //You can get businesses which is returned as an array in this json format
     /*
