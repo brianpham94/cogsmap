@@ -8,9 +8,10 @@
  var http = require('http');
  var path = require('path');
  var handlebars = require('express3-handlebars')
+ var bodyParser = require('body-parser')
 
  var index = require('./routes/index');
-// var yelpTest = require('./routes/yelpFunctions');
+ var yelpTest = require('./routes/yelpFunctions');
 // Example route
 // var user = require('./routes/user');
 
@@ -36,6 +37,19 @@ app.use(express.session());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 
+/** bodyParser.urlencoded(options)
+ * Parses the text as URL encoded data (which is how browsers tend to send form data from regular forms set to POST)
+ * and exposes the resulting object (containing the keys and values) on req.body
+ */
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
+
+/**bodyParser.json(options)
+ * Parses the text as JSON and exposes the resulting object on req.body.
+ */
+app.use(bodyParser.json());
+
 // development only
 if ('development' == app.get('env')) {
 	app.use(express.errorHandler());
@@ -44,6 +58,7 @@ if ('development' == app.get('env')) {
 
 // Add routes here
 app.get('/', index.view);
+app.post('/test', yelpTest.yelpSearch);
 //app.get('/test', yelpTest.yelpSearch);
 // Example route
 // app.get('/users', user.list);

@@ -1,4 +1,3 @@
-/*
 'use strict';
 
 const yelp = require('yelp-fusion');
@@ -14,29 +13,31 @@ exports.yelpSearch = function(req, res) {
 	yelp.accessToken(clientId, clientSecret).then(response => {
 		token = response.jsonBody.access_token;
 		//these will be filled in by the request body
-		var termN;
-		var locationN;
-		var categoriesN;
+		var termN = req.body.search.term;
+		var locationN = "La Jolla";
+		searchCallback(token, termN, locationN);
 	}).catch(e => {
 		console.log(e);
 	});
 
-	function searchCallback(token, termN, locationN, categoriesN) {
+	function searchCallback(token, termN, locationN) {
 		const client = yelp.client(token);
+		console.log("Given token:" + token);
+		console.log("Given term:" + termN);
+		console.log("Given location: " + locationN);
 		client.search({
 			term: termN,
 			location: locationN,
 			open_now: true,
-			attributes: 'hot_and_new,deals,waitlist_reservation',
 			sort_by:'review_count',
-			categories: categoriesN
 		}).then(response => {
-			res.json(response.jsonBody.businesses);
+			console.log("produced JSON");
+			console.log(response.jsonBody);
+			res.json(response.jsonBody);
 		}).catch(e => {
 			console.log(e);
+			console.log("failed");
 			res.json({});
 		});
 	}
 }
-
-*/
