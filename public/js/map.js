@@ -51,7 +51,7 @@ var redCircle = L.circle([32.881151, -117.23745], {
     color: 'red',
     fillColor: '#f03',
     fillOpacity: 0.5,
-    radius: 700
+    radius: 500
     }).addTo(mymap);
 
     redCircle.bindPopup("I am a circle.");
@@ -256,4 +256,19 @@ function initAutocomplete() {
           mymap.fitBounds(bounds);
         });
       }
+
+      /*Circle consolidation*/
+
+      var circleCenters = ['32.881151, -117.23745', '32.8700, -117.2310', '32.8600, -117.2563']
+
+      /*for (i = 0; i < circleCenters.length, i++){
+        var cluster = new L.markerClusterGroup({
+            circleClusterFucntion: function(circle) {
+                var circleCluster = circle.getAllChildMarkers()[0].1;
+
+            }
+        })
+      }*/
+
+
 
