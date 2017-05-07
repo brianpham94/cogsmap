@@ -41,7 +41,7 @@ var places_in_yellowcircles_layer = new L.LayerGroup();
 
 mymap.locate({setView: true, maxZoom: 14}).on('locationfound', function(e){
     var marker = L.marker([e.latitude, e.longitude]).addTo(mymap);
-    marker.bindPopup("<b>Hello world!</b><br>I am a popup.").openPopup();
+    //marker.bindPopup("<b>Hello world!</b><br>I am a popup.").openPopup();
     marker.addTo(markers_layer);
 });
 
@@ -273,9 +273,17 @@ function initAutocomplete() {
         });
       }
 
-      /*Circle consolidation*/
+      /*Circle clustering*/
 
       var circleCenters = ['32.881151, -117.23745', '32.8700, -117.2310', '32.8600, -117.2563']
+
+      var cluster = new L.markerClusterGroup();
+
+      cluster.addLayer(redcircles_layer);
+      cluser.addLayer(orangecircles_layer);
+      cluser.addLayer(yellowcircles_layer);
+
+      mymap.addLayer(cluster);
 
       /*for (i = 0; i < circleCenters.length, i++){
         var cluster = new L.markerClusterGroup({
