@@ -41,7 +41,7 @@ var places_in_yellowcircles_layer = new L.LayerGroup();
 
 mymap.locate({setView: true, maxZoom: 14}).on('locationfound', function(e){
     var marker = L.marker([e.latitude, e.longitude]).addTo(mymap);
-    //marker.bindPopup("<b>Hello world!</b><br>I am a popup.").openPopup();
+    marker.bindPopup("<b>Hello world!</b><br>I am a popup.").openPopup();
     marker.addTo(markers_layer);
 });
 
@@ -218,9 +218,17 @@ function initAutocomplete() {
         var searchBox = new google.maps.places.SearchBox(input);
         mymap.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 
+        var input2 = document.getElementById('location-search');
+        var searchBox2 = new google.maps.places.SearchBox2(input2);
+        mymap.controls[google.maps.ControlPosition.TOP_LEFT].push(input2);
+
         // Bias the SearchBox results towards current map's viewport.
         mymap.addListener('bounds_changed', function() {
-          searchBox.setBounds(map.getBounds());
+          searchBox.setBounds(mymap.getBounds());
+        });
+
+        mymap.addListener('bounds_changed', function() {
+          searchBox2.setBounds(mymap.getBounds());
         });
 
         var markers = [];
@@ -273,17 +281,9 @@ function initAutocomplete() {
         });
       }
 
-      /*Circle clustering*/
+      /*Circle consolidation*/
 
       var circleCenters = ['32.881151, -117.23745', '32.8700, -117.2310', '32.8600, -117.2563']
-
-      var cluster = new L.markerClusterGroup();
-
-      cluster.addLayer(redcircles_layer);
-      cluser.addLayer(orangecircles_layer);
-      cluser.addLayer(yellowcircles_layer);
-
-      mymap.addLayer(cluster);
 
       /*for (i = 0; i < circleCenters.length, i++){
         var cluster = new L.markerClusterGroup({
