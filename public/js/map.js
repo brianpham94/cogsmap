@@ -57,6 +57,16 @@ var redCircle = L.circle([32.881151, -117.23745], {
     redCircle.bindPopup("I am a circle.");
     redCircle.addTo(redcircles_layer);
 
+var redCircle2 = L.circle([32.863151, -117.22645], {
+    color: 'red',
+    fillColor: '#f03',
+    fillOpacity: 0.5,
+    radius: 500
+    }).addTo(mymap);
+
+    redCircle2.bindPopup("I am a circle.");
+    redCircle2.addTo(redcircles_layer);
+
 var orangeCircle = L.circle([32.8700, -117.2310], {
     color: 'orange',
     fillColor: '#DC7633',
@@ -175,6 +185,12 @@ redCircle.on('click', function(event){
     places_in_redcircles.addTo(mymap);
 });
 
+redCircle2.on('click', function(event){
+    mymap.fitBounds(redCircle2.getBounds());
+    document.getElementById("panel_info").innerHTML = "All the place in red circle2 list here";
+    places_in_redcircles.addTo(mymap);
+});
+
 orangeCircle.on('click', function(event){
     mymap.fitBounds(orangeCircle.getBounds());
     document.getElementById("panel_info").innerHTML = "All the place in orange circle list here";
@@ -269,6 +285,5 @@ function initAutocomplete() {
             }
         })
       }*/
-
 
 
