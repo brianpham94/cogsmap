@@ -1,20 +1,12 @@
-**Screenshot**
+***Thomas Loh's Prototypes
+1. Initial Map... Opening Menu
+![alt text](https://github.com/withyuns/cogsmap/blob/master/images/ThomasStep1.jpg "App Event Functionality")
 
-![alt text]( "App's core map functionality Screenshot")
+2. Clicking on Time-Sensitive Events in Menu 
+![alt text](https://github.com/withyuns/cogsmap/blob/master/images/ThomasStep2.jpg "Clicking on Event in Menu")
 
-**Screenshot Description**
+3. Display Time sensitive Events
+![alt text](https://github.com/withyuns/cogsmap/blob/master/images/ThomasStep3.jpg "Display all time-sensitive events that have occurred in the area")
 
-Our map's core functionality. Map still works just like last time. We improved this one by adding more filtering categories on the left and impleneting the circles or regions to be clickable and provide more details when clicked.
-
-
-![alt text](https://github.com/withyuns/cogsmap/blob/master/images/All-Icons.png "Clicked on Circle")
-
-When user clicks on a region, it magnifies and lists all the available activities within that hotspot
-
-![alt text](https://github.com/withyuns/cogsmap/blob/master/images/One-Icon.png "Icon Filter")
-
-User can filter activities within that circle with bar on the left
-
-![alt text](https://github.com/withyuns/cogsmap/blob/master/images/AutocompleteSearch.png "Search Bar")
-
-User can now input their searches into the search bar and it will autocomplete/list available results based on search query, similar to google maps search bar.
+4. Clicking on Time Sensitive Event relocates you to where it is on the map
+![alt text](https://github.com/withyuns/cogsmap/blob/master/images/ThomasStep4.jpg "Display all time-sensitive events that have occurred in the area")
