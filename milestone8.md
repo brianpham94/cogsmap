@@ -1,5 +1,6 @@
 ***Thomas Loh's Prototypes***
 
+Shows time sensitive events that will occur over time and will allow a user to check these particularly since these will be a source for foot-traffic. This will be stored in the side bar menu. They can then click the events and it will navigate them to the location of it on the map with a foot-traffic density analysis.
 1. Initial Map... Opening Menu
 2. Clicking on Time-Sensitive Events in Menu 
 3. Display Time sensitive Events
