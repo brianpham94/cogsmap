@@ -5,6 +5,7 @@ Shows time sensitive events that will occur over time and will allow a user to c
 2. Clicking on Time-Sensitive Events in Menu 
 3. Display Time sensitive Events
 4. Clicking on Time Sensitive Event relocates you to where it is on the map
+
 <img src="https://github.com/withyuns/cogsmap/blob/master/images/ThomasStep1.jpg" width="300"> <img src="https://github.com/withyuns/cogsmap/blob/master/images/ThomasStep2.jpg" width="300"> <img src="https://github.com/withyuns/cogsmap/blob/master/images/ThomasStep3.jpg" width="300"> <img src="https://github.com/withyuns/cogsmap/blob/master/images/ThomasStep4.jpg" width="300">
 
 ***Brian Pham's Paper Prototype***
