@@ -12,6 +12,10 @@ var onbtn_beach = document.getElementById("btn_beach");
 
 var onbtn_current = document.getElementById("btn_current");
 
+
+
+
+
 var mymap = L.map('mapid').setView([32.7157, -117.1611], 13);
 
 L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
@@ -44,13 +48,14 @@ var current;
 
 mymap.locate({setView: true, maxZoom: 14}).on('locationfound', function(e){
     console.log("Current location here");
-    current = {latitude:e.latitude, longitude:e.longitude}
-    var marker = L.marker([e.latitude, e.longitude])
+    current = {latitude:e.latitude, longitude:e.longitude};
+    var marker = L.marker([e.latitude, e.longitude]);
     marker.addTo(mymap);
     marker.bindPopup("<b>You are here</b><br>I am a popup.").openPopup();
     marker.addTo(markers_layer);
 });
 
+/* This function move map to user's current location */
 onbtn_current.onclick = function(){
     mymap.setView(new L.LatLng(current.latitude, current.longitude));
 }
@@ -215,7 +220,7 @@ yellowCircle.on('click', function(event){
     places_in_redcircles.remove();
 });
 
-/*Search Function*/
+/* Search Function */
 function initAutocomplete() {
         // var map = new google.maps.Map(document.getElementById('map'), {
         //   center: {lat: -33.8688, lng: 151.2195},

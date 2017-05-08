@@ -77,7 +77,20 @@
             
             <div class="panel panel-success">
               <div class="panel-heading">Places in area</div>
-              <div class="panel-body" id="panel_info"></div>
+              <div class="panel-body">
+                <table class="table table-hover"><thead>
+                    <tr>
+                      <th>Place</th>
+                      <th>Review Count</th>
+                      <th>Rating</th>
+                      <th>Price</th>
+                    </tr>
+                  </thead>
+                  <tbody id="panel_info">
+                    
+                  </tbody>
+                </table>
+              </div>
             </div>
         </div>
     </div>
@@ -154,14 +167,34 @@
     placeMarkers(javaObject);
   }
 
+  /* Array to store search result */
+  var places = new Array;
+
   function placeMarkers(businesses) {
     console.log("given businesses: " + businesses);
+    document.getElementById("panel_info").innerHTML = "";
     for(var i = 0; i < businesses.length; i++) {
+      console.log("--------------------------------------");
       console.log("given coordinates are: "+ businesses[i].coordinates);
       console.log("Pin " + i + " was placed");
-      var marker = L.marker([businesses[i].coordinates.latitude, businesses[i].coordinates.longitude]).bindPopup(businesses[i].name + businesses[i].rating).addTo(mymap);
+      console.log("given categories are: "+ businesses[i].categories);
+      // var marker = L.marker([businesses[i].coordinates.latitude, businesses[i].coordinates.longitude]).bindPopup(businesses[i].name + businesses[i].rating).addTo(mymap);
+
+      var marker = L.marker([businesses[i].coordinates.latitude, businesses[i].coordinates.longitude]).bindPopup(
+        "<b>Place</b><br/>" + 
+        businesses[i].name + businesses[i].rating + "<br/>Id" +i).addTo(mymap);
+
+
+        places[i] = businesses[i];
+        /* Show informations to info panel on the bottom */
+        document.getElementById("panel_info").innerHTML += 
+        "<tr id='panel_info'><td>" + places[i].name + "</td><td>" + places[i].review_count + "</td><td>" + places[i].rating + "</td><td>" + places[i].price + "</td></tr>";
     }
   }
+
+
+
+  
   </script>
     <script src = "/js/map.js"></script>
     <script src="/js/bootstrap.min.js"></script>
