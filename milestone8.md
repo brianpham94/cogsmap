@@ -8,16 +8,6 @@
 <img src="https://github.com/withyuns/cogsmap/blob/master/images/ThomasStep2.jpg" width="300">
 <img src="https://github.com/withyuns/cogsmap/blob/master/images/ThomasStep3.jpg" width="300">
 <img src="https://github.com/withyuns/cogsmap/blob/master/images/ThomasStep4.jpg" width="300">
-![alt text](https://github.com/withyuns/cogsmap/blob/master/images/ThomasStep1.jpg "App Event Functionality")
-
-2. Clicking on Time-Sensitive Events in Menu 
-![alt text](https://github.com/withyuns/cogsmap/blob/master/images/ThomasStep2.jpg "Clicking on Event in Menu")
-
-3. Display Time sensitive Events
-![alt text](https://github.com/withyuns/cogsmap/blob/master/images/ThomasStep3.jpg "Display all time-sensitive events that have occurred in the area")
-
-4. Clicking on Time Sensitive Event relocates you to where it is on the map
-![alt text](https://github.com/withyuns/cogsmap/blob/master/images/ThomasStep4.jpg "Display all time-sensitive events that have occurred in the area")
 
 ***Brian Pham's Paper Prototype***
 
