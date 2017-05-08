@@ -1,7 +1,7 @@
 ***Thomas Loh's Prototypes***
 
 1. Initial Map... Opening Menu
-<img src="https://github.com/withyuns/cogsmap/blob/master/images/ThomasStep1.jpg" width="48">
+<img src="https://github.com/withyuns/cogsmap/blob/master/images/ThomasStep1.jpg" width="200">
 ![alt text](https://github.com/withyuns/cogsmap/blob/master/images/ThomasStep1.jpg "App Event Functionality")
 
 2. Clicking on Time-Sensitive Events in Menu 
