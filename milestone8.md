@@ -32,7 +32,7 @@ At the bottom of the side menu, there is an option for users to save their curre
 (4) Now, users can compare only the places saved already. User also see only that places on the map.
 (5) The chart is slightly different from the chart(2), but more detail. We can give suggestion based on the ranking, so users can choose most “hottest” place.
 
-![alt text](https://github.com/withyuns/cogsmap/blob/dcf043bbc472e1630a7e1c7f95c5ff650017664b/images/yun_prototype2_1.jpg "First screen")
+![alt text](https://github.com/withyuns/cogsmap/blob/master/images/yun_prototype2_1.jpg "First screen")
 
 
-![alt text](https://github.com/withyuns/cogsmap/blob/dcf043bbc472e1630a7e1c7f95c5ff650017664b/images/yun_prototype2_2.jpg "Second screen")
+![alt text](https://github.com/withyuns/cogsmap/blob/master/images/yun_prototype2_2.jpg "Second screen")
