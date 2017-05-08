@@ -23,11 +23,11 @@ At the bottom of the side menu, there is an option for users to save their curre
 
 ***Hyungyun Kim's Prototype***
 
-(1) Users can search using keyword such as “Coffee”, “Pizza” or exact address. We gives filtering events so users can see only restaurants on the map for instance.
-(2) Then users can see places both on the map and on the panel (which shows all the ranking chart)
-(3) Users click the one of place, and they can save places whatever they want to save.
-(4) Now, users can compare only the places saved already. User also see only that places on the map.
-(5) The chart is slightly different from the chart(2), but more detail. We can give suggestion based on the ranking, so users can choose most “hottest” place.
+(1) Users can search using keyword such as “Coffee”, “Pizza” or exact address. We gives filtering events so users can see only restaurants on the map for instance.<br>
+(2) Then users can see places both on the map and on the panel (which shows all the ranking chart)<br>
+(3) Users click the one of place, and they can save places whatever they want to save.<br>
+(4) Now, users can compare only the places saved already. User also see only that places on the map.<br>
+(5) The chart is slightly different from the chart(2), but more detail. We can give suggestion based on the ranking, so users can choose most “hottest” place.<br>
 
 ![alt text](https://github.com/withyuns/cogsmap/blob/master/images/yun_prototype2_1.jpg "First screen")
 
