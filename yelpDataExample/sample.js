@@ -8,8 +8,8 @@ const clientId = 'RxvmZHZlOnBziBSwblGheQ';
 const clientSecret = 'kq7SKsZ1eQgMKuKN026UOqXwz35oLjCDDlLvfURvjeCoEfPMYvQRjeB5gsXRPcra';
 
 const searchRequest = {
-  term:'Four Barrel Coffee',
-  location: 'san francisco, ca'
+  term:'coffee',
+  location: '8540 costa verde blvd'
 };
 
 yelp.accessToken(clientId, clientSecret).then(response => {
@@ -21,5 +21,6 @@ yelp.accessToken(clientId, clientSecret).then(response => {
     console.log(prettyJson);
   });
 }).catch(e => {
+  console.log("Catched the error");
   console.log(e);
 });
