@@ -170,19 +170,25 @@
   /* Array to store search result */
   var places = new Array;
 
+  /* Markers to be displayed on the map */
+  var markers_on_map = new L.layerGroup();
+
   function placeMarkers(businesses) {
+
+    markers_on_map.clearLayers();
+
     console.log("given businesses: " + businesses);
     document.getElementById("panel_info").innerHTML = "";
     for(var i = 0; i < businesses.length; i++) {
-      console.log("--------------------------------------");
-      console.log("given coordinates are: "+ businesses[i].coordinates);
-      console.log("Pin " + i + " was placed");
-      console.log("given categories are: "+ businesses[i].categories);
+      //console.log("--------------------------------------");
+      //console.log("given coordinates are: "+ businesses[i].coordinates);
+      //console.log("Pin " + i + " was placed");
+      //console.log("given categories are: "+ businesses[i].categories);
       // var marker = L.marker([businesses[i].coordinates.latitude, businesses[i].coordinates.longitude]).bindPopup(businesses[i].name + businesses[i].rating).addTo(mymap);
 
       var marker = L.marker([businesses[i].coordinates.latitude, businesses[i].coordinates.longitude]).bindPopup(
         "<b>Place</b><br/>" + 
-        businesses[i].name + businesses[i].rating + "<br/>Id" +i).addTo(mymap);
+        businesses[i].name + businesses[i].rating + "<br/>Id" +i).addTo(markers_on_map);
 
 
         places[i] = businesses[i];
@@ -190,6 +196,8 @@
         document.getElementById("panel_info").innerHTML += 
         "<tr id='panel_info'><td>" + places[i].name + "</td><td>" + places[i].review_count + "</td><td>" + places[i].rating + "</td><td>" + places[i].price + "</td></tr>";
     }
+
+    markers_on_map.addTo(mymap);
   }
 
 
