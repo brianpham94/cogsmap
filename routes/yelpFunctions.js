@@ -9,6 +9,7 @@ const clientId = 'RxvmZHZlOnBziBSwblGheQ';
 const clientSecret = 'kq7SKsZ1eQgMKuKN026UOqXwz35oLjCDDlLvfURvjeCoEfPMYvQRjeB5gsXRPcra';
 
 exports.yelpSearch = function(req, res) {
+	console.log("entering search");
 	//gets the token for you
 	var token;
 	yelp.accessToken(clientId, clientSecret).then(response => {
@@ -22,7 +23,7 @@ exports.yelpSearch = function(req, res) {
 	});
 
 	function searchCallback(token, termN, locationN) {
-		const client = yelp.client(token);
+		var client = yelp.client(token);
 		if(termN == undefined) {
 			client.search({
 				latitude: locationN.latitude,
@@ -31,6 +32,7 @@ exports.yelpSearch = function(req, res) {
 				sort_by:'review_count',
 			}).then(response => {
 				res.json(response.jsonBody);
+				console.log("return");
 			}).catch(e => {
 				console.log(e);
 				console.log("failed");
@@ -39,12 +41,14 @@ exports.yelpSearch = function(req, res) {
 		}
 		else {
 			client.search({
+				term: termN,
 				latitude: locationN.latitude,
 				longitude: locationN.longitude,
 				open_now: true,
 				sort_by:'review_count',
 			}).then(response => {
 				res.json(response.jsonBody);
+				console.log("return");
 			}).catch(e => {
 				console.log(e);
 				console.log("failed");

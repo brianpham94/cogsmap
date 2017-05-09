@@ -111,11 +111,17 @@
   var currLoc;
   $( "#searchID" ).submit(function( event ) {
     console.log(currLoc);
-    event.preventDefault();
-              $('<input />').attr('type', 'hidden')
+    var numInputs = $("#searchID input").length;
+    console.log(numInputs);
+    if (numInputs === 1) {
+      console.log("no inputs");
+      $('<input />').attr('type', 'hidden')
           .attr('name', "search[current]")
           .attr('value', JSON.stringify(currLoc))
           .appendTo('#searchID');
+          console.log("posted waiting for success");
+    }
+    event.preventDefault();
     $.post("/test", $("#searchID").serialize(), yelpSearchSuccess);
   });
 
@@ -183,7 +189,7 @@
   /* Markers to be displayed on the map */
   var markers_on_map = new L.layerGroup();
 
-  function placeMarkers(businesses) {
+  function placeMarkers(businesses) { 
 
     markers_on_map.clearLayers();
 
