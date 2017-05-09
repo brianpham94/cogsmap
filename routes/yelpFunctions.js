@@ -1,6 +1,7 @@
 'use strict';
 
 const yelp = require('yelp-fusion');
+const util = require('util');
 
 // Place holders for Yelp Fusion's OAuth 2.0 credentials. Grab them
 // from https://www.yelp.com/developers/v3/manage_app
@@ -14,7 +15,7 @@ exports.yelpSearch = function(req, res) {
 		token = response.jsonBody.access_token;
 		//these will be filled in by the request body
 		var termN = req.body.search.term;
-		var locationN = "La Jolla";
+		var locationN = JSON.parse(req.body.search.current);
 		searchCallback(token, termN, locationN);
 	}).catch(e => {
 		console.log(e);
@@ -22,22 +23,33 @@ exports.yelpSearch = function(req, res) {
 
 	function searchCallback(token, termN, locationN) {
 		const client = yelp.client(token);
-		console.log("Given token:" + token);
-		console.log("Given term:" + termN);
-		console.log("Given location: " + locationN);
-		client.search({
-			term: termN,
-			location: locationN,
-			open_now: true,
-			sort_by:'review_count',
-		}).then(response => {
-			console.log("produced JSON");
-			console.log(response.jsonBody);
-			res.json(response.jsonBody);
-		}).catch(e => {
-			console.log(e);
-			console.log("failed");
-			res.json({});
-		});
+		if(termN == undefined) {
+			client.search({
+				latitude: locationN.latitude,
+				longitude: locationN.longitude,
+				open_now: true,
+				sort_by:'review_count',
+			}).then(response => {
+				res.json(response.jsonBody);
+			}).catch(e => {
+				console.log(e);
+				console.log("failed");
+				res.json({});
+			});
+		}
+		else {
+			client.search({
+				latitude: locationN.latitude,
+				longitude: locationN.longitude,
+				open_now: true,
+				sort_by:'review_count',
+			}).then(response => {
+				res.json(response.jsonBody);
+			}).catch(e => {
+				console.log(e);
+				console.log("failed");
+				res.json({});
+			});	
+		}
 	}
 }

@@ -49,9 +49,10 @@ var current;
 mymap.locate({setView: true, maxZoom: 14}).on('locationfound', function(e){
     console.log("Current location here");
     current = {latitude:e.latitude, longitude:e.longitude};
+    currLoc = current;
     var marker = L.marker([e.latitude, e.longitude]);
     marker.addTo(mymap);
-    marker.bindPopup("<b>You are here</b><br>I am a popup.").openPopup();
+    marker.bindPopup("<b>You are here</b>.").openPopup();
     marker.addTo(markers_layer);
 });
 

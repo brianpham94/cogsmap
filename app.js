@@ -3,12 +3,14 @@
  * Module dependencies.
  */
 
- var yelp = require('yelp-fusion');
+ const yelp = require('yelp-fusion');
+ const util = require('util');
  var express = require('express');
  var http = require('http');
  var path = require('path');
  var handlebars = require('express3-handlebars')
  var bodyParser = require('body-parser')
+
 
  var index = require('./routes/index');
  var yelpTest = require('./routes/yelpFunctions');
