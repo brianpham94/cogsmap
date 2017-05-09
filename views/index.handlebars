@@ -8,6 +8,7 @@
     crossorigin=""/>
 
     <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/MarkerCluster.css" />
+
     <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/MarkerCluster.Default.css" />
 
     <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"
@@ -17,7 +18,9 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/leaflet.markercluster.js"></script>
     
     <!-- Bootstrap core CSS -->
-    <link href="/css/bootstrap.min.css" rel="stylesheet">    
+    <link href="/css/bootstrap.min.css" rel="stylesheet"> 
+
+    <link href="/css/style.css" rel="stylesheet">
 
 </head>
 
@@ -33,16 +36,17 @@
           <li class="active"><a href="#">Home</a></li>
         </ul>
         <form id="searchID" class="navbar-form navbar-left">
+        <div class="input-group">
+          <span>Find</span>
+        </div>
           <div class="input-group">
-            <input type="text" class="form-control" placeholder="Find restaurants, hotels, etc." id="search-input" name="search[term]">
-            <div class="input-group-btn">
-              <button class="btn btn-default" type="submit">
-                <i class="glyphicon glyphicon-search"></i>
-              </button>
-            </div>
+            <input type="text" class="form-control" placeholder="restaurants, hotels, etc." id="search-input" name="search[term]">
           </div>
         </form>
         <form id="searchLocation" class="navbar-form navbar-left">
+          <div class="input-group">
+            <span>Near</span>
+          </div>
           <div class="input-group">
             <input type="text" class="form-control" id="location-search" name="search[location]" placeholder="address, neighborhood, city, state, or zip" />
             <div class="input-group-btn">
@@ -52,27 +56,27 @@
             </div>
           </div>
         </form>
-        <button id="btn_current" class="btn btn-default" style="display: block; width: 100%;" value="gray">Current Location</button>
+        <button id="btn_current" class="btn btn-default" value="gray">Current Location</button>
       </div>
     </nav>
     </div> <!-- End of menu on the top -->
     
     <div class="row">
         <!-- # Menubar: Menubar on the left -->
-        <div class="col-md-2">
-           <button id="btn_restaurants" class="btn btn-success" style="display: block; width: 100%;" value="color">Restaurants</button>
-           <button id="btn_hotels" class="btn btn-success" style="display: block; width: 100%;" value="color">Hotels</button>
-           <button id="btn_beach" class="btn btn-success" style="display: block; width: 100%;" value="color">Beach</button>
-           <button id="btn_all" class="btn btn-alert" style="display: block; width: 100%;" value="color">All</button>
-           <button id="btn_redcircles" class="btn btn-default" style="display: block; width: 100%;" value="color">Red Circles</button>
-           <button id="btn_orangecircles" class="btn btn-default" style="display: block; width: 100%;" value="color">Orange Circles</button>
-           <button id="btn_yellowcircles" class="btn btn-default" style="display: block; width: 100%;" value="color">Yellow Circles</button>
-           <button id="btn_markers" class="btn btn-default" style="display: block; width: 100%;" value="gray">Markers</button>
+        <div class="col-md-2 menu">
+           <button id="btn_restaurants" class="btn btn-success" value="color">Restaurants</button>
+           <button id="btn_hotels" class="btn btn-success" value="color">Hotels</button>
+           <button id="btn_beach" class="btn btn-success" value="color">Beach</button>
+           <button id="btn_all" class="btn btn-alert" value="color">All</button>
+           <button id="btn_redcircles" class="btn btn-default" value="color">Red Circles</button>
+           <button id="btn_orangecircles" class="btn btn-default" value="color">Orange Circles</button>
+           <button id="btn_yellowcircles" class="btn btn-default" value="color">Yellow Circles</button>
+           <button id="btn_markers" class="btn btn-default" value="gray">Markers</button>
         </div>
         
         <!-- # Map: Main map part -->
-        <div class="col-md-10">
-            <div id="mapid" style="height:500px"></div>
+        <div class="col-md-10 map">
+            <div id="mapid"></div>
             
             <div class="panel panel-success">
               <div class="panel-heading">Places in area</div>

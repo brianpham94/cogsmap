@@ -1,0 +1,48 @@
+
+/*Nav bar*/
+
+.navbar-header {
+  padding-top: 8px;
+}
+
+.navbar-nav {
+  padding-top: 8px;
+}
+
+/*Search bar*/
+
+.input-group {
+  color: white;
+  padding: 8px;
+}
+
+/*Menu*/
+
+.menu {
+  padding-right: 0px;
+}
+
+.btn-success {
+  display: block; 
+  width: 100%;
+}
+
+.btn-alert {
+  display: block; 
+  width: 100%;
+}
+
+.btn-default {
+  display: block; 
+  width: 100%;
+}
+
+/*Map*/
+
+.map {
+  padding-left: 0px;
+}
+
+#mapid {
+  height: 500px;
+}
