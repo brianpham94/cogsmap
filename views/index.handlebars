@@ -7,14 +7,14 @@
     integrity="sha512-07I2e+7D8p6he1SIM+1twR5TIrhUQn9+I6yjqD53JQjFiMf8EtC93ty0/5vJTZGF8aAocvHYNEDJajGdNx1IsQ=="
     crossorigin=""/>
 
-    <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/MarkerCluster.css" />
-    <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/MarkerCluster.Default.css" />
+    <link rel="stylesheet" type="text/css" href="/Leaflet.markercluster-master/dist/MarkerCluster.css"/>
+    <link rel="stylesheet" type="text/css" href="/Leaflet.markercluster-master/dist/MarkerCluster.Default.css"/>
 
     <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"
     integrity="sha512-A7vV8IFfih/D732iSSKi20u/ooOfj/AGehOKq0f4vLT1Zr2Y+RX7C+w8A1gaSasGtRUZpF/NZgzSAu4/Gc41Lg=="
     crossorigin=""></script>
 
-    <script type='text/javascript' src='http://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/leaflet.markercluster.js'></script>
+    <script type='text/javascript' src="/Leaflet.markercluster-master/src/leaflet.markercluster.js"></script>
     
     <!-- Bootstrap core CSS -->
     <link href="/css/bootstrap.min.css" rel="stylesheet"> 
@@ -193,8 +193,6 @@
   //var markers_on_map = new L.layerGroup();
   var markers_on_map = new L.MarkerClusterGroup();
 
-  //var markerCluster = new L.MarkerClusterGroup();
-
   function placeMarkers(businesses) { 
 
     markers_on_map.clearLayers();
@@ -213,19 +211,14 @@
         document.getElementById("panel_info").innerHTML += 
         "<tr id='panel_info'><td>" + places[i].name + "</td><td>" + places[i].review_count + "</td><td>" + places[i].rating + "</td><td>" + places[i].price + "</td></tr>";
 
-        //markerCluster.addLayer(marker);
+        markers_on_map.addLayer(marker);
     }
-
-    //var markerCluster = new L.MarkerClusterGroup();
 
     for (var i = 0; i < businesses.length; i++) {
-        
     }
 
-    //markerCluster.addLayer(marker);
-
-    //mymap.addLayer(markerCluster);
-    markers_on_map.addTo(mymap);
+    mymap.addLayer(markerCluster);
+    //markers_on_map.addTo(mymap);
   }
 
 
