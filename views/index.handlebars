@@ -8,14 +8,13 @@
     crossorigin=""/>
 
     <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/MarkerCluster.css" />
-
     <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/MarkerCluster.Default.css" />
 
     <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"
     integrity="sha512-A7vV8IFfih/D732iSSKi20u/ooOfj/AGehOKq0f4vLT1Zr2Y+RX7C+w8A1gaSasGtRUZpF/NZgzSAu4/Gc41Lg=="
     crossorigin=""></script>
 
-    <script src="//cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/leaflet.markercluster.js"></script>
+    <script type='text/javascript' src='http://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/leaflet.markercluster.js'></script>
     
     <!-- Bootstrap core CSS -->
     <link href="/css/bootstrap.min.css" rel="stylesheet"> 
@@ -68,10 +67,10 @@
            <button id="btn_hotels" class="btn btn-success" value="color">Hotels</button>
            <button id="btn_beach" class="btn btn-success" value="color">Beach</button>
            <button id="btn_all" class="btn btn-alert" value="color">All</button>
-           <button id="btn_redcircles" class="btn btn-default" value="color">Red Circles</button>
+           <!--<button id="btn_redcircles" class="btn btn-default" value="color">Red Circles</button>
            <button id="btn_orangecircles" class="btn btn-default" value="color">Orange Circles</button>
            <button id="btn_yellowcircles" class="btn btn-default" value="color">Yellow Circles</button>
-           <button id="btn_markers" class="btn btn-default" value="gray">Markers</button>
+           <button id="btn_markers" class="btn btn-default" value="gray">Markers</button>-->
         </div>
         
         <!-- # Map: Main map part -->
@@ -191,7 +190,10 @@
   var places = new Array;
 
   /* Markers to be displayed on the map */
-  var markers_on_map = new L.layerGroup();
+  //var markers_on_map = new L.layerGroup();
+  var markers_on_map = new L.MarkerClusterGroup();
+
+  //var markerCluster = new L.MarkerClusterGroup();
 
   function placeMarkers(businesses) { 
 
@@ -210,8 +212,19 @@
         /* Show informations to info panel on the bottom */
         document.getElementById("panel_info").innerHTML += 
         "<tr id='panel_info'><td>" + places[i].name + "</td><td>" + places[i].review_count + "</td><td>" + places[i].rating + "</td><td>" + places[i].price + "</td></tr>";
+
+        //markerCluster.addLayer(marker);
     }
 
+    //var markerCluster = new L.MarkerClusterGroup();
+
+    for (var i = 0; i < businesses.length; i++) {
+        
+    }
+
+    //markerCluster.addLayer(marker);
+
+    //mymap.addLayer(markerCluster);
     markers_on_map.addTo(mymap);
   }
 
