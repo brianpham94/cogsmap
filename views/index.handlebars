@@ -7,14 +7,14 @@
     integrity="sha512-07I2e+7D8p6he1SIM+1twR5TIrhUQn9+I6yjqD53JQjFiMf8EtC93ty0/5vJTZGF8aAocvHYNEDJajGdNx1IsQ=="
     crossorigin=""/>
 
-    <link rel="stylesheet" type="text/css" href="/Leaflet.markercluster-master/dist/MarkerCluster.css"/>
-    <link rel="stylesheet" type="text/css" href="/Leaflet.markercluster-master/dist/MarkerCluster.Default.css"/>
+    <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/MarkerCluster.css" />
+    <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/MarkerCluster.Default.css" />
 
     <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"
     integrity="sha512-A7vV8IFfih/D732iSSKi20u/ooOfj/AGehOKq0f4vLT1Zr2Y+RX7C+w8A1gaSasGtRUZpF/NZgzSAu4/Gc41Lg=="
     crossorigin=""></script>
 
-    <script type='text/javascript' src="/Leaflet.markercluster-master/src/leaflet.markercluster.js"></script>
+     <script type='text/javascript' src='http://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/leaflet.markercluster.js'></script>
     
     <!-- Bootstrap core CSS -->
     <link href="/css/bootstrap.min.css" rel="stylesheet"> 
@@ -203,7 +203,7 @@
 
       var marker = L.marker([businesses[i].coordinates.latitude, businesses[i].coordinates.longitude]).bindPopup(
         "<b>Place</b><br/>" + "Name: " + 
-        businesses[i].name + "<br> Rating: " + businesses[i].rating).addTo(markers_on_map);
+        businesses[i].name + "<br> Rating: " + businesses[i].rating);//.addLayer(markers_on_map);
 
 
         places[i] = businesses[i];
@@ -214,10 +214,12 @@
         markers_on_map.addLayer(marker);
     }
 
+    mymap.addLayer(markers_on_map);
+
+
     for (var i = 0; i < businesses.length; i++) {
     }
 
-    mymap.addLayer(markerCluster);
     //markers_on_map.addTo(mymap);
   }
 
