@@ -2,28 +2,28 @@
 
 <html lang="en">
 <head>
-    <title>FootTracker MapApp</title>
+  <title>FootTracker MapApp</title>
 
-    <link rel="stylesheet" type="text/css" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
+  <link rel="stylesheet" type="text/css" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
 
-    <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/MarkerCluster.css" />
+  <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/MarkerCluster.css" />
 
-    <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/MarkerCluster.Default.css" />
+  <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/MarkerCluster.Default.css" />
 
-    <script type='text/javascript' src='http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js'></script>
+  <script type='text/javascript' src='http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js'></script>
 
-     <script type='text/javascript' src='http://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/leaflet.markercluster.js'></script>
-    
-    <!-- Bootstrap core CSS -->
-    <link href="/css/bootstrap.min.css" rel="stylesheet"> 
+  <script type='text/javascript' src='http://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/leaflet.markercluster.js'></script>
 
-    <link href="/css/style.css" rel="stylesheet">
+  <!-- Bootstrap core CSS -->
+  <link href="/css/bootstrap.min.css" rel="stylesheet"> 
+
+  <link href="/css/style.css" rel="stylesheet">
 
 </head>
 
 <body>
-    <!-- # Menubar: Menubar on the top -->
-    <div class="row">
+  <!-- # Menubar: Menubar on the top -->
+  <div class="row">
     <nav class="navbar navbar-inverse">
       <div class="container-fluid">
         <div class="navbar-header">
@@ -33,9 +33,9 @@
           <li class="active"><a href="#">Home</a></li>
         </ul>
         <form id="searchID" class="navbar-form navbar-left">
-        <div class="input-group">
-          <span>Find</span>
-        </div>
+          <div class="input-group">
+            <span>Find</span>
+          </div>
           <div class="input-group">
             <input type="text" class="form-control" placeholder="restaurants, hotels, etc." id="search-input" name="search[term]">
           </div>
@@ -54,45 +54,45 @@
         <button id="btn_current" class="btn btn-default" value="gray">Current Location</button>
       </div>
     </nav>
-    </div> <!-- End of menu on the top -->
-    
-    <div class="row">
-        <!-- # Menubar: Menubar on the left -->
-        <div class="col-md-2 menu">
-           <button id="btn_restaurants" class="btn btn-success" value="color">Restaurants</button>
-           <button id="btn_hotels" class="btn btn-success" value="color">Hotels</button>
-           <button id="btn_beach" class="btn btn-success" value="color">Beach</button>
-           <button id="btn_all" class="btn btn-alert" value="color">All</button>
+  </div> <!-- End of menu on the top -->
+
+  <div class="row">
+    <!-- # Menubar: Menubar on the left -->
+    <div class="col-md-2 menu">
+     <button id="btn_restaurants" class="btn btn-success" value="color">Restaurants</button>
+     <button id="btn_hotels" class="btn btn-success" value="color">Hotels</button>
+     <button id="btn_beach" class="btn btn-success" value="color">Beach</button>
+     <button id="btn_all" class="btn btn-alert" value="color">All</button>
            <!--<button id="btn_redcircles" class="btn btn-default" value="color">Red Circles</button>
            <button id="btn_orangecircles" class="btn btn-default" value="color">Orange Circles</button>
            <button id="btn_yellowcircles" class="btn btn-default" value="color">Yellow Circles</button>
            <button id="btn_markers" class="btn btn-default" value="gray">Markers</button>-->
+         </div>
+
+         <!-- # Map: Main map part -->
+         <div class="col-md-10 map">
+          <div id="mapid"></div>
+
+          <div class="panel panel-success">
+            <div class="panel-heading">Places in area</div>
+            <div class="panel-body">
+              <table class="table table-hover"><thead>
+                <tr>
+                  <th>Place</th>
+                  <th>Review Count</th>
+                  <th>Rating</th>
+                  <th>Price</th>
+                </tr>
+              </thead>
+              <tbody id="panel_info">
+
+              </tbody>
+            </table>
+          </div>
         </div>
-        
-        <!-- # Map: Main map part -->
-        <div class="col-md-10 map">
-            <div id="mapid"></div>
-            
-            <div class="panel panel-success">
-              <div class="panel-heading">Places in area</div>
-              <div class="panel-body">
-                <table class="table table-hover"><thead>
-                    <tr>
-                      <th>Place</th>
-                      <th>Review Count</th>
-                      <th>Rating</th>
-                      <th>Price</th>
-                    </tr>
-                  </thead>
-                  <tbody id="panel_info">
-                    
-                  </tbody>
-                </table>
-              </div>
-            </div>
-        </div>
+      </div>
     </div>
-	<div id="mapCtrl"></div>
+    <div id="mapCtrl"></div>
     
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCa5u0jiFE4DNOxTMh8iTB-JHumUeZHomU&libraries=places&callback=initAutocomplete" async defer></script>
     
@@ -100,36 +100,36 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-   
-    <script
-  src="https://code.jquery.com/jquery-3.2.1.min.js"
-  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-  crossorigin="anonymous"></script>
-  <script>
 
-  var currLoc;
-  $( "#searchID" ).submit(function( event ) {
-    console.log(currLoc);
-    var numInputs = $("#searchID input").length;
-    console.log(numInputs);
-    if (numInputs === 2) {
-      console.log("no inputs");
-      $('<input />').attr('type', 'hidden')
+    <script
+    src="https://code.jquery.com/jquery-3.2.1.min.js"
+    integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+    crossorigin="anonymous"></script>
+    <script>
+
+      var currLoc;
+      $( "#searchID" ).submit(function( event ) {
+        console.log(currLoc);
+        var numInputs = $("#searchID input").length;
+        console.log(numInputs);
+        if (numInputs === 2) {
+          console.log("no inputs");
+          $('<input />').attr('type', 'hidden')
           .attr('name', "search[current]")
           .attr('value', JSON.stringify(currLoc))
           .appendTo('#searchID');
           console.log("posted waiting for success");
-    }
-    event.preventDefault();
-    $.post("/test", $("#searchID").serialize(), yelpSearchSuccess);
-  });
+        }
+        event.preventDefault();
+        $.post("/test", $("#searchID").serialize(), yelpSearchSuccess);
+      });
 
 /*
   $( "#searchLocation" ).submit(function( event ) {
     event.preventDefault();
     $.post("/test", $("#searchLocation").serialize(), yelpSearchSuccess);
   });
-*/
+  */
 
   function yelpSearchSuccess(result){
     //You can get businesses which is returned as an array in this json format
@@ -176,42 +176,58 @@
 
   You can iterate through the array and reference them through dot notation as shown below
   */
-    console.log("successful search Callback entering extraction");
-    var strResult = JSON.stringify(result.businesses);
-    var javaObject = JSON.parse(strResult);
-    console.log(javaObject[0].review_count);
-    placeMarkers(javaObject);
-  }
+  console.log("successful search Callback entering extraction");
+  var strResult = JSON.stringify(result.businesses);
+  var javaObject = JSON.parse(strResult);
+  console.log(javaObject[0].review_count);
+  placeMarkers(javaObject);
+}
 
-  /* Array to store search result */
-  var places = new Array;
+/* Array to store search result */
+var places = new Array;
 
-  /* Markers to be displayed on the map */
-  var markers_on_map = new L.MarkerClusterGroup();
+/* Markers to be displayed on the map */
+var markers_on_map = new L.MarkerClusterGroup();
 
-  function placeMarkers(businesses) { 
+function placeMarkers(businesses) { 
 
-    markers_on_map.clearLayers();
+  markers_on_map.clearLayers();
 
-    console.log("given businesses: " + businesses);
-    document.getElementById("panel_info").innerHTML = "";
-    for(var i = 0; i < businesses.length; i++) {
+  console.log("given businesses: " + businesses);
+  document.getElementById("panel_info").innerHTML = "";
+ 
+  for(var i = 0; i < businesses.length; i++) {
 
-      var marker = L.marker([businesses[i].coordinates.latitude, businesses[i].coordinates.longitude]).bindPopup(
-        "<b>Place</b><br/>" + "Name: " + 
-        businesses[i].name + "<br> Rating: " + businesses[i].rating);
+    var iconColor;
+    console.log("Businesses count review: " + businesses[i].review_count);
+    var reviews = businesses[i].review_count;
 
-
-        places[i] = businesses[i];
-        /* Show informations to info panel on the bottom */
-        document.getElementById("panel_info").innerHTML += 
-        "<tr id='panel_info'><td>" + places[i].name + "</td><td>" + places[i].review_count + "</td><td>" + places[i].rating + "</td><td>" + places[i].price + "</td></tr>";
-
-        markers_on_map.addLayer(marker);
+    if(reviews > 200) {
+      iconColor = redIcon;
     }
+    else if(reviews < 100) {
+      iconColor = greenIcon;
+    }
+    else {
+      iconColor = yellowIcon;
+    }
+    console.log("Icon Color is: " + iconColor);
+    
+    var marker = L.marker([businesses[i].coordinates.latitude, businesses[i].coordinates.longitude], {icon: iconColor}).bindPopup(
+      "<b>Place</b><br/>" + "Name: " + 
+      businesses[i].name + "<br> Rating: " + businesses[i].rating);
 
-    mymap.addLayer(markers_on_map);
+
+    places[i] = businesses[i];
+    /* Show informations to info panel on the bottom */
+    document.getElementById("panel_info").innerHTML += 
+    "<tr id='panel_info'><td>" + places[i].name + "</td><td>" + places[i].review_count + "</td><td>" + places[i].rating + "</td><td>" + places[i].price + "</td></tr>";
+
+    markers_on_map.addLayer(marker);
   }
+
+  mymap.addLayer(markers_on_map);
+}
 
   //button.addEventListener('click', searchMap());
   $( "#search-location" ).click(function() {
@@ -219,10 +235,10 @@
   });
 
   function searchMap() {
-        var geocoder = new google.maps.Geocoder();
+    var geocoder = new google.maps.Geocoder();
 
         //document.getElementById('search-location').addEventListener('click', function() {
-        geocodeAddress(geocoder, mymap);
+          geocodeAddress(geocoder, mymap);
         //});
       }
 
@@ -239,11 +255,12 @@
         });
       }
 
-  
-  </script>
+
+    </script>
     <script src = "/js/map.js"></script>
+    <script src = "/js/leaflet-color-markers.js"></script>
     <script src="/js/bootstrap.min.js"></script>
     
-</body>
+  </body>
 
-</html>
+  </html>
