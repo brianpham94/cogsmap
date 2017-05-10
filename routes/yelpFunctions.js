@@ -16,44 +16,84 @@ exports.yelpSearch = function(req, res) {
 		token = response.jsonBody.access_token;
 		//these will be filled in by the request body
 		var termN = req.body.search.term;
-		var locationN = JSON.parse(req.body.search.current);
-		searchCallback(token, termN, locationN);
+		var locationN = req.body.search.location;
+		var currentLoc = JSON.parse(req.body.search.current);
+		console.log("entering search callback");
+		console.log("term: " + termN);
+		console.log("location: " + locationN);
+		console.log("currentLoc: " + currentLoc);
+		searchCallback(token, termN, locationN, currentLoc);
 	}).catch(e => {
 		console.log(e);
 	});
 
-	function searchCallback(token, termN, locationN) {
+	function searchCallback(token, termN, locationN, currentLoc) {
 		var client = yelp.client(token);
-		if(termN == undefined) {
-			client.search({
-				latitude: locationN.latitude,
-				longitude: locationN.longitude,
-				open_now: true,
-				sort_by:'review_count',
-			}).then(response => {
-				res.json(response.jsonBody);
-				console.log("return");
-			}).catch(e => {
-				console.log(e);
-				console.log("failed");
-				res.json({});
-			});
+		if(locationN == "") {
+			if(termN == undefined) {
+				console.log("no term");
+				client.search({
+					latitude: currentLoc.latitude,
+					longitude: currentLoc.longitude,
+					sort_by:'review_count',
+				}).then(response => {
+					res.json(response.jsonBody);
+					console.log("return");
+				}).catch(e => {
+					console.log(e);
+					console.log("failed");
+					res.json({});
+				});
+			}
+			else {
+				console.log("term found");
+				client.search({
+					term: termN,
+					latitude: currentLoc.latitude,
+					longitude: currentLoc.longitude,
+					sort_by:'review_count',
+				}).then(response => {
+					res.json(response.jsonBody);
+					console.log("return");
+				}).catch(e => {
+					console.log(e);
+					console.log("failed");
+					res.json({});
+				});	
+			}
 		}
+		//currentLoc
 		else {
-			client.search({
-				term: termN,
-				latitude: locationN.latitude,
-				longitude: locationN.longitude,
-				open_now: true,
-				sort_by:'review_count',
-			}).then(response => {
-				res.json(response.jsonBody);
-				console.log("return");
-			}).catch(e => {
-				console.log(e);
-				console.log("failed");
-				res.json({});
-			});	
+			if(termN == undefined) {
+				console.log("no term");
+				client.search({
+					location: locationN,
+					sort_by:'review_count',
+				}).then(response => {
+					res.json(response.jsonBody);
+					console.log("return");
+				}).catch(e => {
+					console.log(e);
+					console.log("failed");
+					res.json({});
+				});
+			}
+			else {
+				console.log("term found");
+				client.search({
+					term: termN,
+					location: locationN,
+					sort_by:'review_count',
+				}).then(response => {
+					res.json(response.jsonBody);
+					console.log("return");
+				}).catch(e => {
+					console.log(e);
+					console.log("failed");
+					res.json({});
+				});	
+			}
+
 		}
 	}
 }

@@ -39,8 +39,6 @@
           <div class="input-group">
             <input type="text" class="form-control" placeholder="restaurants, hotels, etc." id="search-input" name="search[term]">
           </div>
-        </form>
-        <form id="searchLocation" class="navbar-form navbar-left">
           <div class="input-group">
             <span>Near</span>
           </div>
@@ -114,7 +112,7 @@
     console.log(currLoc);
     var numInputs = $("#searchID input").length;
     console.log(numInputs);
-    if (numInputs === 1) {
+    if (numInputs === 2) {
       console.log("no inputs");
       $('<input />').attr('type', 'hidden')
           .attr('name', "search[current]")
@@ -126,11 +124,12 @@
     $.post("/test", $("#searchID").serialize(), yelpSearchSuccess);
   });
 
+/*
   $( "#searchLocation" ).submit(function( event ) {
     event.preventDefault();
     $.post("/test", $("#searchLocation").serialize(), yelpSearchSuccess);
   });
-
+*/
 
   function yelpSearchSuccess(result){
     //You can get businesses which is returned as an array in this json format
