@@ -45,7 +45,7 @@
           <div class="input-group">
             <input type="text" class="form-control" id="location-search" name="search[location]" placeholder="address, neighborhood, city, state, or zip" />
             <div class="input-group-btn">
-              <button class="btn btn-default" type="submit">
+              <button class="btn btn-default" type="submit" id="search-location">
                 <i class="glyphicon glyphicon-search"></i>
               </button>
             </div>
@@ -212,6 +212,32 @@
 
     mymap.addLayer(markers_on_map);
   }
+
+  //button.addEventListener('click', searchMap());
+  $( "#search-location" ).click(function() {
+    searchMap();
+  });
+
+  function searchMap() {
+        var geocoder = new google.maps.Geocoder();
+
+        //document.getElementById('search-location').addEventListener('click', function() {
+        geocodeAddress(geocoder, mymap);
+        //});
+      }
+
+      function geocodeAddress(geocoder, resultsMap) {
+        var address = document.getElementById('location-search').value;
+        geocoder.geocode({'address': address}, function(results, status) {
+          if (status === google.maps.GeocoderStatus.OK) {
+            console.log("inside");
+            console.log("results:" + results[0].geometry.location);
+            resultsMap.setView([results[0].geometry.location.lat(),results[0].geometry.location.lng()], 13);
+          } else {
+            alert('Geocode was not successful for the following reason: ' + status);
+          }
+        });
+      }
 
   
   </script>

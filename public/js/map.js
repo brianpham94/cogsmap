@@ -20,10 +20,10 @@ var mymap = L.map('mapid').setView([32.7157, -117.1611], 13);
 
 L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
                 attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
-    			maxZoom: 18,
-    			id: 'your.mapbox.project.id',
-    			accessToken: 'your.mapbox.public.access.token'
-			}).addTo(mymap); 
+                maxZoom: 18,
+                id: 'your.mapbox.project.id',
+                accessToken: 'your.mapbox.public.access.token'
+            }).addTo(mymap); 
 
 /* Layer as group */
 /* 1. Area layers */
@@ -223,29 +223,24 @@ yellowCircle.on('click', function(event){
 
 /* Search Function */
 function initAutocomplete() {
-        // var map = new google.maps.Map(document.getElementById('map'), {
-        //   center: {lat: -33.8688, lng: 151.2195},
-        //   zoom: 13,
-        //   mapTypeId: 'roadmap'
-        // });
 
         // Create the search box and link it to the UI element.
-        var input = document.getElementById('search-input');
+        var input = document.getElementById('location-search');
         var searchBox = new google.maps.places.SearchBox(input);
-        mymap.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+        //mymap.controls[google.maps.ControlPosition.TOP_RIGHT].push(input);
 
-        var input2 = document.getElementById('location-search');
-        var searchBox2 = new google.maps.places.SearchBox2(input2);
-        mymap.controls[google.maps.ControlPosition.TOP_LEFT].push(input2);
+        //var input2 = document.getElementById('location-search');
+        // var searchBox2 = new google.maps.places.SearchBox2(input2);
+        //mymap.controls[google.maps.ControlPosition.TOP_LEFT].push(input2);
 
         // Bias the SearchBox results towards current map's viewport.
         mymap.addListener('bounds_changed', function() {
           searchBox.setBounds(mymap.getBounds());
         });
 
-        mymap.addListener('bounds_changed', function() {
-          searchBox2.setBounds(mymap.getBounds());
-        });
+        // mymap.addListener('bounds_changed', function() {
+        //   searchBox2.setBounds(mymap.getBounds());
+        // });
 
         var markers = [];
         // Listen for the event fired when the user selects a prediction and retrieve
@@ -258,33 +253,33 @@ function initAutocomplete() {
           }
 
           // Clear out the old markers.
-          markers.forEach(function(marker) {
-            marker.setMap(null);
-          });
-          markers = [];
+          // markers.forEach(function(marker) {
+          //   marker.setMap(null);
+          // });
+          // markers = [];
 
           // For each place, get the icon, name and location.
-          var bounds = new google.maps.LatLngBounds();
+          //var bounds = new google.maps.LatLngBounds();
           places.forEach(function(place) {
             if (!place.geometry) {
               console.log("Returned place contains no geometry");
               return;
             }
-            var icon = {
-              url: place.icon,
-              size: new google.maps.Size(71, 71),
-              origin: new google.maps.Point(0, 0),
-              anchor: new google.maps.Point(17, 34),
-              scaledSize: new google.maps.Size(25, 25)
-            };
+          //   var icon = {
+          //     url: place.icon,
+          //     size: new google.maps.Size(71, 71),
+          //     origin: new google.maps.Point(0, 0),
+          //     anchor: new google.maps.Point(17, 34),
+          //     scaledSize: new google.maps.Size(25, 25)
+          //   };
 
-            // Create a marker for each place.
-            markers.push(new google.maps.Marker({
-              map: mymap,
-              icon: icon,
-              title: place.name,
-              position: place.geometry.location
-            }));
+          //   // Create a marker for each place.
+          //   markers.push(new google.maps.Marker({
+          //     map: mymap,
+          //     icon: icon,
+          //     title: place.name,
+          //     position: place.geometry.location
+          //   }));
 
             if (place.geometry.viewport) {
               // Only geocodes have viewport.
@@ -293,9 +288,10 @@ function initAutocomplete() {
               bounds.extend(place.geometry.location);
             }
           });
-          mymap.fitBounds(bounds);
+          //mymap.fitBounds(bounds);
         });
       }
+
 
       /*Circle consolidation*/
 
