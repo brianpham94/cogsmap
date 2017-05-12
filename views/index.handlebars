@@ -189,13 +189,24 @@ var places = new Array;
 /* Markers to be displayed on the map */
 var markers_on_map = new L.MarkerClusterGroup();
 
+
 function placeMarkers(businesses) { 
 
   markers_on_map.clearLayers();
-
+/*
   console.log("given businesses: " + businesses);
   document.getElementById("panel_info").innerHTML = "";
- 
+
+      var redCircle = L.circle([32.7157, -117.2712717], {
+        color: 'red',
+        fillColor: '#f03',
+        fillOpacity: 0.5,
+        radius: 500
+      });
+
+      redCircle.bindPopup("High Traffic");
+      redCircle.addTo(redcircles_layer);
+      */
   for(var i = 0; i < businesses.length; i++) {
 
     var iconColor;
@@ -204,15 +215,40 @@ function placeMarkers(businesses) {
 
     if(reviews > 200) {
       iconColor = redIcon;
+      
     }
     else if(reviews < 100) {
       iconColor = greenIcon;
+      /*
+      var greenCircle = L.circle([businesses[i].coordinates.latitude, businesses[i].coordinates.longitude], {
+        color: 'green',
+        fillColor: '#32CD32',
+        fillOpacity: 0.5,
+        radius: 100
+      }).addTo(mymap);
+
+      orangeCircle.bindPopup("Low Traffic");
+      orangeCircle.addTo(orangecircles_layer);
+      */
     }
     else {
       iconColor = yellowIcon;
+      /*
+      var yellowCircle = L.circle([businesses[i].coordinates.latitude, businesses[i].coordinates.longitude], {
+        color: 'yellow',
+        fillColor: '#FFC300',
+        fillOpacity: 0.5,
+        radius: 200
+      }).addTo(mymap);
+
+      yellowCircle.bindPopup("Medium Traffic");
+      yellowCircle.addTo(yellowcircles_layer);
+      */
+
     }
     console.log("Icon Color is: " + iconColor);
     
+    console.log()
     var marker = L.marker([businesses[i].coordinates.latitude, businesses[i].coordinates.longitude], {icon: iconColor}).bindPopup(
       "<b>Place</b><br/>" + "Name: " + 
       businesses[i].name + "<br> Rating: " + businesses[i].rating);
@@ -227,6 +263,7 @@ function placeMarkers(businesses) {
   }
 
   mymap.addLayer(markers_on_map);
+  //mymap.addLayer(redcircles_layer);
 }
 
   //button.addEventListener('click', searchMap());

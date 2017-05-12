@@ -63,16 +63,19 @@ onbtn_current.onclick = function(){
 
 /* Elements - Area circles */
 
+/*
 var redCircle = L.circle([32.881151, -117.23745], {
     color: 'red',
     fillColor: '#f03',
     fillOpacity: 0.5,
     radius: 500
-    }).addTo(mymap);
+    });
 
     redCircle.bindPopup("I am a circle.");
     redCircle.addTo(redcircles_layer);
-
+    mymap.addLayer(redcircles_layer);
+    */
+/*
 var redCircle2 = L.circle([32.863151, -117.22645], {
     color: 'red',
     fillColor: '#f03',
@@ -102,7 +105,7 @@ var yellowCircle = L.circle([32.8600, -117.2563], {
 
     yellowCircle.bindPopup("I am a circle.");
     yellowCircle.addTo(yellowcircles_layer);
-
+*/
 /* Elements - Icons */
 
 var restaurantIcon = L.icon({
@@ -139,7 +142,7 @@ var beachMarker = L.marker([32.877501, -117.238680], {icon: beachIcon});
     beachMarker.addTo(beach_layer).addTo(places_in_redcircles);
 
 /* Event functions */
-
+/*
 onbtn_markers.onclick = function() {
     markers_layer.addTo(mymap);
     redcircles_layer.remove();
@@ -192,9 +195,9 @@ onbtn_hotels.onclick = function() {
     beach_layer.remove();
     hotels_layer.addTo(mymap);
 }
-
+*/
 /* Zoom on click */
-
+/*
 redCircle.on('click', function(event){
     mymap.fitBounds(redCircle.getBounds());
     document.getElementById("panel_info").innerHTML = "All the place in red circle list here";
@@ -220,7 +223,7 @@ yellowCircle.on('click', function(event){
     places_in_yellowcircles.addTo(mymap);
     places_in_redcircles.remove();
 });
-
+*/
 /* Search Function */
 function initAutocomplete() {
 
@@ -234,6 +237,8 @@ function initAutocomplete() {
         //mymap.controls[google.maps.ControlPosition.TOP_LEFT].push(input2);
 
         // Bias the SearchBox results towards current map's viewport.
+
+        
         mymap.addListener('bounds_changed', function() {
           searchBox.setBounds(mymap.getBounds());
         });
