@@ -1,21 +1,205 @@
-/* getElement from Menus in html files */
+var currLoc;
 
-var onbtn_markers = document.getElementById("btn_markers");
-var onbtn_redcircles = document.getElementById("btn_redcircles");
-var onbtn_orangecircles = document.getElementById("btn_orangecircles");
-var onbtn_yellowcircles = document.getElementById("btn_yellowcircles");
-var onbtn_all = document.getElementById("btn_all");
+$( "#searchID" ).submit(function( event ) {
+  console.log(currLoc);
+  var numInputs = $("#searchID input").length;
+  console.log(numInputs);
+  if (numInputs === 2) {
+    console.log("no inputs");
+    $('<input />').attr('type', 'hidden')
+                  .attr('name', "search[current]")
+                  .attr('value', JSON.stringify(currLoc))
+                  .appendTo('#searchID');
+    console.log("posted waiting for success");
+  }
+  event.preventDefault();
+  $.post("/test", $("#searchID").serialize(), yelpSearchSuccess);
+});
 
-var onbtn_restaurants = document.getElementById("btn_restaurants");
-var onbtn_hotels = document.getElementById("btn_hotels");
-var onbtn_beach = document.getElementById("btn_beach");
+/*
+  $( "#searchLocation" ).submit(function( event ) {
+    event.preventDefault();
+    $.post("/test", $("#searchLocation").serialize(), yelpSearchSuccess);
+  });
+  */
+
+function yelpSearchSuccess(result){
+    //You can get businesses which is returned as an array in this json format
+    /*
+      "businesses": [
+    {
+      "rating": 4,
+      "price": "$",
+      "phone": "+14152520800",
+      "id": "four-barrel-coffee-san-francisco",
+      "is_closed": false,
+      "categories": [
+        {
+          "alias": "coffee",
+          "title": "Coffee & Tea"
+        }
+      ],
+      "review_count": 1738,
+      "name": "Four Barrel Coffee",
+      "url": "https://www.yelp.com/biz/four-barrel-coffee-san-francisco",
+      "coordinates": {
+        "latitude": 37.7670169511878,
+        "longitude": -122.42184275
+      },
+      "image_url": "http://s3-media2.fl.yelpcdn.com/bphoto/MmgtASP3l_t4tPCL1iAsCg/o.jpg",
+      "location": {
+        "city": "San Francisco",
+        "country": "US",
+        "address2": "",
+        "address3": "",
+        "state": "CA",
+        "address1": "375 Valencia St",
+        "zip_code": "94103"
+      },
+      "distance": 1604.23,
+      "transactions": ["pickup", "delivery"]
+    },
+    // ...
+  ],
+
+
+  Typically you can retrieve it after you stringify it then parse it as shown below.
+  then they give you an array of businesses
+
+  You can iterate through the array and reference them through dot notation as shown below
+  */
+  console.log("successful search Callback entering extraction");
+  var strResult = JSON.stringify(result.businesses);
+  var javaObject = JSON.parse(strResult);
+  console.log(javaObject[0].review_count);
+  placeMarkers(javaObject);
+}
+
+/* Array to store search result */
+var places = new Array;
+
+/* Markers to be displayed on the map */
+var markers_on_map = new L.MarkerClusterGroup();
+
+function colorIcon(reviews) {
+  var iconColor;
+  if(reviews > 200) {
+    iconColor = redIcon;
+  }
+  else if(reviews < 100) {
+    iconColor = greenIcon;
+  }
+  else {
+    iconColor = yellowIcon;
+  }
+  return iconColor;
+}
+
+function placeMarkers(businesses) { 
+
+  markers_on_map.clearLayers();
+/*
+  console.log("given businesses: " + businesses);
+  document.getElementById("panel_info").innerHTML = "";
+
+      var redCircle = L.circle([32.7157, -117.2712717], {
+        color: 'red',
+        fillColor: '#f03',
+        fillOpacity: 0.5,
+        radius: 500
+      });
+
+      redCircle.bindPopup("High Traffic");
+      redCircle.addTo(redcircles_layer);
+      */
+  for(var i = 0; i < businesses.length; i++) {
+
+    var iconColor;
+    console.log("Businesses count review: " + businesses[i].review_count);
+    var reviews = businesses[i].review_count;
+
+    if(reviews > 200) {
+      iconColor = redIcon;
+      
+    }
+    else if(reviews < 100) {
+      iconColor = greenIcon;
+      /*
+      var greenCircle = L.circle([businesses[i].coordinates.latitude, businesses[i].coordinates.longitude], {
+        color: 'green',
+        fillColor: '#32CD32',
+        fillOpacity: 0.5,
+        radius: 100
+      }).addTo(mymap);
+
+      orangeCircle.bindPopup("Low Traffic");
+      orangeCircle.addTo(orangecircles_layer);
+      */
+    }
+    else {
+      iconColor = yellowIcon;
+      /*
+      var yellowCircle = L.circle([businesses[i].coordinates.latitude, businesses[i].coordinates.longitude], {
+        color: 'yellow',
+        fillColor: '#FFC300',
+        fillOpacity: 0.5,
+        radius: 200
+      }).addTo(mymap);
+
+      yellowCircle.bindPopup("Medium Traffic");
+      yellowCircle.addTo(yellowcircles_layer);
+      */
+
+    }
+    console.log("Icon Color is: " + iconColor);
+    
+    console.log()
+    var marker = L.marker([businesses[i].coordinates.latitude, businesses[i].coordinates.longitude], {icon: iconColor}).bindPopup(
+      "<b>Place</b><br/>" + "Name: " + 
+      businesses[i].name + "<br> Rating: " + businesses[i].rating);
+
+
+    places[i] = businesses[i];
+    /* Show informations to info panel on the bottom */
+    document.getElementById("panel_info").innerHTML += 
+    "<tr id='panel_info'><td>" + places[i].name + "</td><td>" + places[i].review_count + "</td><td>" + places[i].rating + "</td><td>" + places[i].price + "</td><td>"+ places[i].categories[0].title +"</td><td><button onclick='clickPlace(" + i + ")' class='btn btn-info'>Place</button></td></tr>";
+    markers_on_map.addLayer(marker);
+  }
+
+  mymap.addLayer(markers_on_map);
+  //mymap.addLayer(redcircles_layer);
+}
+
+  //button.addEventListener('click', searchMap());
+$( "#search-location" ).click(function() {
+  searchMap();
+});
+
+function searchMap() {
+  var geocoder = new google.maps.Geocoder();
+
+      //document.getElementById('search-location').addEventListener('click', function() {
+  geocodeAddress(geocoder, mymap);
+        //});
+}
+
+function geocodeAddress(geocoder, resultsMap) {
+  var address = document.getElementById('location-search').value;
+  geocoder.geocode({'address': address}, function(results, status) {
+      if (status === google.maps.GeocoderStatus.OK) {
+        console.log("inside");
+        console.log("results:" + results[0].geometry.location);
+        resultsMap.setView([results[0].geometry.location.lat(),results[0].geometry.location.lng()], 13);
+      } else {
+        alert('Geocode was not successful for the following reason: ' + status);
+      }
+  });
+}
+
+/* For filtering */
+var markers_layer = new L.LayerGroup();
 
 var onbtn_current = document.getElementById("btn_current");
-
-
-
-
-
 var mymap = L.map('mapid').setView([32.7157, -117.1611], 13);
 
 L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
@@ -24,24 +208,6 @@ L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
                 id: 'your.mapbox.project.id',
                 accessToken: 'your.mapbox.public.access.token'
             }).addTo(mymap); 
-
-/* Layer as group */
-/* 1. Area layers */
-
-var redcircles_layer = new L.LayerGroup();
-var orangecircles_layer = new L.LayerGroup();
-var yellowcircles_layer = new L.LayerGroup();
-var markers_layer = new L.LayerGroup();
-
-/* 2. Place layers */
-var restaurants_layer = new L.LayerGroup();
-var beach_layer = new L.LayerGroup();
-var hotels_layer = new L.LayerGroup();
-
-/* 3. Places in area */
-var places_in_redcircles = new L.LayerGroup();
-var places_in_orangecircles = new L.LayerGroup();
-var places_in_yellowcircles_layer = new L.LayerGroup();
 
 /* Get user's location */
 var current;
@@ -61,169 +227,25 @@ onbtn_current.onclick = function(){
     mymap.setView(new L.LatLng(current.latitude, current.longitude));
 }
 
-/* Elements - Area circles */
+var clickPlace = function(index) {
+  // body
+  console.log("You've click one of button");
+  console.log(index);
+  var iconColor = colorIcon(places[index].review_count);
 
-/*
-var redCircle = L.circle([32.881151, -117.23745], {
-    color: 'red',
-    fillColor: '#f03',
-    fillOpacity: 0.5,
-    radius: 500
-    });
+  markers_on_map.clearLayers();
 
-    redCircle.bindPopup("I am a circle.");
-    redCircle.addTo(redcircles_layer);
-    mymap.addLayer(redcircles_layer);
-    */
-/*
-var redCircle2 = L.circle([32.863151, -117.22645], {
-    color: 'red',
-    fillColor: '#f03',
-    fillOpacity: 0.5,
-    radius: 500
-    }).addTo(mymap);
+  var marker = L.marker([places[index].coordinates.latitude, places[index].coordinates.longitude], {icon: iconColor}).bindPopup(
+      "<b>Place</b><br/>" + "Name: " + 
+      places[index].name + "<br> Rating: " + places[index].rating);
 
-    redCircle2.bindPopup("I am a circle.");
-    redCircle2.addTo(redcircles_layer);
+  markers_on_map.addLayer(marker);
+  mymap.addLayer(markers_on_map);
 
-var orangeCircle = L.circle([32.8700, -117.2310], {
-    color: 'orange',
-    fillColor: '#DC7633',
-    fillOpacity: 0.5,
-    radius: 500
-    }).addTo(mymap);
-
-    orangeCircle.bindPopup("I am a circle.");
-    orangeCircle.addTo(orangecircles_layer);
-
-var yellowCircle = L.circle([32.8600, -117.2563], {
-    color: 'yellow',
-    fillColor: '#FFC300',
-    fillOpacity: 0.5,
-    radius: 500
-    }).addTo(mymap);
-
-    yellowCircle.bindPopup("I am a circle.");
-    yellowCircle.addTo(yellowcircles_layer);
-*/
-/* Elements - Icons */
-
-var restaurantIcon = L.icon({
-    iconUrl: '../images/icons/restaurants/Tourism icon (21).png',
-
-    iconSize:     [40, 40], // size of the icon
-    iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
-    popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
-});
-
-var hotelIcon = L.icon({
-    iconUrl: '../images/icons/hotel/Tourism icon (66).png',
-
-    iconSize:     [40, 40], // size of the icon
-    iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
-    popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
-});
-
-var beachIcon = L.icon({
-    iconUrl: '../images/icons/beach/Tourism icon (71).png',
-
-    iconSize:     [40, 40], // size of the icon
-    iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
-    popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
-});
-
-var restaurantMarker = L.marker([32.879573, -117.236341], {icon: restaurantIcon});
-    restaurantMarker.addTo(restaurants_layer).addTo(places_in_redcircles);
-
-var hotelMarker = L.marker([32.877501, -117.241148], {icon: hotelIcon});
-    hotelMarker.addTo(hotels_layer).addTo(places_in_redcircles);
-
-var beachMarker = L.marker([32.877501, -117.238680], {icon: beachIcon});
-    beachMarker.addTo(beach_layer).addTo(places_in_redcircles);
-
-/* Event functions */
-/*
-onbtn_markers.onclick = function() {
-    markers_layer.addTo(mymap);
-    redcircles_layer.remove();
-    orangecircles_layer.remove();
-    yellowcircles_layer.remove();
+  mymap.setView(new L.LatLng(places[index].coordinates.latitude, places[index].coordinates.longitude));
 }
 
-onbtn_redcircles.onclick = function() {
-    markers_layer.remove();
-    orangecircles_layer.remove();
-    yellowcircles_layer.remove();
-    redcircles_layer.addTo(mymap);
-}
 
-onbtn_orangecircles.onclick = function() {
-    markers_layer.remove();
-    redcircles_layer.remove();
-    yellowcircles_layer.remove();
-    orangecircles_layer.addTo(mymap);    
-}
-
-onbtn_yellowcircles.onclick = function() {
-    markers_layer.remove();
-    redcircles_layer.remove();
-    orangecircles_layer.remove();
-    yellowcircles_layer.addTo(mymap);    
-}
-
-onbtn_all.onclick = function() {
-    markers_layer.addTo(mymap);
-    redcircles_layer.addTo(mymap);
-    orangecircles_layer.addTo(mymap);
-    yellowcircles_layer.addTo(mymap);    
-}
-
-onbtn_restaurants.onclick = function() {
-    restaurants_layer.addTo(mymap);
-    beach_layer.remove();
-    hotels_layer.remove();
-}
-
-onbtn_beach.onclick = function() {
-    restaurants_layer.remove();
-    beach_layer.addTo(mymap);
-    hotels_layer.remove();
-}
-
-onbtn_hotels.onclick = function() {
-    restaurants_layer.remove();
-    beach_layer.remove();
-    hotels_layer.addTo(mymap);
-}
-*/
-/* Zoom on click */
-/*
-redCircle.on('click', function(event){
-    mymap.fitBounds(redCircle.getBounds());
-    document.getElementById("panel_info").innerHTML = "All the place in red circle list here";
-    places_in_redcircles.addTo(mymap);
-});
-
-redCircle2.on('click', function(event){
-    mymap.fitBounds(redCircle2.getBounds());
-    document.getElementById("panel_info").innerHTML = "All the place in red circle2 list here";
-    places_in_redcircles.addTo(mymap);
-});
-
-orangeCircle.on('click', function(event){
-    mymap.fitBounds(orangeCircle.getBounds());
-    document.getElementById("panel_info").innerHTML = "All the place in orange circle list here";
-    places_in_orangecircles.addTo(mymap);
-    places_in_redcircles.remove();
-});
-
-yellowCircle.on('click', function(event){
-    mymap.fitBounds(yellowCircle.getBounds());
-    document.getElementById("panel_info").innerHTML = "All the place in yellow circle list here";
-    places_in_yellowcircles.addTo(mymap);
-    places_in_redcircles.remove();
-});
-*/
 /* Search Function */
 function initAutocomplete() {
 
