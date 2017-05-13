@@ -78,6 +78,9 @@ function yelpSearchSuccess(result){
 /* Array to store search result */
 var places = new Array;
 
+/* Array to classify categories */
+var categories = new Array;
+
 /* Markers to be displayed on the map */
 var markers_on_map = new L.MarkerClusterGroup();
 
@@ -98,6 +101,10 @@ function colorIcon(reviews) {
 function placeMarkers(businesses) { 
 
   markers_on_map.clearLayers();
+
+  /* Clear all arrays */
+  places = [];
+  categories = [];
 /*
   console.log("given businesses: " + businesses);
   document.getElementById("panel_info").innerHTML = "";
@@ -164,10 +171,19 @@ function placeMarkers(businesses) {
     document.getElementById("panel_info").innerHTML += 
     "<tr id='panel_info'><td>" + places[i].name + "</td><td>" + places[i].review_count + "</td><td>" + places[i].rating + "</td><td>" + places[i].price + "</td><td>"+ places[i].categories[0].title +"</td><td><button onclick='clickPlace(" + i + ")' class='btn btn-info'>Place</button></td></tr>";
     markers_on_map.addLayer(marker);
+
+    /* Store categories array */
+    if(categories.indexOf(places[i].categories[0].title) < 0) {
+      categories.push(places[i].categories[0].title);
+    }
   }
 
   mymap.addLayer(markers_on_map);
-  //mymap.addLayer(redcircles_layer);
+  
+  /* Show categories on the left */
+  for(var i = 0; i < categories.length; i++) {
+    document.getElementById("categories_info").innerHTML += "<button class='list-group-item'>"+categories[i]+"</button>";
+  }
 }
 
   //button.addEventListener('click', searchMap());
