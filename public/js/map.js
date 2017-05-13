@@ -173,8 +173,7 @@ function placeMarkers(businesses) {
     console.log()
     var marker = L.marker([businesses[i].coordinates.latitude, businesses[i].coordinates.longitude], {icon: iconColor}).bindPopup(
       "<b>Place</b><br/>" + "Name: " + 
-      businesses[i].name + "<br> Rating: " + businesses[i].rating);
-
+      businesses[i].name + "<br> Rating: " + businesses[i].rating + "<br> <button class='btn' id='btn-reviews'>Reviews</button>");
 
     places[i] = businesses[i];
     /* Show informations to info panel on the bottom */
@@ -189,7 +188,22 @@ function placeMarkers(businesses) {
 
     /* Store charts array */
     chart_reviews.push([places[i].name,places[i].review_count]);
-    chart_ratings.push([places[i].name,places[i].rating])
+    chart_ratings.push([places[i].name,places[i].rating]);
+
+    /*Modal*/
+    /*var modal = document.getElementById("modal-reviews");
+    var button = document.getElementById("btn-reviews");
+
+    window.onload = function () {
+      button.onclick = function() {
+        modal.style.display = "block";
+      }
+    }*/
+
+    var modal = document.getElementById("modal-reviews")
+    window.onload = function() {
+      document.getElementById("btn-reviews").onclick = modal.display("block");
+    }
   }
 
   mymap.addLayer(markers_on_map);
