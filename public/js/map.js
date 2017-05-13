@@ -84,6 +84,10 @@ var categories = new Array;
 /* Markers to be displayed on the map */
 var markers_on_map = new L.MarkerClusterGroup();
 
+/* Chart array to be displayed */
+var chart_reviews = new Array;
+var chart_ratings = new Array;
+
 function colorIcon(reviews) {
   var iconColor;
   if(reviews > 200) {
@@ -105,6 +109,12 @@ function placeMarkers(businesses) {
   /* Clear all arrays */
   places = [];
   categories = [];
+  chart_reviews = [];
+  chart_ratings = [];
+
+  /* Clear all HTML elements */
+  document.getElementById("panel_info").innerHTML = '';
+  document.getElementById("categories_info").innerHTML = '';
 /*
   console.log("given businesses: " + businesses);
   document.getElementById("panel_info").innerHTML = "";
@@ -169,16 +179,22 @@ function placeMarkers(businesses) {
     places[i] = businesses[i];
     /* Show informations to info panel on the bottom */
     document.getElementById("panel_info").innerHTML += 
-    "<tr id='panel_info'><td>" + places[i].name + "</td><td>" + places[i].review_count + "</td><td>" + places[i].rating + "</td><td>" + places[i].price + "</td><td>"+ places[i].categories[0].title +"</td><td><button onclick='clickPlace(" + i + ")' class='btn btn-info'>Place</button></td></tr>";
+    "<tr id='panel_info'><td>" + places[i].name + "</td><td>" + places[i].review_count + "</td><td>" + places[i].rating + "</td><td>" + places[i].price + "</td><td>"+ places[i].categories[0].title +"</td><td><a href='#map'><button onclick='clickPlace(" + i + ")' class='btn btn-info'>Click to see on the map</button></a></td></tr>";
     markers_on_map.addLayer(marker);
 
     /* Store categories array */
     if(categories.indexOf(places[i].categories[0].title) < 0) {
       categories.push(places[i].categories[0].title);
     }
+
+    /* Store charts array */
+    chart_reviews.push([places[i].name,places[i].review_count]);
+    chart_ratings.push([places[i].name,places[i].rating])
   }
 
   mymap.addLayer(markers_on_map);
+  console.log(chart_reviews[0]);
+  google.charts.setOnLoadCallback(drawChart);
   
   /* Show categories on the left */
   for(var i = 0; i < categories.length; i++) {
@@ -211,6 +227,35 @@ function geocodeAddress(geocoder, resultsMap) {
       }
   });
 }
+
+function drawChart() {
+   // Define the chart to be drawn.
+   chart_reviews.splice(0, 0, ['Place', 'Review']);
+   chart_ratings.splice(0, 0, ['Place', 'Rating']);
+
+   var dataReviews = google.visualization.arrayToDataTable(chart_reviews);
+   var dataRatings = google.visualization.arrayToDataTable(chart_ratings);
+
+   var optionsReviews = {
+      title: 'Reviews Ranks'   
+   }; 
+
+   var optionsRatings = {
+      title: 'Ratings Ranks'   
+   }; 
+
+   document.getElementById('chart_review').style.height = '400px';
+   document.getElementById('chart_rating').style.height = '400px';
+
+
+   // Instantiate and draw the chart.
+   var chartReviews = new google.visualization.ColumnChart(document.getElementById('chart_review'));
+   var chartRatings = new google.visualization.ColumnChart(document.getElementById('chart_rating'));
+
+   chartReviews.draw(dataReviews, optionsReviews);
+   chartRatings.draw(dataRatings, optionsRatings);
+}
+
 
 /* For filtering */
 var markers_layer = new L.LayerGroup();

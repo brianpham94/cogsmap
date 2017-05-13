@@ -14,6 +14,12 @@
 
   <script type='text/javascript' src='http://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/leaflet.markercluster.js'></script>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+     google.charts.load('current', {packages: ['corechart']});     
+  </script>
+
   <!-- Bootstrap core CSS -->
   <link href="/css/bootstrap.min.css" rel="stylesheet"> 
 
@@ -92,7 +98,7 @@
         <div class="panel-heading">Places in area</div>
         <div class="panel-body">
           <table class="table table-hover">
-            <thead><tr><th>Place</th><th>Review Count</th><th>Rating</th><th>Price</th></tr>
+            <thead><tr><th>Place</th><th>Review Count</th><th>Rating</th><th>Price</th><th>Category</th><th>Click</th></tr>
               </thead>
                 <tbody id="panel_info"></tbody>
           </table>
@@ -101,8 +107,9 @@
       <h2><span class="glyphicon glyphicon-hand-right" id="rank"></span> Ranks</h2>
       <div class="panel panel-info">
         <div class="panel-heading">Ranks between places</div>
-        <div class="panel-body">
-          
+        <div class="panel-body text-center" id="charts">
+          <div id="chart_review" class="col-sm-6"></div>
+          <div id="chart_rating" class="col-sm-6"></div>
         </div>
       </div>
     </div> <!-- End of col-sm-10: End of right body -->
