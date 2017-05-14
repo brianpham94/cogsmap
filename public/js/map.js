@@ -173,7 +173,7 @@ function placeMarkers(businesses) {
     console.log()
     var marker = L.marker([businesses[i].coordinates.latitude, businesses[i].coordinates.longitude], {icon: iconColor}).bindPopup(
       "<b>Place</b><br/>" + "Name: " + 
-      businesses[i].name + "<br> Rating: " + businesses[i].rating + "<br> <button class='btn' id='btn-reviews'>Reviews</button>");
+      businesses[i].name + "<br> Rating: " + businesses[i].rating + "<br> <button class='btn' id='btn-reviews'>View Reviews</button>");
 
     places[i] = businesses[i];
     /* Show informations to info panel on the bottom */
@@ -191,19 +191,21 @@ function placeMarkers(businesses) {
     chart_ratings.push([places[i].name,places[i].rating]);
 
     /*Modal*/
-    /*var modal = document.getElementById("modal-reviews");
+    var modal = document.getElementById("modal-reviews");
     var button = document.getElementById("btn-reviews");
+    var span = document.getElementsByClassName("close")[0];
 
-    window.onload = function () {
-      button.onclick = function() {
-        modal.style.display = "block";
-      }
-    }*/
-
-    var modal = document.getElementById("modal-reviews")
-    window.onload = function() {
-      document.getElementById("btn-reviews").onclick = modal.display("block");
+    button.onclick = function() {
+      modal.style.display = "block";
     }
+
+    span.onclick = function() {
+      modal.style.display = "none";
+    }
+
+    /*window.onload = function() {
+      document.getElementById("btn-reviews").onclick = modal.display("block");
+    }*/
   }
 
   mymap.addLayer(markers_on_map);
