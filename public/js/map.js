@@ -84,6 +84,9 @@ var categories = new Array;
 /* Markers to be displayed on the map */
 var markers_on_map = new L.MarkerClusterGroup();
 
+/* Markers - to open & close popup freely */
+var markersArray = new Array;
+
 /* Chart array to be displayed */
 var chart_reviews = new Array;
 var chart_ratings = new Array;
@@ -107,6 +110,7 @@ function placeMarkers(businesses) {
   markers_on_map.clearLayers();
 
   /* Clear all arrays */
+  markersArray = [];
   places = [];
   categories = [];
   chart_reviews = [];
@@ -187,6 +191,7 @@ function placeMarkers(businesses) {
     document.getElementById("panel_info").innerHTML += 
     "<tr id='panel_info'><td>" + places[i].name + "</td><td>" + places[i].review_count + "</td><td>" + places[i].rating + "</td><td>" + places[i].price + "</td><td>"+ places[i].categories[0].title +"</td><td><a href='#map'><button onclick='clickPlace(" + i + ")' class='btn btn-info'>Click to see on the map</button></a></td></tr>";
     markers_on_map.addLayer(marker);
+    markersArray.push(marker);
 
     /* Store categories array */
     if(categories.indexOf(places[i].categories[0].title) < 0) {
@@ -285,10 +290,6 @@ function drawChart() {
    chartRatings.draw(dataRatings, optionsRatings);
 }
 
-
-/* For filtering */
-var markers_layer = new L.LayerGroup();
-
 var onbtn_current = document.getElementById("btn_current");
 var mymap = L.map('mapid').setView([32.7157, -117.1611], 13);
 
@@ -309,7 +310,6 @@ mymap.locate({setView: true, maxZoom: 14}).on('locationfound', function(e){
     var marker = L.marker([e.latitude, e.longitude]);
     marker.addTo(mymap);
     marker.bindPopup("<b>You are here</b>.").openPopup();
-    marker.addTo(markers_layer);
 });
 
 /* This function move map to user's current location */
@@ -333,7 +333,9 @@ var clickPlace = function(index) {
   // mymap.addLayer(markers_on_map);
 
   // Move to the place user clicked
+
   mymap.setView(new L.LatLng(places[index].coordinates.latitude, places[index].coordinates.longitude), 20);
+  markersArray[index].openPopup();
 }
 
 
