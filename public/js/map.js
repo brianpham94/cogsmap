@@ -176,17 +176,12 @@ function placeMarkers(businesses) {
 
     }
     console.log("Icon Color is: " + iconColor);
-    
-
-    var reviews_button = document.createElement("button");
-    reviews_button.innerText = 'View Reviews';
 
     /*"<br> <button class='btn' id='btn-reviews'>View Reviews</button>"*/
     var marker = L.marker([businesses[i].coordinates.latitude, businesses[i].coordinates.longitude], {icon: iconColor}).bindPopup(
       "<b>Place</b><br/>" + "Name: " + 
-      businesses[i].name + "<br> Rating: " + businesses[i].rating + "<br>" + "<button class='btn btn-primary btn-review' onclick='' style='width:100%'>Reviews</button>"/*reviews_button*/);
+      businesses[i].name + "<br> Rating: " + businesses[i].rating + "<br>" + "<button class='btn btn-primary btn-review' onclick='openModal(" + i +")' style='width:100%'>Reviews</button>"/*reviews_button*/);
 
-    document.getElementById('reviews-button').appendChild(reviews_button);
     //document.getElementById('markup').innerText = reviews_button.outerHTML;
 
     places[i] = businesses[i];
@@ -210,10 +205,6 @@ function placeMarkers(businesses) {
     var button = document.getElementById("reviews");
     var span = document.getElementsByClassName("close")[0];
 
-    reviews_button.onclick = function() {
-      modal.style.display = "block";
-    }
-
     span.onclick = function() {
       modal.style.display = "none";
     }
@@ -223,19 +214,11 @@ function placeMarkers(businesses) {
         modal.style.display = "none";
       }
     }
-
-    /*window.onload = function() {
-      document.getElementById("btn-reviews").onclick = modal.display("block");
-    }*/
   }
 
   mymap.addLayer(markers_on_map);
   console.log(chart_reviews[0]);
   google.charts.setOnLoadCallback(drawChart);
-
-  function openModal(index) {
-    
-  }
   
   /* Show categories on the left */
   for(var i = 0; i < categories.length; i++) {
@@ -345,6 +328,14 @@ var clickPlace = function(index) {
   markersArray[index].openPopup();
 }
 
+/*Opening modals using buttons in popup*/
+var modal = document.getElementById("modal-reviews");
+
+var openModal = function(index) {
+  modal.style.display = "block";
+  var modalContent = document.getElementById("modal-body");
+  modalContent.innerHTML = markersArray[index].reviews;
+}
 
 /* Search Function */
 function initAutocomplete() {
