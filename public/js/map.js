@@ -171,9 +171,16 @@ function placeMarkers(businesses) {
     console.log("Icon Color is: " + iconColor);
     
     console.log()
+    var reviews_button = document.createElement("button");
+    reviews_button.innerText = 'View Reviews';
+
+    /*"<br> <button class='btn' id='btn-reviews'>View Reviews</button>"*/
     var marker = L.marker([businesses[i].coordinates.latitude, businesses[i].coordinates.longitude], {icon: iconColor}).bindPopup(
       "<b>Place</b><br/>" + "Name: " + 
-      businesses[i].name + "<br> Rating: " + businesses[i].rating + "<br> <button class='btn' id='btn-reviews'>View Reviews</button>");
+      businesses[i].name + "<br> Rating: " + businesses[i].rating + "<br>" + "<button class='btn btn-primary btn-review' id='reviews' style='width:100%'>Reviews</button>"/*reviews_button*/);
+
+    document.getElementById('reviews-button').appendChild(reviews_button);
+    //document.getElementById('markup').innerText = reviews_button.outerHTML;
 
     places[i] = businesses[i];
     /* Show informations to info panel on the bottom */
@@ -192,15 +199,21 @@ function placeMarkers(businesses) {
 
     /*Modal*/
     var modal = document.getElementById("modal-reviews");
-    var button = document.getElementById("btn-reviews");
+    var button = document.getElementById("reviews");
     var span = document.getElementsByClassName("close")[0];
 
-    button.onclick = function() {
+    reviews_button.onclick = function() {
       modal.style.display = "block";
     }
 
     span.onclick = function() {
       modal.style.display = "none";
+    }
+
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
     }
 
     /*window.onload = function() {
