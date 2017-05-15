@@ -170,7 +170,7 @@ function placeMarkers(businesses) {
     }
     console.log("Icon Color is: " + iconColor);
     
-    console.log()
+
     var reviews_button = document.createElement("button");
     reviews_button.innerText = 'View Reviews';
 
@@ -323,16 +323,17 @@ var clickPlace = function(index) {
   console.log(index);
   var iconColor = colorIcon(places[index].review_count);
 
-  markers_on_map.clearLayers();
+  // markers_on_map.clearLayers();
 
-  var marker = L.marker([places[index].coordinates.latitude, places[index].coordinates.longitude], {icon: iconColor}).bindPopup(
-      "<b>Place</b><br/>" + "Name: " + 
-      places[index].name + "<br> Rating: " + places[index].rating);
+  // var marker = L.marker([places[index].coordinates.latitude, places[index].coordinates.longitude], {icon: iconColor}).bindPopup(
+  //    "<b>Place</b><br/>" + "Name: " + 
+  //    places[index].name + "<br> Rating: " + places[index].rating);
 
-  markers_on_map.addLayer(marker);
-  mymap.addLayer(markers_on_map);
+  // markers_on_map.addLayer(marker);
+  // mymap.addLayer(markers_on_map);
 
-  mymap.setView(new L.LatLng(places[index].coordinates.latitude, places[index].coordinates.longitude));
+  // Move to the place user clicked
+  mymap.setView(new L.LatLng(places[index].coordinates.latitude, places[index].coordinates.longitude), 20);
 }
 
 
