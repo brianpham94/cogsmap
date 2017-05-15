@@ -61,3 +61,9 @@
   color: #ffffff;
   padding-bottom: 20px;
 }
+
+/*Modal*/
+
+.modal {
+  width:80%;
+}
