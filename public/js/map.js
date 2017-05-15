@@ -75,6 +75,10 @@ function yelpSearchSuccess(result){
   placeMarkers(javaObject);
 }
 
+function fillCategories(businesses) {
+
+}
+
 /* Array to store search result */
 var places = new Array;
 
@@ -134,7 +138,6 @@ function placeMarkers(businesses) {
       redCircle.addTo(redcircles_layer);
       */
   for(var i = 0; i < businesses.length; i++) {
-
     var iconColor;
     console.log("Businesses count review: " + businesses[i].review_count);
     var reviews = businesses[i].review_count;
