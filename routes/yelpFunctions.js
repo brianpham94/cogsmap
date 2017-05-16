@@ -97,3 +97,26 @@ exports.yelpSearch = function(req, res) {
 		}
 	}
 }
+
+exports.yelpSearchReviews = function(req, res) {
+	console.log("entering search Business");
+	//gets the token for you
+	var token;
+	yelp.accessToken(clientId, clientSecret).then(response => {
+		token = response.jsonBody.access_token;
+		//these will be filled in by the request body
+		var id = req.body.businessID;
+		reviewsCallback(token, id);
+	}).catch(e => {
+		console.log(e);
+	});
+
+	function reviewsCallback(token, id) {
+		var client = yelp.client(token);
+		client.reviews(id).then(response => {
+			res.json(response.jsonBody);
+		}).catch(e => {
+			console.log(e);
+		});
+	}
+}

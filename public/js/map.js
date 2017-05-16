@@ -1,20 +1,20 @@
   var currLoc;
 
-$( "#searchID" ).submit(function( event ) {
-  console.log(currLoc);
-  var numInputs = $("#searchID input").length;
-  console.log(numInputs);
-  if (numInputs === 2) {
-    console.log("no inputs");
-    $('<input />').attr('type', 'hidden')
-                  .attr('name', "search[current]")
-                  .attr('value', JSON.stringify(currLoc))
-                  .appendTo('#searchID');
-    console.log("posted waiting for success");
-  }
-  event.preventDefault();
-  $.post("/test", $("#searchID").serialize(), yelpSearchSuccess);
-});
+  $( "#searchID" ).submit(function( event ) {
+    console.log(currLoc);
+    var numInputs = $("#searchID input").length;
+    console.log(numInputs);
+    if (numInputs === 2) {
+      console.log("no inputs");
+      $('<input />').attr('type', 'hidden')
+      .attr('name', "search[current]")
+      .attr('value', JSON.stringify(currLoc))
+      .appendTo('#searchID');
+      console.log("posted waiting for success");
+    }
+    event.preventDefault();
+    $.post("/test", $("#searchID").serialize(), yelpSearchSuccess);
+  });
 
 /*
   $( "#searchLocation" ).submit(function( event ) {
@@ -23,7 +23,7 @@ $( "#searchID" ).submit(function( event ) {
   });
   */
 
-function yelpSearchSuccess(result){
+  function yelpSearchSuccess(result){
     //You can get businesses which is returned as an array in this json format
     /*
       "businesses": [
@@ -75,10 +75,6 @@ function yelpSearchSuccess(result){
   placeMarkers(javaObject);
 }
 
-function fillCategories(businesses) {
-
-}
-
 /* Array to store search result */
 var places = new Array;
 
@@ -94,6 +90,13 @@ var markersArray = new Array;
 /* Chart array to be displayed */
 var chart_reviews = new Array;
 var chart_ratings = new Array;
+
+function findReviews(id) {
+    console.log("clicked");
+    $.post("/reviews", {businessID: id}, function(returnedReviews) {
+      console.log(returnedReviews);
+    });
+}
 
 function colorIcon(reviews) {
   var iconColor;
@@ -137,17 +140,17 @@ function placeMarkers(businesses) {
       redCircle.bindPopup("High Traffic");
       redCircle.addTo(redcircles_layer);
       */
-  for(var i = 0; i < businesses.length; i++) {
-    var iconColor;
-    console.log("Businesses count review: " + businesses[i].review_count);
-    var reviews = businesses[i].review_count;
+      for(var i = 0; i < businesses.length; i++) {
+        var iconColor;
+        console.log("Businesses count review: " + businesses[i].review_count);
+        var reviews = businesses[i].review_count;
 
-    if(reviews > 200) {
-      iconColor = redIcon;
-      
-    }
-    else if(reviews < 100) {
-      iconColor = greenIcon;
+        if(reviews > 200) {
+          iconColor = redIcon;
+
+        }
+        else if(reviews < 100) {
+          iconColor = greenIcon;
       /*
       var greenCircle = L.circle([businesses[i].coordinates.latitude, businesses[i].coordinates.longitude], {
         color: 'green',
@@ -218,15 +221,15 @@ function drawChart() {
    var dataRatings = google.visualization.arrayToDataTable(chart_ratings);
 
    var optionsReviews = {
-      title: 'Reviews Ranks'   
-   }; 
+    title: 'Reviews Ranks'   
+  }; 
 
-   var optionsRatings = {
-      title: 'Ratings Ranks'   
-   }; 
+  var optionsRatings = {
+    title: 'Ratings Ranks'   
+  }; 
 
-   document.getElementById('chart_review').style.height = '400px';
-   document.getElementById('chart_rating').style.height = '400px';
+  document.getElementById('chart_review').style.height = '400px';
+  document.getElementById('chart_rating').style.height = '400px';
 
 
    // Instantiate and draw the chart.
@@ -235,33 +238,33 @@ function drawChart() {
 
    chartReviews.draw(dataReviews, optionsReviews);
    chartRatings.draw(dataRatings, optionsRatings);
-}
+ }
 
-var onbtn_current = document.getElementById("btn_current");
-var mymap = L.map('mapid').setView([32.7157, -117.1611], 13);
+ var onbtn_current = document.getElementById("btn_current");
+ var mymap = L.map('mapid').setView([32.7157, -117.1611], 13);
 
-L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-                attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
-                maxZoom: 18,
-                id: 'your.mapbox.project.id',
-                accessToken: 'your.mapbox.public.access.token'
-            }).addTo(mymap); 
+ L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+  attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+  maxZoom: 18,
+  id: 'your.mapbox.project.id',
+  accessToken: 'your.mapbox.public.access.token'
+}).addTo(mymap); 
 
-/* Get user's location */
-var current;
+ /* Get user's location */
+ var current;
 
-mymap.locate({setView: true, maxZoom: 14}).on('locationfound', function(e){
-    console.log("Current location here");
-    current = {latitude:e.latitude, longitude:e.longitude};
-    currLoc = current;
-    var marker = L.marker([e.latitude, e.longitude]);
-    marker.addTo(mymap);
-    marker.bindPopup("<b>You are here</b>.").openPopup();
+ mymap.locate({setView: true, maxZoom: 14}).on('locationfound', function(e){
+  console.log("Current location here");
+  current = {latitude:e.latitude, longitude:e.longitude};
+  currLoc = current;
+  var marker = L.marker([e.latitude, e.longitude]);
+  marker.addTo(mymap);
+  marker.bindPopup("<b>You are here</b>.").openPopup();
 });
 
-/* This function move map to user's current location */
-onbtn_current.onclick = function(){
-    mymap.setView(new L.LatLng(current.latitude, current.longitude));
+ /* This function move map to user's current location */
+ onbtn_current.onclick = function(){
+  mymap.setView(new L.LatLng(current.latitude, current.longitude));
 }
 
 $( "#search-location" ).click(function() {
@@ -276,30 +279,30 @@ function searchMap() {
 function geocodeAddress(geocoder, resultsMap) {
   var address = document.getElementById('location-search').value;
   geocoder.geocode({'address': address}, function(results, status) {
-      if (status === google.maps.GeocoderStatus.OK && results.length > 0){
-        var splitAddr = address.split(', ');
-        if(splitAddr[splitAddr.length-1] == 'United States'){
-            if(splitAddr[0] == results[0].address_components[0].long_name && 
-              splitAddr[1] == results[0].address_components[2].short_name){
-              resultsMap.setView([results[0].geometry.location.lat(),results[0].geometry.location.lng()], 13);
-            }
-            else{
-              resultsMap.setView([current.latitude,current.longitude], 13);
-            }
-        }
-        else{
-            if(address){
-              resultsMap.setView([results[0].geometry.location.lat(),results[0].geometry.location.lng()], 13);
-            }
-            else{
-              resultsMap.setView([current.latitude,current.longitude], 13);
-            }
-        }
-      } 
-      else {
-        alert('Geocode was not successful for the following reason: ' + status);
+    if (status === google.maps.GeocoderStatus.OK && results.length > 0){
+      var splitAddr = address.split(', ');
+      if(splitAddr[splitAddr.length-1] == 'United States'){
+        if(splitAddr[0] == results[0].address_components[0].long_name && 
+          splitAddr[1] == results[0].address_components[2].short_name){
+          resultsMap.setView([results[0].geometry.location.lat(),results[0].geometry.location.lng()], 13);
       }
-  });
+      else{
+        resultsMap.setView([current.latitude,current.longitude], 13);
+      }
+    }
+    else{
+      if(address){
+        resultsMap.setView([results[0].geometry.location.lat(),results[0].geometry.location.lng()], 13);
+      }
+      else{
+        resultsMap.setView([current.latitude,current.longitude], 13);
+      }
+    }
+  } 
+  else {
+    alert('Geocode was not successful for the following reason: ' + status);
+  }
+});
 }
 
 var clickPlace = function(index) {
@@ -328,15 +331,15 @@ var modal = document.getElementById("modal-reviews");
 
 var span = document.getElementsByClassName("close")[0];
 
-  span.onclick = function() {
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+window.onclick = function(event) {
+  if (event.target == modal) {
     modal.style.display = "none";
   }
-
-  window.onclick = function(event) {
-    if (event.target == modal) {
-      modal.style.display = "none";
-    }
-  }
+}
 
 var openModal = function(index) {
   modal.style.display = "block";
@@ -406,7 +409,7 @@ function initAutocomplete() {
           //     position: place.geometry.location
           //   }));
 
-            if (place.geometry.viewport) {
+          if (place.geometry.viewport) {
               // Only geocodes have viewport.
               bounds.union(place.geometry.viewport);
             } else {

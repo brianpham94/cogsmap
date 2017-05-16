@@ -139,7 +139,23 @@
   <script src = "/js/map.js"></script>
   <script src = "/js/leaflet-color-markers.js"></script>
   <script src="/js/bootstrap.min.js"></script>
-    
+  <button type="button" value="test" id="search-reviews"> Clickerino </button>
+  <script>
+
+  function searchReviews(id) {
+    console.log("clicked");
+    $.post("/reviews", {businessID: id}, function(returnedReviews) {
+      /*
+        NOTE: The ID comes from a search result that you run from the business.
+        This searchID can be found by running a search using yelp API. (Already implemented)
+
+        It'll be labeled ID in the JSON file that's returned from the search then just run it
+        through this searchReviews
+      */
+      console.log(returnedReviews.reviews);
+    });
+}
+  </script>
 </body>
 
 </html>

@@ -61,6 +61,7 @@ if ('development' == app.get('env')) {
 // Add routes here
 app.get('/', index.view);
 app.post('/test', yelpTest.yelpSearch);
+app.post('/reviews', yelpTest.yelpSearchReviews);
 //app.get('/test', yelpTest.yelpSearch);
 // Example route
 // app.get('/users', user.list);
