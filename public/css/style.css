@@ -65,5 +65,10 @@
 /*Modal*/
 
 .modal {
-  width:80%;
+  width: 100%;
+  position: absolute;
+  padding-top: 300px;
+  padding-left: 300px;
+  padding-right: 50px;
+  z-index: 0;
 }

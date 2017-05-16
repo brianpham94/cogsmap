@@ -177,12 +177,9 @@ function placeMarkers(businesses) {
     }
     console.log("Icon Color is: " + iconColor);
 
-    /*"<br> <button class='btn' id='btn-reviews'>View Reviews</button>"*/
     var marker = L.marker([businesses[i].coordinates.latitude, businesses[i].coordinates.longitude], {icon: iconColor}).bindPopup(
       "<b>Place</b><br/>" + "Name: " + 
-      businesses[i].name + "<br> Rating: " + businesses[i].rating + "<br>" + "<button class='btn btn-primary btn-review' onclick='openModal(" + i +")' style='width:100%'>Reviews</button>"/*reviews_button*/);
-
-    //document.getElementById('markup').innerText = reviews_button.outerHTML;
+      businesses[i].name + "<br> Rating: " + businesses[i].rating + "<br>" + "<button class='btn btn-primary btn-review' onclick='openModal(" + i +")' style='width:100%'>Reviews</button>");
 
     places[i] = businesses[i];
     /* Show informations to info panel on the bottom */
@@ -200,20 +197,6 @@ function placeMarkers(businesses) {
     chart_reviews.push([places[i].name,places[i].review_count]);
     chart_ratings.push([places[i].name,places[i].rating]);
 
-    /*Modal*/
-    var modal = document.getElementById("modal-reviews");
-    var button = document.getElementById("reviews");
-    var span = document.getElementsByClassName("close")[0];
-
-    span.onclick = function() {
-      modal.style.display = "none";
-    }
-
-    window.onclick = function(event) {
-      if (event.target == modal) {
-        modal.style.display = "none";
-      }
-    }
   }
 
   mymap.addLayer(markers_on_map);
@@ -331,10 +314,22 @@ var clickPlace = function(index) {
 /*Opening modals using buttons in popup*/
 var modal = document.getElementById("modal-reviews");
 
+var span = document.getElementsByClassName("close")[0];
+
+  span.onclick = function() {
+    modal.style.display = "none";
+  }
+
+  window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  }
+
 var openModal = function(index) {
   modal.style.display = "block";
   var modalContent = document.getElementById("modal-body");
-  modalContent.innerHTML = markersArray[index].reviews;
+  modalContent.innerHTML = places[index].reviews;
 }
 
 /* Search Function */
