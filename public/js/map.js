@@ -1,4 +1,4 @@
-var currLoc;
+  var currLoc;
 
 $( "#searchID" ).submit(function( event ) {
   console.log(currLoc);
@@ -236,32 +236,6 @@ function placeMarkers(businesses) {
   }
 }
 
-  //button.addEventListener('click', searchMap());
-$( "#search-location" ).click(function() {
-  searchMap();
-});
-
-function searchMap() {
-  var geocoder = new google.maps.Geocoder();
-
-      //document.getElementById('search-location').addEventListener('click', function() {
-  geocodeAddress(geocoder, mymap);
-        //});
-}
-
-function geocodeAddress(geocoder, resultsMap) {
-  var address = document.getElementById('location-search').value;
-  geocoder.geocode({'address': address}, function(results, status) {
-      if (status === google.maps.GeocoderStatus.OK) {
-        console.log("inside");
-        console.log("results:" + results[0].geometry.location);
-        resultsMap.setView([results[0].geometry.location.lat(),results[0].geometry.location.lng()], 13);
-      } else {
-        alert('Geocode was not successful for the following reason: ' + status);
-      }
-  });
-}
-
 function drawChart() {
    // Define the chart to be drawn.
    chart_reviews.splice(0, 0, ['Place', 'Review']);
@@ -315,6 +289,44 @@ mymap.locate({setView: true, maxZoom: 14}).on('locationfound', function(e){
 /* This function move map to user's current location */
 onbtn_current.onclick = function(){
     mymap.setView(new L.LatLng(current.latitude, current.longitude));
+}
+
+$( "#search-location" ).click(function() {
+  searchMap();
+});
+
+function searchMap() {
+  var geocoder = new google.maps.Geocoder();
+  geocodeAddress(geocoder, mymap);
+}
+
+function geocodeAddress(geocoder, resultsMap) {
+  var address = document.getElementById('location-search').value;
+  geocoder.geocode({'address': address}, function(results, status) {
+      if (status === google.maps.GeocoderStatus.OK && results.length > 0){
+        var splitAddr = address.split(', ');
+        if(splitAddr[splitAddr.length-1] == 'United States'){
+            if(splitAddr[0] == results[0].address_components[0].long_name && 
+              splitAddr[1] == results[0].address_components[2].short_name){
+              resultsMap.setView([results[0].geometry.location.lat(),results[0].geometry.location.lng()], 13);
+            }
+            else{
+              resultsMap.setView([current.latitude,current.longitude], 13);
+            }
+        }
+        else{
+            if(address){
+              resultsMap.setView([results[0].geometry.location.lat(),results[0].geometry.location.lng()], 13);
+            }
+            else{
+              resultsMap.setView([current.latitude,current.longitude], 13);
+            }
+        }
+      } 
+      else {
+        alert('Geocode was not successful for the following reason: ' + status);
+      }
+  });
 }
 
 var clickPlace = function(index) {
