@@ -61,3 +61,14 @@
   color: #ffffff;
   padding-bottom: 20px;
 }
+
+/*Modal*/
+
+.modal {
+  width: 100%;
+  position: absolute;
+  padding-top: 300px;
+  padding-left: 300px;
+  padding-right: 50px;
+  z-index: 0;
+}
