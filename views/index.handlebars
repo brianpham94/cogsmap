@@ -156,17 +156,19 @@
       //var reviewsResults = JSON.stringify(returnedReviews.reviews);
       //var modalContent2 = JSON.parse(reviewsResults);
       var reviewsResults = returnedReviews.reviews;
-
-      for (var i = 0; i < reviewsResults.length; i++) {
-        for (var singleReview in reviewsResults[i]) {
-          var reviewRating = JSON.stringify(reviewsResults[i][singleReview].rating);
-          var reviewText = JSON.stringify(reviewsResults[i][singleReview].text)
-          modalBody.innerHTML += reviewRating + "<br>" + reviewText + "<br>";
-        }
+      modalBody.innerHTML = "";
+      for (var i in reviewsResults) {
+        //console.log('TEST !!!!!!' + reviewsResults[i]['text']);
+        var reviewRating = JSON.stringify(reviewsResults[i]['rating']);
+        var reviewText = JSON.stringify(reviewsResults[i]['text']);
+        modalBody.innerHTML += "<p style = 'padding-left: 50px; padding-right: 50px'>Rating: </p>" + "<p style = 'padding-left: 50px; padding-right: 50px'>" + reviewRating + "</p>" + "<br>" + "<p style = 'padding-left: 50px; padding-right: 50px'>" + reviewText + "</p>" + "<br>";
+        console.log(reviewRating);
+        console.log(reviewText);
       }
 
       //modalBody.innerHTML = reviewsResults;
-      console.log(returnedReviews.reviews);
+      //console.log(returnedReviews.reviews);
+      console.log(reviewRating);
     });
 }
   </script>
