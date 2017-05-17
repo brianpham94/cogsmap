@@ -331,7 +331,13 @@ var modal = document.getElementById("modal-reviews");
 
 var span = document.getElementsByClassName("close")[0];
 
+var closeButton = document.getElementById("modal-close");
+
 span.onclick = function() {
+  modal.style.display = "none";
+}
+
+closeButton.onclick = function() {
   modal.style.display = "none";
 }
 
@@ -345,6 +351,8 @@ var openModal = function(index) {
   modal.style.display = "block";
   var modalContent = document.getElementById("modal-body");
   modalContent.innerHTML = searchReviews(places[index].id);
+  var modalHeader = document.getElementById("modal-header");
+  modalHeader.innerHTML = "<h2 style='padding-left: 30px;'> Reviews for " + places[index].name + "</h2>";
 }
 
 /* Search Function */

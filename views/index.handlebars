@@ -118,10 +118,13 @@
   <div class="modal" id="modal-reviews">
       <span class="close">&times;</span>
       <div class="modal-content">
-        <div class="modal-header">
+        <div id="modal-header">
           <h2>Reviews</h2>
         </div>
         <div id="modal-body">
+        </div>
+        <div id="modal-footer">
+          <button class="btn btn-close" id="modal-close">Close</button>
         </div>
       </div>
   </div>
@@ -161,11 +164,13 @@
         //console.log('TEST !!!!!!' + reviewsResults[i]['text']);
         var reviewRating = JSON.stringify(reviewsResults[i]['rating']);
         var reviewText = JSON.stringify(reviewsResults[i]['text']);
-        var reviewDate = JSON.stringify(reviewsResults[i]['time_created']);
+        var reviewTimeCreated = JSON.stringify(reviewsResults[i]['time_created']);
+        var reviewDate = reviewTimeCreated.replace(/\"/g, "");
 
-        modalBody.innerHTML += "<p style = 'padding-left: 50px; padding-right: 50px; padding-top: 8px;'>Rating: " + reviewRating + "</p>" + "<p style = 'padding-left: 50px; padding-right: 50px'>" + reviewText + "</p>" + "<p style = 'padding-left: 50px; padding-right: 50px;'>Date Created: " + reviewDate + "</p>";
+        modalBody.innerHTML += "<p style = 'padding-left: 50px; padding-right: 50px; float: right;'>Rating: " + reviewRating + "</p>" + "<p style = 'padding-left: 50px; padding-right: 30px; padding-top: 4px;'>" + reviewText + "</p>" + "<p style = 'padding-left: 50px; padding-right: 50px; padding-bottom: 8px; border-bottom: 1px solid #e5e7ea;'>Date Created: " + reviewDate + "</p>";
         console.log(reviewRating);
         console.log(reviewText);
+        console.log(JSON.stringify(reviewsResults['user']));
       }
 
       //modalBody.innerHTML = reviewsResults;
