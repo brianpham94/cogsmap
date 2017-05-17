@@ -2,6 +2,7 @@
 
 const yelp = require('yelp-fusion');
 const util = require('util');
+var searchHistory = require('../searchHistory.json');
 
 // Place holders for Yelp Fusion's OAuth 2.0 credentials. Grab them
 // from https://www.yelp.com/developers/v3/manage_app
@@ -37,6 +38,8 @@ exports.yelpSearch = function(req, res) {
 					longitude: currentLoc.longitude,
 					sort_by:'review_count',
 				}).then(response => {
+					searchHistory = response.jsonBody;
+					console.log(searchHistory);
 					res.json(response.jsonBody);
 					console.log("return");
 				}).catch(e => {
@@ -53,6 +56,8 @@ exports.yelpSearch = function(req, res) {
 					longitude: currentLoc.longitude,
 					sort_by:'review_count',
 				}).then(response => {
+					searchHistory = response.jsonBody;
+					console.log(searchHistory);
 					res.json(response.jsonBody);
 					console.log("return");
 				}).catch(e => {
@@ -70,6 +75,8 @@ exports.yelpSearch = function(req, res) {
 					location: locationN,
 					sort_by:'review_count',
 				}).then(response => {
+					searchHistory = response.jsonBody;
+					console.log(searchHistory);
 					res.json(response.jsonBody);
 					console.log("return");
 				}).catch(e => {
@@ -85,6 +92,8 @@ exports.yelpSearch = function(req, res) {
 					location: locationN,
 					sort_by:'review_count',
 				}).then(response => {
+					searchHistory = response.jsonBody;
+					console.log(searchHistory);
 					res.json(response.jsonBody);
 					console.log("return");
 				}).catch(e => {
@@ -119,4 +128,10 @@ exports.yelpSearchReviews = function(req, res) {
 			console.log(e);
 		});
 	}
+}
+
+
+exports.viewSearch = function(req, res) {
+	// Your code goes here
+  res.json(searchHistory);
 }

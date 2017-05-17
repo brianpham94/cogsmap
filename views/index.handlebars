@@ -17,35 +17,35 @@
 
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   <script type="text/javascript">
-     google.charts.load('current', {packages: ['corechart']});     
-  </script>
+   google.charts.load('current', {packages: ['corechart']});     
+ </script>
 
-  <!-- Bootstrap core CSS -->
-  <link href="/css/bootstrap.min.css" rel="stylesheet"> 
+ <!-- Bootstrap core CSS -->
+ <link href="/css/bootstrap.min.css" rel="stylesheet"> 
 
-  <link href="/css/style.css" rel="stylesheet">
+ <link href="/css/style.css" rel="stylesheet">
 </head>
 
 <body>
   <!-- # Menubar: Menubar on the top -->
   <nav class="navbar navbar-default navbar-fixed-top">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>                        
-      </button>
-      <a class="navbar-brand" href="#" id="home"><span class="glyphicon glyphicon-send"></span>  FootTrackers</a>
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>                        
+        </button>
+        <a class="navbar-brand" href="#" id="home"><span class="glyphicon glyphicon-send"></span>  FootTrackers</a>
+      </div>
+      <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="#map">Map</a></li>
+          <li><a href="#list">List</a></li>
+          <li><a href="#rank">Ranks</a></li>
+        </ul>
+      </div>
     </div>
-    <div class="collapse navbar-collapse" id="myNavbar">
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="#map">Map</a></li>
-        <li><a href="#list">List</a></li>
-        <li><a href="#rank">Ranks</a></li>
-      </ul>
-    </div>
-  </div>
   </nav>
 
   <div class="container-fluid bg-2 text-center"><br/>
@@ -56,26 +56,26 @@
     </h2> 
     <p>From near you, or wherever you want to travel!</p> 
 
-      <!-- Search Bar -->
-      <form id="searchID" class="navbar-form">
-        <div class="input-group">
-          <span>Find</span>
+    <!-- Search Bar -->
+    <form id="searchID" class="navbar-form">
+      <div class="input-group">
+        <span>Find</span>
+      </div>
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="restaurants, hotels, etc." id="search-input" name="search[term]">
+      </div>
+      <div class="input-group">
+        <span>Near</span>
+      </div>
+      <div class="input-group">
+        <input type="text" class="form-control" id="location-search" name="search[location]" placeholder="address, neighborhood, city, state, or zip" />
+        <div class="input-group-btn">
+          <button class="btn btn-default" type="submit" id="search-location">
+            <i class="glyphicon glyphicon-search"></i>
+          </button>
         </div>
-        <div class="form-group">
-          <input type="text" class="form-control" placeholder="restaurants, hotels, etc." id="search-input" name="search[term]">
-        </div>
-        <div class="input-group">
-          <span>Near</span>
-        </div>
-        <div class="input-group">
-          <input type="text" class="form-control" id="location-search" name="search[location]" placeholder="address, neighborhood, city, state, or zip" />
-          <div class="input-group-btn">
-            <button class="btn btn-default" type="submit" id="search-location">
-              <i class="glyphicon glyphicon-search"></i>
-            </button>
-          </div>
-        </div>
-      </form>
+      </div>
+    </form>
   </div>
 
   <div class="container-fluid bg-1 text-left" id="map">
@@ -99,8 +99,8 @@
         <div class="panel-body">
           <table class="table table-hover">
             <thead><tr><th>Place</th><th>Review Count</th><th>Rating</th><th>Price</th><th>Category</th><th>Click</th></tr>
-              </thead>
-                <tbody id="panel_info"></tbody>
+            </thead>
+            <tbody id="panel_info"></tbody>
           </table>
         </div>
       </div>
@@ -116,22 +116,22 @@
   </div>
 
   <div class="modal" id="modal-reviews">
-      <span class="close">&times;</span>
-      <div class="modal-content">
-        <div id="modal-header">
-          <h2>Reviews</h2>
-        </div>
-        <div id="modal-body">
-        </div>
-        <div id="modal-footer">
-          <button class="btn btn-close" id="modal-close">Close</button>
-        </div>
+    <span class="close">&times;</span>
+    <div class="modal-content">
+      <div id="modal-header">
+        <h2>Reviews</h2>
       </div>
+      <div id="modal-body">
+      </div>
+      <div id="modal-footer">
+        <button class="btn btn-close" id="modal-close">Close</button>
+      </div>
+    </div>
   </div>
   
-    
+
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCa5u0jiFE4DNOxTMh8iTB-JHumUeZHomU&libraries=places&callback=initAutocomplete" async defer></script>
-    
+
   <!-- Bootstrap core JavaScript
   ================================================== -->
   <!-- Placed at the end of the document so the pages load faster -->
@@ -145,17 +145,101 @@
   <!--<button type="button" value="test" id="search-reviews"> Clickerino </button>-->
   <script>
 
-  function searchReviews(id) {
-    console.log("clicked2");
-    $.post("/reviews", {businessID: id}, function(returnedReviews) {
+
+  $(document).on( "click", '.list-group-item', function() {
+      var textVal = $(this).text();
+      console.log(textVal);
+      if(textVal == "Categories") {
+        console.log("category chosen");
+        return;
+      }
+    //else
+    // markers_on_map.clearLayers();
+    $.post("/history",  function(data) {
+      var returnedData = JSON.stringify(data.businesses);
+      var transformedString = JSON.parse(returnedData);
+      console.log(transformedString);
+      filterMarkers(transformedString, textVal);
+    });
+  });
+    function filterMarkers(businesses, category) {
+      console.log("filtering markers");
+      markers_on_map.clearLayers();
+
+      /* Clear all arrays */
+      markersArray = [];
+      places = [];
+      // categories = [];
+      chart_reviews = [];
+      chart_ratings = [];
+
+      /* Clear all HTML elements */
+      document.getElementById("panel_info").innerHTML = '';
+      // document.getElementById("categories_info").innerHTML = '';
+
+      for(var i = 0; i < businesses.length; i++) {
+        var iconColor;
+        var reviews = businesses[i].review_count;
+
+        if(businesses[i].categories[0].title != category) {
+          continue;
+        }
+
+        if(reviews > 200) {
+          iconColor = redIcon;
+
+        }
+        else if(reviews < 100) {
+          iconColor = greenIcon;
+
+        }
+        else {
+          iconColor = yellowIcon;
+        }
+
+        var marker = L.marker([businesses[i].coordinates.latitude, businesses[i].coordinates.longitude], {icon: iconColor}).bindPopup(
+          "<b>Place</b><br/>" + "Name: " + 
+          businesses[i].name + "<br> Rating: " + businesses[i].rating + "<br>" + "<button class='btn btn-primary btn-review' onclick='openModal(" + i +")' style='width:100%'>Reviews</button>");
+
+        places[i] = businesses[i];
+        /* Show informations to info panel on the bottom */
+        document.getElementById("panel_info").innerHTML += 
+        "<tr id='panel_info'><td>" + places[i].name + "</td><td>" + places[i].review_count + "</td><td>" + places[i].rating + "</td><td>" + places[i].price + "</td><td>"+ places[i].categories[0].title +"</td><td><a href='#map'><button onclick='clickPlace(" + i + ")' class='btn btn-info'>Click to see on the map</button></a></td></tr>";
+        markers_on_map.addLayer(marker);
+        markersArray.push(marker);
+
+        /* Store categories array */
+        // if(categories.indexOf(places[i].categories[0].title) < 0) {
+        //   categories.push(places[i].categories[0].title);
+        // }
+
+        /* Store charts array */
+        chart_reviews.push([places[i].name,places[i].review_count]);
+        chart_ratings.push([places[i].name,places[i].rating]);
+
+      }
+
+      mymap.addLayer(markers_on_map);
+      console.log(chart_reviews[0]);
+      google.charts.setOnLoadCallback(drawChart);
+
+      /* Show categories on the left */
+      // for(var i = 0; i < categories.length; i++) {
+      //   document.getElementById("categories_info").innerHTML += "<button class='list-group-item'>"+categories[i]+"</button>";
+      // }
+    }
+
+    function searchReviews(id) {
+      console.log("clicked2");
+      $.post("/reviews", {businessID: id}, function(returnedReviews) {
       /*
         NOTE: The ID comes from a search result that you run from the business.
         This searchID can be found by running a search using yelp API. (Already implemented)
 
         It'll be labeled ID in the JSON file that's returned from the search then just run it
         through this searchReviews
-      */
-      var modalBody = document.getElementById("modal-body");
+        */
+        var modalBody = document.getElementById("modal-body");
       //var reviewsResults = JSON.stringify(returnedReviews.reviews);
       //var modalContent2 = JSON.parse(reviewsResults);
       var reviewsResults = returnedReviews.reviews;
@@ -177,7 +261,7 @@
       //console.log(returnedReviews.reviews);
       console.log(reviewRating);
     });
-}
+    }
   </script>
 </body>
 

@@ -92,10 +92,10 @@ var chart_reviews = new Array;
 var chart_ratings = new Array;
 
 function findReviews(id) {
-    console.log("clicked");
-    $.post("/reviews", {businessID: id}, function(returnedReviews) {
-      console.log(returnedReviews);
-    });
+  console.log("clicked");
+  $.post("/reviews", {businessID: id}, function(returnedReviews) {
+    console.log(returnedReviews);
+  });
 }
 
 function colorIcon(reviews) {
@@ -126,59 +126,22 @@ function placeMarkers(businesses) {
   /* Clear all HTML elements */
   document.getElementById("panel_info").innerHTML = '';
   document.getElementById("categories_info").innerHTML = '';
-/*
-  console.log("given businesses: " + businesses);
-  document.getElementById("panel_info").innerHTML = "";
 
-      var redCircle = L.circle([32.7157, -117.2712717], {
-        color: 'red',
-        fillColor: '#f03',
-        fillOpacity: 0.5,
-        radius: 500
-      });
+  for(var i = 0; i < businesses.length; i++) {
+    var iconColor;
+    var reviews = businesses[i].review_count;
 
-      redCircle.bindPopup("High Traffic");
-      redCircle.addTo(redcircles_layer);
-      */
-      for(var i = 0; i < businesses.length; i++) {
-        var iconColor;
-        console.log("Businesses count review: " + businesses[i].review_count);
-        var reviews = businesses[i].review_count;
+    if(reviews > 200) {
+      iconColor = redIcon;
 
-        if(reviews > 200) {
-          iconColor = redIcon;
-
-        }
-        else if(reviews < 100) {
-          iconColor = greenIcon;
-      /*
-      var greenCircle = L.circle([businesses[i].coordinates.latitude, businesses[i].coordinates.longitude], {
-        color: 'green',
-        fillColor: '#32CD32',
-        fillOpacity: 0.5,
-        radius: 100
-      }).addTo(mymap);
-
-      orangeCircle.bindPopup("Low Traffic");
-      orangeCircle.addTo(orangecircles_layer);
-      */
+    }
+    else if(reviews < 100) {
+      iconColor = greenIcon;
+      
     }
     else {
       iconColor = yellowIcon;
-      /*
-      var yellowCircle = L.circle([businesses[i].coordinates.latitude, businesses[i].coordinates.longitude], {
-        color: 'yellow',
-        fillColor: '#FFC300',
-        fillOpacity: 0.5,
-        radius: 200
-      }).addTo(mymap);
-
-      yellowCircle.bindPopup("Medium Traffic");
-      yellowCircle.addTo(yellowcircles_layer);
-      */
-
     }
-    console.log("Icon Color is: " + iconColor);
 
     var marker = L.marker([businesses[i].coordinates.latitude, businesses[i].coordinates.longitude], {icon: iconColor}).bindPopup(
       "<b>Place</b><br/>" + "Name: " + 
