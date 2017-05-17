@@ -139,11 +139,11 @@
   <script src = "/js/map.js"></script>
   <script src = "/js/leaflet-color-markers.js"></script>
   <script src="/js/bootstrap.min.js"></script>
-  <button type="button" value="test" id="search-reviews"> Clickerino </button>
+  <!--<button type="button" value="test" id="search-reviews"> Clickerino </button>-->
   <script>
 
   function searchReviews(id) {
-    console.log("clicked");
+    console.log("clicked2");
     $.post("/reviews", {businessID: id}, function(returnedReviews) {
       /*
         NOTE: The ID comes from a search result that you run from the business.
@@ -152,6 +152,20 @@
         It'll be labeled ID in the JSON file that's returned from the search then just run it
         through this searchReviews
       */
+      var modalBody = document.getElementById("modal-body");
+      //var reviewsResults = JSON.stringify(returnedReviews.reviews);
+      //var modalContent2 = JSON.parse(reviewsResults);
+      var reviewsResults = returnedReviews.reviews;
+
+      for (var i = 0; i < reviewsResults.length; i++) {
+        for (var singleReview in reviewsResults[i]) {
+          var reviewRating = JSON.stringify(reviewsResults[i][singleReview].rating);
+          var reviewText = JSON.stringify(reviewsResults[i][singleReview].text)
+          modalBody.innerHTML += reviewRating + "<br>" + reviewText + "<br>";
+        }
+      }
+
+      //modalBody.innerHTML = reviewsResults;
       console.log(returnedReviews.reviews);
     });
 }
