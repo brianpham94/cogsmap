@@ -161,7 +161,9 @@
         //console.log('TEST !!!!!!' + reviewsResults[i]['text']);
         var reviewRating = JSON.stringify(reviewsResults[i]['rating']);
         var reviewText = JSON.stringify(reviewsResults[i]['text']);
-        modalBody.innerHTML += "<p style = 'padding-left: 50px; padding-right: 50px'>Rating: </p>" + "<p style = 'padding-left: 50px; padding-right: 50px'>" + reviewRating + "</p>" + "<br>" + "<p style = 'padding-left: 50px; padding-right: 50px'>" + reviewText + "</p>" + "<br>";
+        var reviewDate = JSON.stringify(reviewsResults[i]['time_created']);
+
+        modalBody.innerHTML += "<p style = 'padding-left: 50px; padding-right: 50px; padding-top: 8px;'>Rating: " + reviewRating + "</p>" + "<p style = 'padding-left: 50px; padding-right: 50px'>" + reviewText + "</p>" + "<p style = 'padding-left: 50px; padding-right: 50px;'>Date Created: " + reviewDate + "</p>";
         console.log(reviewRating);
         console.log(reviewText);
       }

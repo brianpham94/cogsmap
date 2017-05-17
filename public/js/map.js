@@ -344,7 +344,7 @@ window.onclick = function(event) {
 var openModal = function(index) {
   modal.style.display = "block";
   var modalContent = document.getElementById("modal-body");
-  modalContent.innerHTML = searchReviews(places[index].id);
+  modalContent.innerHTML = searchReviews(places[index].reviews);
 }
 
 /* Search Function */
