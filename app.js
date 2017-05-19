@@ -14,6 +14,7 @@
 
  var index = require('./routes/index');
  var yelpTest = require('./routes/yelpFunctions');
+ var add = require('./routes/add');
 // Example route
 // var user = require('./routes/user');
 
@@ -63,6 +64,10 @@ app.get('/', index.view);
 app.post('/test', yelpTest.yelpSearch);
 app.post('/reviews', yelpTest.yelpSearchReviews);
 app.post('/history', yelpTest.viewSearch);
+app.post('/addPlace', add.addPlace);
+app.post('/getPlace', add.getPlace);
+app.post('/removePlace', add.removePlace);
+app.post('/removeAllPlaces', add.removeAllPlaces);
 //app.get('/test', yelpTest.yelpSearch);
 // Example route
 // app.get('/users', user.list);

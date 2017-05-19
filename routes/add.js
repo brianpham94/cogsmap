@@ -1,6 +1,19 @@
-var data = require("../data.json");
+var data = require("../savedPlaces.json");
 
-exports.addFriend = function(req, res) {
-	// Your code goes here
-  console.log("yay, addFriend just ran!");
+exports.addPlace = function(req, res) {
+	(data.places).push(req.body);
 }
+
+exports.getPlace = function(req, res) {
+	res.json(data.places);
+}
+
+exports.removePlace = function(req, res) {
+	console.log(req.body.number);
+	(data.places).splice(req.body.number, 1);
+}
+
+exports.removeAllPlaces = function(req, res) {
+	data.places = [];
+} 
+

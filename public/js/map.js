@@ -1,5 +1,10 @@
   var currLoc;
 
+  $(function() {
+    getStoredlist();
+  });
+
+
   $( "#searchID" ).submit(function( event ) {
     console.log(currLoc);
     var numInputs = $("#searchID input").length;
@@ -78,6 +83,9 @@
 /* Array to store search result */
 var places = new Array;
 
+/* My places */
+var myPlaces = new Array;
+
 /* Array to classify categories */
 var categories = new Array;
 
@@ -150,7 +158,7 @@ function placeMarkers(businesses) {
     places[i] = businesses[i];
     /* Show informations to info panel on the bottom */
     document.getElementById("panel_info").innerHTML += 
-    "<tr id='panel_info'><td>" + places[i].name + "</td><td>" + places[i].review_count + "</td><td>" + places[i].rating + "</td><td>" + places[i].price + "</td><td>"+ places[i].categories[0].title +"</td><td><a href='#map'><button onclick='clickPlace(" + i + ")' class='btn btn-info'>Click to see on the map</button></a></td></tr>";
+    "<tr id='panel_info'><td>" + places[i].name + "</td><td>" + places[i].review_count + "</td><td>" + places[i].rating + "</td><td>" + places[i].price + "</td><td>"+ places[i].categories[0].title +"</td><td><a href='#map'><button onclick='clickPlace(" + i + ")' class='btn btn-info'>View</button></a></td><td><button onclick='addPlace(" + i + ")' class='btn btn-primary'>Add</button></td></tr>";
     markers_on_map.addLayer(marker);
     markersArray.push(marker);
 
@@ -270,7 +278,6 @@ function geocodeAddress(geocoder, resultsMap) {
 
 var clickPlace = function(index) {
   // body
-  console.log("You've click one of button");
   console.log(index);
   var iconColor = colorIcon(places[index].review_count);
 
@@ -287,6 +294,60 @@ var clickPlace = function(index) {
 
   mymap.setView(new L.LatLng(places[index].coordinates.latitude, places[index].coordinates.longitude), 20);
   markersArray[index].openPopup();
+}
+
+var addPlace = function(index) {
+  // body
+  console.log("You've added the place!!!!!!");
+  console.log(places[index]);
+  console.log("------------------");
+
+  $.post("/addPlace", places[index], function(){ console.log("inside the function"); });
+  //mymap.setView(new L.LatLng(places[index].coordinates.latitude, places[index].coordinates.longitude), 20);
+  //markersArray[index].openPopup();
+  getStoredlist();
+}
+
+var getStoredlist = function() {
+  document.getElementById("stored_list").innerHTML = "";
+  console.log("Get the data");
+  var doc = "";
+  myPlaces = [];
+
+  $.post("/getPlace",  function(data) {
+    for(var i = 0; i<data.length; i++) {
+      console.log("INSIDE STORE");
+      console.log(i);
+      console.log(data[i].name);
+      doc += "<button class='btn btn-default'>"+ data[i].name +"</button><button onclick='removePlace(" + i + ")'>X</button>";
+      myPlaces.push(data[i]);
+    }
+    console.log("To html");
+    document.getElementById("stored_list").innerHTML = doc;
+    if(data.length > 0) {
+      document.getElementById("list_fn").innerHTML = "<button onclick='removeAllPlaces()' class='btn'>Delete all</button><br/><button onclick='comparePlaces()' class='btn btn-success'>Compare</button>";
+    }
+    else {
+      document.getElementById("list_fn").innerHTML = "";
+    }
+  });
+}
+
+var removeAllPlaces = function() {
+  console.log("removeAllPlaces");
+
+  $.post("/removeAllPlaces", function(){ console.log("inside the function"); });
+  getStoredlist();
+}
+
+var removePlace = function(index) {
+  $.post("/removePlace",{ number:index }, function(){ console.log("inside the function"); });
+  getStoredlist();
+}
+
+var comparePlaces = function() {
+  /* TODO: Compare stored places */
+  console.log("Compare class by displaying graph");
 }
 
 /*Opening modals using buttons in popup*/
