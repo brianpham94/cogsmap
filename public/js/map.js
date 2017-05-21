@@ -82,6 +82,7 @@
 
 /* Array to store search result */
 var places = new Array;
+var list_index;
 
 /* My places */
 var myPlaces = new Array;
@@ -133,7 +134,10 @@ function placeMarkers(businesses) {
 
   /* Clear all HTML elements */
   document.getElementById("panel_info").innerHTML = '';
+  document.getElementById("view_more").innerHTML = '';
   document.getElementById("categories_info").innerHTML = '';
+
+  document.getElementById("status_list").innerHTML = "<h3>You've searched " + businesses.length + " places</h3>";
 
   for(var i = 0; i < businesses.length; i++) {
     var iconColor;
@@ -157,8 +161,11 @@ function placeMarkers(businesses) {
 
     places[i] = businesses[i];
     /* Show informations to info panel on the bottom */
-    document.getElementById("panel_info").innerHTML += 
-    "<tr id='panel_info'><td>" + places[i].name + "</td><td>" + places[i].review_count + "</td><td>" + places[i].rating + "</td><td>" + places[i].price + "</td><td>"+ places[i].categories[0].title +"</td><td><a href='#map'><button onclick='clickPlace(" + i + ")' class='btn btn-info'>View</button></a></td><td><button onclick='addPlace(" + i + ")' class='btn btn-primary'>Add</button></td></tr>";
+    
+    if(i < 5) {
+      document.getElementById("panel_info").innerHTML += 
+      "<tr id='panel_info'><td>" + places[i].name + "</td><td>" + places[i].review_count + "</td><td>" + places[i].rating + "</td><td>" + places[i].price + "</td><td>"+ places[i].categories[0].title +"</td><td><a href='#map'><button onclick='clickPlace(" + i + ")' class='btn btn-info'>View</button></a></td><td><button onclick='addPlace(" + i + ")' class='btn btn-primary'>Add</button></td></tr>";
+    }
     markers_on_map.addLayer(marker);
     markersArray.push(marker);
 
@@ -173,23 +180,43 @@ function placeMarkers(businesses) {
 
   }
 
+  list_index = 5;
+  document.getElementById("view_more").innerHTML += "<button type='button' class='btn' onclick='viewMore()'>View 5 more places</button>";
+
   mymap.addLayer(markers_on_map);
   console.log(chart_reviews[0]);
   google.charts.setOnLoadCallback(drawChart);
   
   /* Show categories on the left */
   for(var i = 0; i < categories.length; i++) {
-    document.getElementById("categories_info").innerHTML += "<button class='list-group-item'>"+categories[i]+"</button>";
+    document.getElementById("categories_info").innerHTML += "<button class='list-group-item'>"+ categories[i] +"</button>";
+  }
+}
+
+var viewMore = function() {
+  var limit_index = list_index + 5;
+  for(var i=list_index; (i<limit_index && i<places.length); i++){
+    document.getElementById("panel_info").innerHTML += 
+      "<tr id='panel_info'><td>" + places[i].name + "</td><td>" + places[i].review_count + "</td><td>" + places[i].rating + "</td><td>" + places[i].price + "</td><td>"+ places[i].categories[0].title +"</td><td><a href='#map'><button onclick='clickPlace(" + i + ")' class='btn btn-info'>View</button></a></td><td><button onclick='addPlace(" + i + ")' class='btn btn-primary'>Add</button></td></tr>";
+  }
+  list_index = i;
+
+  if(i >= (places.length-1)) {
+    document.getElementById("view_more").innerHTML = "No more places found";
   }
 }
 
 function drawChart() {
    // Define the chart to be drawn.
+
    chart_reviews.splice(0, 0, ['Place', 'Review']);
    chart_ratings.splice(0, 0, ['Place', 'Rating']);
 
    var dataReviews = google.visualization.arrayToDataTable(chart_reviews);
    var dataRatings = google.visualization.arrayToDataTable(chart_ratings);
+
+   console.log(dataReviews);
+
 
    var optionsReviews = {
     title: 'Reviews Ranks'   
@@ -209,6 +236,7 @@ function drawChart() {
 
    chartReviews.draw(dataReviews, optionsReviews);
    chartRatings.draw(dataRatings, optionsRatings);
+
  }
 
  var onbtn_current = document.getElementById("btn_current");
@@ -277,22 +305,19 @@ function geocodeAddress(geocoder, resultsMap) {
 }
 
 var clickPlace = function(index) {
-  // body
   console.log(index);
   var iconColor = colorIcon(places[index].review_count);
 
-  // markers_on_map.clearLayers();
-
-  // var marker = L.marker([places[index].coordinates.latitude, places[index].coordinates.longitude], {icon: iconColor}).bindPopup(
-  //    "<b>Place</b><br/>" + "Name: " + 
-  //    places[index].name + "<br> Rating: " + places[index].rating);
-
-  // markers_on_map.addLayer(marker);
-  // mymap.addLayer(markers_on_map);
-
-  // Move to the place user clicked
-
   mymap.setView(new L.LatLng(places[index].coordinates.latitude, places[index].coordinates.longitude), 20);
+  markersArray[index].openPopup();
+}
+
+var clickSavedPlace = function(index) {
+  // body
+  console.log(index);
+  var iconColor = colorIcon(myPlaces[index].review_count);
+
+  mymap.setView(new L.LatLng(myPlaces[index].coordinates.latitude, myPlaces[index].coordinates.longitude), 20);
   markersArray[index].openPopup();
 }
 
@@ -319,7 +344,7 @@ var getStoredlist = function() {
       console.log("INSIDE STORE");
       console.log(i);
       console.log(data[i].name);
-      doc += "<button class='btn btn-default'>"+ data[i].name +"</button><button onclick='removePlace(" + i + ")'>X</button>";
+      doc += "<button class='btn' onclick='clickSavedPlace(" + i + ")' style='display: inline-block;'>"+ data[i].name +"</button><button onclick='removePlace(" + i + ")' style='display: inline-block;' >X</button><div style='height: 5px;'></div>";
       myPlaces.push(data[i]);
     }
     console.log("To html");
