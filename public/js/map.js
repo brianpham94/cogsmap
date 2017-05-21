@@ -161,6 +161,7 @@ function placeMarkers(businesses) {
       businesses[i].name + "<br> Rating: " + businesses[i].rating + "<br>" + "<button class='btn btn-primary btn-review' onclick='openModal(" + i +")' style='width:100%'>Reviews</button>");
 
     places[i] = businesses[i];
+
     /* Show informations to info panel on the bottom */
     
     if(i < 5) {
@@ -210,15 +211,11 @@ var viewMore = function() {
 
 function drawChart() {
    // Define the chart to be drawn.
-
    chart_reviews.splice(0, 0, ['Place', 'Review']);
    chart_ratings.splice(0, 0, ['Place', 'Rating']);
 
    var dataReviews = google.visualization.arrayToDataTable(chart_reviews);
    var dataRatings = google.visualization.arrayToDataTable(chart_ratings);
-
-   console.log(dataReviews);
-
 
    var optionsReviews = {
     title: 'Reviews Ranks'   
@@ -315,12 +312,11 @@ var clickPlace = function(index) {
 }
 
 var clickSavedPlace = function(index) {
-  // body
   console.log(index);
   var iconColor = colorIcon(myPlaces[index].review_count);
 
   mymap.setView(new L.LatLng(myPlaces[index].coordinates.latitude, myPlaces[index].coordinates.longitude), 20);
-  markersArray[index].openPopup();
+  //TODO: Show markers & open the popup!
 }
 
 var addPlace = function(index) {
@@ -336,28 +332,35 @@ var addPlace = function(index) {
 }
 
 var getStoredlist = function() {
-  document.getElementById("stored_list").innerHTML = "";
-  console.log("Get the data");
-  var doc = "";
+
   myPlaces = [];
 
   $.post("/getPlace",  function(data) {
-    for(var i = 0; i<data.length; i++) {
-      console.log("INSIDE STORE");
-      console.log(i);
-      console.log(data[i].name);
-      doc += "<button class='btn' onclick='clickSavedPlace(" + i + ")' style='display: inline-block;'>"+ data[i].name +"</button><button onclick='removePlace(" + i + ")' style='display: inline-block;' >X</button><div style='height: 5px;'></div>";
-      myPlaces.push(data[i]);
-    }
-    console.log("To html");
-    document.getElementById("stored_list").innerHTML = doc;
-    if(data.length > 0) {
-      document.getElementById("list_fn").innerHTML = "<button onclick='removeAllPlaces()' class='btn'>Delete all</button><br/><button onclick='comparePlaces()' class='btn btn-success'>Compare</button>";
-    }
-    else {
-      document.getElementById("list_fn").innerHTML = "";
-    }
+
+    myPlaces = data;
+    console.log(data);
+    displaySavedList();
+
   });
+}
+
+var displaySavedList = function() {
+  console.log("Call: displaySavedList");
+
+  document.getElementById("stored_list").innerHTML = "";
+  var doc = "";
+
+  console.log("length?" + myPlaces.length);
+  for(var i = 0; i<myPlaces.length; i++) {
+    doc += "<button class='btn' onclick='clickSavedPlace(" + i + ")' style='display: inline-block;'>"+ myPlaces[i].name +"</button><button onclick='removePlace(" + i + ")' style='display: inline-block;' >X</button><div style='height: 5px;'></div>";
+  }
+  document.getElementById("stored_list").innerHTML = doc;
+  if(myPlaces.length > 0) {
+    document.getElementById("list_fn").innerHTML = "<button onclick='removeAllPlaces()' class='btn btn-default'>Delete all</button><br/><a href='#rank'><button onclick='comparePlaces()' class='btn btn-success'>Compare</button></a>";
+  }
+  else {
+    document.getElementById("list_fn").innerHTML = "";
+  }
 }
 
 var removeAllPlaces = function() {
@@ -373,8 +376,16 @@ var removePlace = function(index) {
 }
 
 var comparePlaces = function() {
-  /* TODO: Compare stored places */
+  /* Compare stored places */
   console.log("Compare class by displaying graph");
+  chart_reviews = [];
+  chart_ratings = [];
+
+  for(var i = 0; i < myPlaces.length; i++) {
+    chart_reviews.push([myPlaces[i].name,parseInt(myPlaces[i].review_count)]);
+    chart_ratings.push([myPlaces[i].name,parseInt(myPlaces[i].rating)]);
+  }
+  google.charts.setOnLoadCallback(drawChart);
 }
 
 /*Opening modals using buttons in popup*/
@@ -421,9 +432,9 @@ function initAutocomplete() {
         // Bias the SearchBox results towards current map's viewport.
 
         
-        mymap.addListener('bounds_changed', function() {
-          searchBox.setBounds(mymap.getBounds());
-        });
+        //mymap.addListener('bounds_changed', function() {
+        //  searchBox.setBounds(mymap.getBounds());
+        //});
 
         // mymap.addListener('bounds_changed', function() {
         //   searchBox2.setBounds(mymap.getBounds());
@@ -467,13 +478,13 @@ function initAutocomplete() {
           //     title: place.name,
           //     position: place.geometry.location
           //   }));
-
+/*
           if (place.geometry.viewport) {
               // Only geocodes have viewport.
               bounds.union(place.geometry.viewport);
             } else {
               bounds.extend(place.geometry.location);
-            }
+            }*/
           });
           //mymap.fitBounds(bounds);
         });
