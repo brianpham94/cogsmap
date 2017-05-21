@@ -28,6 +28,7 @@
   });
   */
 
+
   function yelpSearchSuccess(result){
     //You can get businesses which is returned as an array in this json format
     /*
@@ -121,7 +122,7 @@ function colorIcon(reviews) {
   return iconColor;
 }
 
-function placeMarkers(businesses) { 
+function placeMarkers(businesses) {
 
   markers_on_map.clearLayers();
 
@@ -181,6 +182,7 @@ function placeMarkers(businesses) {
   }
 
   list_index = 5;
+
   document.getElementById("view_more").innerHTML += "<button type='button' class='btn' onclick='viewMore()'>View 5 more places</button>";
 
   mymap.addLayer(markers_on_map);

@@ -176,6 +176,7 @@
   });
     function filterMarkers(businesses, category) {
       console.log("filtering markers");
+      document.getElementById("view_more").innerHTML = "";
       markers_on_map.clearLayers();
 
       /* Clear all arrays */
@@ -216,7 +217,7 @@
         places[i] = businesses[i];
         /* Show informations to info panel on the bottom */
         document.getElementById("panel_info").innerHTML += 
-        "<tr id='panel_info'><td>" + places[i].name + "</td><td>" + places[i].review_count + "</td><td>" + places[i].rating + "</td><td>" + places[i].price + "</td><td>"+ places[i].categories[0].title +"</td><td><a href='#map'><button onclick='clickPlace(" + i + ")' class='btn btn-info'>Click to see on the map</button></a></td></tr>";
+        "<tr id='panel_info'><td>" + places[i].name + "</td><td>" + places[i].review_count + "</td><td>" + places[i].rating + "</td><td>" + places[i].price + "</td><td>"+ places[i].categories[0].title +"</td><td><a href='#map'><button onclick='clickPlace(" + i + ")' class='btn btn-info'>View</button></a></td><td><button onclick='addPlace(" + i + ")' class='btn btn-primary'>Add</button></td></tr>";
         markers_on_map.addLayer(marker);
         markersArray.push(marker);
 
