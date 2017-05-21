@@ -48,9 +48,47 @@
   height: 500px;
 }
 
-#map-legend {
-  background: #FFF;
-  
+.map-legend {
+  background-color: white;
+}
+
+.legend-title {
+  margin: 8px;
+}
+
+.legend-content {
+  margin: 8px;
+  font-size: 14px;
+}
+
+.legend-red {
+  height: 14px;
+  width: 14px;
+  margin-left: 8px;
+  margin-right: 3px;
+  float: left;
+  border-radius: 12px;
+  background-color: #CC2E41;
+}
+
+.legend-yellow {
+  height: 14px;
+  width: 14px;
+  margin-left: 8px;
+  margin-right: 3px;
+  float: left;
+  border-radius: 12px;
+  background-color: #CCC62A;
+}
+
+.legend-green {
+  height: 14px;
+  width: 14px;
+  margin-left: 8px;
+  margin-right: 3px;
+  float: left;
+  border-radius: 12px;
+  background-color: #28AD25;
 }
 
 /*Body*/
@@ -97,5 +135,5 @@
 
 /* Font change */
 h2 {
-    font-family: 'Fjalla One';
+    font-family: 'Helvetica';
 }
