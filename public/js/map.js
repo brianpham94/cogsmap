@@ -221,6 +221,23 @@ function drawChart() {
   accessToken: 'pk.eyJ1IjoibG1nb25nIiwiYSI6ImNqMXY5ZGxqcTAwMWQycWxucWJjbmxuemEifQ.wJZoNdBrReyKk3u0vt6WAQ'
 }).addTo(mymap); 
 
+ /*var markerLegend = L.control({position: 'topright'});
+ markerLegend.id = 'map-legend';
+
+ var redMarker = '200+';
+ var yellowMarker = '100+'
+ var greenMarker = '50+'
+ var redColor = '#CC2E41';
+ var yellowColor = '#CCC62A';
+ var greenColor = '#28AD25';
+
+ var legendContent = [];
+
+ legendContent.push('<h3 class="map-legend-headline">Legend</h3>');
+ legendContent.push('<p><div class="map-legend-color" style="background: #CC2E41;"></div>'+redMarker+'</p>');
+
+  markerLegend.addTo(mymap);*/
+
  /* Get user's location */
  var current;
 

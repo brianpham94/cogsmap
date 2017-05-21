@@ -48,6 +48,11 @@
   height: 500px;
 }
 
+#map-legend {
+  background: #FFF;
+  
+}
+
 /*Body*/
 
 .bg-1 { 
