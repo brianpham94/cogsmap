@@ -94,3 +94,8 @@
 .btn-close:hover {
   color:white;
 }
+
+/* Font change */
+h2 {
+    font-family: 'Fjalla One';
+}
