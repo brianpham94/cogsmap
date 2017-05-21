@@ -261,7 +261,7 @@
         var reviewDate = reviewTimeCreated.replace(/\"/g, "");
         var reviewText2 = reviewText.replace(/\\n/g, "");
 
-        modalBody.innerHTML += "<p style = 'padding-left: 50px; padding-right: 50px; float: right;'>Rating: " + reviewRating + "</p>" + "<p style = 'padding-left: 50px; padding-right: 30px; padding-top: 4px;'>" + reviewText2 + "</p>" + "<p style = 'padding-left: 50px; padding-right: 50px; padding-bottom: 8px; border-bottom: 1px solid #e5e7ea;'>Date Created: " + reviewDate + "</p>";
+        modalBody.innerHTML += "<p style = 'padding-left: 50px; padding-right: 50px; float: right; font-weight: bold;'>Rating: " + reviewRating + "</p>" + "<p style = 'padding-left: 50px; padding-right: 30px; padding-top: 4px; font-size: 125%;'>" + reviewText2 + "</p>" + "<p style = 'padding-left: 50px; padding-right: 50px; padding-bottom: 8px; border-bottom: 1px solid #e5e7ea;'>Date Created: " + reviewDate + "</p>";
         console.log(reviewRating);
         console.log(reviewText);
         console.log(JSON.stringify(reviewsResults['user']));

@@ -214,11 +214,11 @@ function drawChart() {
  var onbtn_current = document.getElementById("btn_current");
  var mymap = L.map('mapid').setView([32.7157, -117.1611], 13);
 
- L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+ L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/streets-v10/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoibG1nb25nIiwiYSI6ImNqMXY5ZGxqcTAwMWQycWxucWJjbmxuemEifQ.wJZoNdBrReyKk3u0vt6WAQ', {
   attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
   maxZoom: 18,
   id: 'your.mapbox.project.id',
-  accessToken: 'your.mapbox.public.access.token'
+  accessToken: 'pk.eyJ1IjoibG1nb25nIiwiYSI6ImNqMXY5ZGxqcTAwMWQycWxucWJjbmxuemEifQ.wJZoNdBrReyKk3u0vt6WAQ'
 }).addTo(mymap); 
 
  /* Get user's location */
