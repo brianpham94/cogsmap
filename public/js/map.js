@@ -352,7 +352,7 @@ var displaySavedList = function() {
 
   console.log("length?" + myPlaces.length);
   for(var i = 0; i<myPlaces.length; i++) {
-    doc += "<button class='btn' onclick='clickSavedPlace(" + i + ")' style='display: inline-block;'>"+ myPlaces[i].name +"</button><button onclick='removePlace(" + i + ")' style='display: inline-block;' >X</button><div style='height: 5px;'></div>";
+    doc += "<button class='btn' onclick='clickSavedPlace(" + i + ")' style='display: inline-block;'>"+ myPlaces[i].name + "<span onclick='removePlace(" + i + ")' style='display: inline-block; color: white; margin-left: 8px;'> x</span>" + "</button>" + "<div style='height: 5px;'></div>";
   }
   document.getElementById("stored_list").innerHTML = doc;
   if(myPlaces.length > 0) {
