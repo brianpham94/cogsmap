@@ -158,7 +158,7 @@ function placeMarkers(businesses) {
 
     var marker = L.marker([businesses[i].coordinates.latitude, businesses[i].coordinates.longitude], {icon: iconColor}).bindPopup(
       "<b>Place</b><br/>" + "Name: " + 
-      businesses[i].name + "<br> Rating: " + businesses[i].rating + "<br>" + "<button class='btn btn-primary btn-review' onclick='openModal(" + i +")' style='width:100%'>Reviews</button>");
+      businesses[i].name + "<br> Rating: " + businesses[i].rating + "<br>" + "<br>" + "<b>Address </b>" + "<br>" + businesses[i].location.address1 + "<br>" + businesses[i].location.city + "," + businesses[i].location.state + businesses[i].location.zip_code + "<br>" + "<br>" + "<button class='btn btn-primary btn-review' onclick='openModal(" + i +")' style='width:100%'>Reviews</button>");
 
     places[i] = businesses[i];
 
