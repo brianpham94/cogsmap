@@ -123,7 +123,7 @@
             <p><button onclick="sortReviews()">Sort Reviews</button></p>
             <p><button onclick="sortTable()">Sort Rating</button></p>
             <p><button onclick="sortTable()">Sort Price</button></p>
-            <p><button onclick="sortTable()">Sort Category</button></p>
+            <p><button onclick="sortCategory()">Sort Category</button></p>
             <table id="myTable" class="table table-hover">
               <thead><tr><th>Place</th><th>Review Count</th><th>Rating</th><th>Price</th><th>Category</th><th>Click</th></tr>
               </thead>
@@ -210,6 +210,43 @@
   }
 }
 
+   function sortCategory() {
+      console.log("sorting number of reviews");
+      var table, rows, switching, i, x, y, shouldSwitch;
+      table = document.getElementById("myTable");
+      switching = true;
+  /*Make a loop that will continue until
+  no switching has been done:*/
+  while (switching) {
+    //start by saying: no switching is done:
+    switching = false;
+    rows = table.getElementsByTagName("TR");
+    /*Loop through all table rows (except the
+    first, which contains table headers):*/
+    for (i = 1; i < (rows.length - 1); i++) {
+      //start by saying there should be no switching:
+      shouldSwitch = false;
+      /*Get the two elements you want to compare,
+      one from current row and one from the next:*/
+      x = rows[i].cells[4];
+      y = rows[i + 1].cells[4];
+      //check if the two rows should switch place:
+      console.dir("comparing:" + x.innerHTML + " and " + y.innerHTML);
+      if (x.innerHTML > y.innerHTML) {
+        //if so, mark as a switch and break the loop:
+        shouldSwitch= true;
+        break;
+      }
+    }
+    if (shouldSwitch) {
+      /*If a switch has been marked, make the switch
+      and mark that a switch has been done:*/
+      console.log("switching index: " + i + " and " + (i+1));
+      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+      switching = true;
+    }
+  }
+}
   function sortTable() {  
       var table, rows, switching, i, x, y, shouldSwitch;
       table = document.getElementById("myTable");
