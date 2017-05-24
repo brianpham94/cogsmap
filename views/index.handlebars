@@ -119,13 +119,8 @@
           <div class="panel-body">
             <div style='height: 20px;'></div>
             <div id="status_list" class="text-center"></div></button><div style='height: 20px;'></div>
-            <p><button onclick="sortTable()">Sort Name</button></p>
-            <p><button onclick="sortReviews()">Sort Reviews</button></p>
-            <p><button onclick="sortRating()">Sort Rating</button></p>
-            <p><button onclick="sortPrice()">Sort Price</button></p>
-            <p><button onclick="sortCategory()">Sort Category</button></p>
             <table id="myTable" class="table table-hover">
-              <thead><tr><th>Place</th><th>Review Count</th><th>Rating</th><th>Price</th><th>Category</th><th>Click</th></tr>
+              <thead><tr><th onclick="sortPlace(0)">Place</th><th onclick="sortReviews(1)">Review Count</th><th onclick="sortRating(2)">Rating</th><th onclick="sortPrice(3)">Price</th><th onclick="sortCategory(4)">Category</th><th>Click</th></tr>
               </thead>
               <tbody id="panel_info"></tbody>
             </table>
@@ -192,7 +187,7 @@
       x = rows[i].cells[3];
       y = rows[i + 1].cells[3];
       //check if the two rows should switch place:
-      if ((x.innerHTML).length > (y.innerHTML).length) {
+      if ((x.innerHTML).length < (y.innerHTML).length) {
         //if so, mark as a switch and break the loop:
         shouldSwitch= true;
         break;
@@ -227,7 +222,7 @@
       x = rows[i].cells[1];
       y = rows[i + 1].cells[1];
       //check if the two rows should switch place:
-      if (parseInt(x.innerHTML) > parseInt(y.innerHTML)) {
+      if (parseInt(x.innerHTML) < parseInt(y.innerHTML)) {
         //if so, mark as a switch and break the loop:
         shouldSwitch= true;
         break;
@@ -262,7 +257,7 @@
       x = rows[i].cells[2];
       y = rows[i + 1].cells[2];
       //check if the two rows should switch place:
-      if (parseInt(x.innerHTML) > parseInt(y.innerHTML)) {
+      if (parseFloat(x.innerHTML) < parseFloat(y.innerHTML)) {
         //if so, mark as a switch and break the loop:
         shouldSwitch= true;
         break;
@@ -311,40 +306,57 @@
     }
   }
 }
-  function sortTable() {  
-      var table, rows, switching, i, x, y, shouldSwitch;
+  function sortPlace() {  
+      var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount;
       table = document.getElementById("myTable");
       switching = true;
-  /*Make a loop that will continue until
-  no switching has been done:*/
-  while (switching) {
-    //start by saying: no switching is done:
-    switching = false;
-    rows = table.getElementsByTagName("TR");
-    /*Loop through all table rows (except the
-    first, which contains table headers):*/
-    for (i = 1; i < (rows.length - 1); i++) {
-      //start by saying there should be no switching:
-      shouldSwitch = false;
-      /*Get the two elements you want to compare,
-      one from current row and one from the next:*/
-      x = rows[i].getElementsByTagName("TD")[0];
-      y = rows[i + 1].getElementsByTagName("TD")[0];
-      //check if the two rows should switch place:
-      if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
-        //if so, mark as a switch and break the loop:
-        shouldSwitch= true;
-        break;
+      dir = "asc";
+      /*Make a loop that will continue until
+      no switching has been done:*/
+      while (switching) {
+        //start by saying: no switching is done:
+        switching = false;
+        rows = table.getElementsByTagName("TR");
+        /*Loop through all table rows (except the
+        first, which contains table headers):*/
+        for (i = 1; i < (rows.length - 1); i++) {
+          //start by saying there should be no switching:
+          shouldSwitch = false;
+          /*Get the two elements you want to compare,
+          one from current row and one from the next:*/
+          x = rows[i].getElementsByTagName("TD")[0];
+          y = rows[i + 1].getElementsByTagName("TD")[0];
+          if(dir == "asc"){
+          //check if the two rows should switch place:
+            if(x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+              //if so, mark as a switch and break the loop:
+              shouldSwitch= true;
+              break;
+            }
+          }
+          else if(dir == "desc"){
+            if(x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+              //if so, mark as a switch and break the loop:
+              shouldSwitch= true;
+              break;
+            }
+          }
+        }
+        if (shouldSwitch) {
+          /*If a switch has been marked, make the switch
+          and mark that a switch has been done:*/
+          rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+          switching = true;
+          switchcount ++;
+        }
+        else{
+          if(switchcount == 0 && dir == "asc"){
+            dir = "desc";
+            switching = true;
+          }
+        }
       }
     }
-    if (shouldSwitch) {
-      /*If a switch has been marked, make the switch
-      and mark that a switch has been done:*/
-      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-      switching = true;
-    }
-  }
-}
 
 
 $(document).on( "click", '.list-group-item', function() {
