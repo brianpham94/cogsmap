@@ -106,54 +106,59 @@
       <div id="mapid"></div>
       <div class="marker-legend" style="position:absolute; top:25px; right:50px; background-color:white; width:70px; height:95px; z-index: 100"> 
         <h6 class="legend-title">Legend<h6>
-        <div class="legend-red"></div>
-        <p class= "legend-content">200+ </p>
-        <div class="legend-yellow"></div>
-        <p class="legend-content">100+ </p>
-        <div class="legend-green"></div>
-        <p class="legend-content">50+ </p>
-      </div>
-      <h2><span class="glyphicon glyphicon-align-left" id="list"></span> Lists</h2>
-      <div class="panel panel-primary">
-        <div class="panel-heading">Places in area</div>
-        <div class="panel-body">
-          <div style='height: 20px;'></div>
-          <div id="status_list" class="text-center"></div></button><div style='height: 20px;'></div>
-          <table class="table table-hover">
-            <thead><tr><th>Place</th><th>Review Count</th><th>Rating</th><th>Price</th><th>Category</th><th>Click</th></tr>
-            </thead>
-            <tbody id="panel_info"></tbody>
-          </table>
-          <div id="view_more" class="text-center"></div>
+          <div class="legend-red"></div>
+          <p class= "legend-content">200+ </p>
+          <div class="legend-yellow"></div>
+          <p class="legend-content">100+ </p>
+          <div class="legend-green"></div>
+          <p class="legend-content">50+ </p>
         </div>
-      </div>
-      <h2><span class="glyphicon glyphicon-hand-right" id="rank"></span> Ranks</h2>
-      <div class="panel panel-info">
-        <div class="panel-heading">Ranks between places</div>
-        <div class="panel-body text-center" id="charts">
-          <div id="chart_review" class="col-sm-6"></div>
-          <div id="chart_rating" class="col-sm-6"></div>
+        <h2><span class="glyphicon glyphicon-align-left" id="list"></span> Lists</h2>
+        <div class="panel panel-primary">
+          <div class="panel-heading">Places in area</div>
+          <div class="panel-body">
+            <div style='height: 20px;'></div>
+            <div id="status_list" class="text-center"></div></button><div style='height: 20px;'></div>
+            <p><button onclick="sortTable()">Sort Name</button></p>
+            <p><button onclick="sortReviews()">Sort Reviews</button></p>
+            <p><button onclick="sortTable()">Sort Rating</button></p>
+            <p><button onclick="sortTable()">Sort Price</button></p>
+            <p><button onclick="sortCategory()">Sort Category</button></p>
+            <table id="myTable" class="table table-hover">
+              <thead><tr><th>Place</th><th>Review Count</th><th>Rating</th><th>Price</th><th>Category</th><th>Click</th></tr>
+              </thead>
+              <tbody id="panel_info"></tbody>
+            </table>
+            <div id="view_more" class="text-center"></div>
+          </div>
         </div>
-      </div>
-    </div> <!-- End of col-sm-10: End of right body -->
-  </div>
+        <h2><span class="glyphicon glyphicon-hand-right" id="rank"></span> Ranks</h2>
+        <div class="panel panel-info">
+          <div class="panel-heading">Ranks between places</div>
+          <div class="panel-body text-center" id="charts">
+            <div id="chart_review" class="col-sm-6"></div>
+            <div id="chart_rating" class="col-sm-6"></div>
+          </div>
+        </div>
+      </div> <!-- End of col-sm-10: End of right body -->
+    </div>
 
-  <div class="modal" id="modal-reviews">
-    <span class="close">&times;</span>
-    <div class="modal-content">
-      <div id="modal-header">
-        <h2>Reviews</h2>
-      </div>
-      <div id="modal-body">
-      </div>
-      <div id="modal-footer">
-        <button class="btn btn-close" id="modal-close">Close</button>
+    <div class="modal" id="modal-reviews">
+      <span class="close">&times;</span>
+      <div class="modal-content">
+        <div id="modal-header">
+          <h2>Reviews</h2>
+        </div>
+        <div id="modal-body">
+        </div>
+        <div id="modal-footer">
+          <button class="btn btn-close" id="modal-close">Close</button>
+        </div>
       </div>
     </div>
-  </div>
-  
 
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCa5u0jiFE4DNOxTMh8iTB-JHumUeZHomU&libraries=places&callback=initAutocomplete" async defer></script>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCa5u0jiFE4DNOxTMh8iTB-JHumUeZHomU&libraries=places&callback=initAutocomplete" async defer></script>
 
   <!-- Bootstrap core JavaScript
   ================================================== -->
@@ -167,15 +172,124 @@
   <script src="/js/bootstrap.min.js"></script>
   <!--<button type="button" value="test" id="search-reviews"> Clickerino </button>-->
   <script>
-
-
-  $(document).on( "click", '.list-group-item', function() {
-      var textVal = $(this).text();
-      console.log(textVal);
-      if(textVal == "Categories") {
-        console.log("category chosen");
-        return;
+    function sortReviews() {
+      console.log("sorting number of reviews");
+      var table, rows, switching, i, x, y, shouldSwitch;
+      table = document.getElementById("myTable");
+      switching = true;
+  /*Make a loop that will continue until
+  no switching has been done:*/
+  while (switching) {
+    //start by saying: no switching is done:
+    switching = false;
+    rows = table.getElementsByTagName("TR");
+    /*Loop through all table rows (except the
+    first, which contains table headers):*/
+    for (i = 1; i < (rows.length - 1); i++) {
+      //start by saying there should be no switching:
+      shouldSwitch = false;
+      /*Get the two elements you want to compare,
+      one from current row and one from the next:*/
+      x = rows[i].cells[1];
+      y = rows[i + 1].cells[1];
+      //check if the two rows should switch place:
+      console.dir("comparing:" + x.innerHTML + " and " + y.innerHTML);
+      if (x.innerHTML > y.innerHTML) {
+        //if so, mark as a switch and break the loop:
+        shouldSwitch= true;
+        break;
       }
+    }
+    if (shouldSwitch) {
+      /*If a switch has been marked, make the switch
+      and mark that a switch has been done:*/
+      console.log("switching index: " + i + " and " + (i+1));
+      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+      switching = true;
+    }
+  }
+}
+
+   function sortCategory() {
+      console.log("sorting number of reviews");
+      var table, rows, switching, i, x, y, shouldSwitch;
+      table = document.getElementById("myTable");
+      switching = true;
+  /*Make a loop that will continue until
+  no switching has been done:*/
+  while (switching) {
+    //start by saying: no switching is done:
+    switching = false;
+    rows = table.getElementsByTagName("TR");
+    /*Loop through all table rows (except the
+    first, which contains table headers):*/
+    for (i = 1; i < (rows.length - 1); i++) {
+      //start by saying there should be no switching:
+      shouldSwitch = false;
+      /*Get the two elements you want to compare,
+      one from current row and one from the next:*/
+      x = rows[i].cells[4];
+      y = rows[i + 1].cells[4];
+      //check if the two rows should switch place:
+      console.dir("comparing:" + x.innerHTML + " and " + y.innerHTML);
+      if (x.innerHTML > y.innerHTML) {
+        //if so, mark as a switch and break the loop:
+        shouldSwitch= true;
+        break;
+      }
+    }
+    if (shouldSwitch) {
+      /*If a switch has been marked, make the switch
+      and mark that a switch has been done:*/
+      console.log("switching index: " + i + " and " + (i+1));
+      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+      switching = true;
+    }
+  }
+}
+  function sortTable() {  
+      var table, rows, switching, i, x, y, shouldSwitch;
+      table = document.getElementById("myTable");
+      switching = true;
+  /*Make a loop that will continue until
+  no switching has been done:*/
+  while (switching) {
+    //start by saying: no switching is done:
+    switching = false;
+    rows = table.getElementsByTagName("TR");
+    /*Loop through all table rows (except the
+    first, which contains table headers):*/
+    for (i = 1; i < (rows.length - 1); i++) {
+      //start by saying there should be no switching:
+      shouldSwitch = false;
+      /*Get the two elements you want to compare,
+      one from current row and one from the next:*/
+      x = rows[i].getElementsByTagName("TD")[0];
+      y = rows[i + 1].getElementsByTagName("TD")[0];
+      //check if the two rows should switch place:
+      if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+        //if so, mark as a switch and break the loop:
+        shouldSwitch= true;
+        break;
+      }
+    }
+    if (shouldSwitch) {
+      /*If a switch has been marked, make the switch
+      and mark that a switch has been done:*/
+      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+      switching = true;
+    }
+  }
+}
+
+
+$(document).on( "click", '.list-group-item', function() {
+  var textVal = $(this).text();
+  console.log(textVal);
+  if(textVal == "Categories") {
+    console.log("category chosen");
+    return;
+  }
     //else
     // markers_on_map.clearLayers();
     $.post("/history",  function(data) {
@@ -185,14 +299,14 @@
       filterMarkers(transformedString, textVal);
     });
   });
-    function filterMarkers(businesses, category) {
-      console.log("filtering markers");
-      document.getElementById("view_more").innerHTML = "";
-      markers_on_map.clearLayers();
+function filterMarkers(businesses, category) {
+  console.log("filtering markers");
+  document.getElementById("view_more").innerHTML = "";
+  markers_on_map.clearLayers();
 
-      /* Clear all arrays */
-      markersArray = [];
-      places = [];
+  /* Clear all arrays */
+  markersArray = [];
+  places = [];
       // categories = [];
       chart_reviews = [];
       chart_ratings = [];
