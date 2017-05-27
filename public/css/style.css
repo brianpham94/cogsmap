@@ -1,3 +1,6 @@
+body {
+  font-family: 'Rubik', sans-serif;
+}
 
 /*Nav bar*/
 
@@ -135,5 +138,5 @@
 
 /* Font change */
 h2 {
-    font-family: 'Helvetica';
+    font-family: 'Rubik', sans-serif;
 }

@@ -138,7 +138,7 @@ function placeMarkers(businesses) {
   document.getElementById("view_more").innerHTML = '';
   document.getElementById("categories_info").innerHTML = '';
 
-  document.getElementById("status_list").innerHTML = "<h3>You've searched " + businesses.length + " places</h3>";
+  document.getElementById("status_list").innerHTML = "<h3>We've found " + businesses.length + " places</h3>";
 
   for(var i = 0; i < businesses.length; i++) {
     var iconColor;
