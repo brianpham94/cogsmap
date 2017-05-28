@@ -96,6 +96,7 @@ var markers_on_map = new L.MarkerClusterGroup();
 
 /* Markers - to open & close popup freely */
 var markersArray = new Array;
+var savedMarkersArray = new Array;
 
 /* Chart array to be displayed */
 var chart_reviews = new Array;
@@ -158,7 +159,7 @@ function placeMarkers(businesses) {
 
     var marker = L.marker([businesses[i].coordinates.latitude, businesses[i].coordinates.longitude], {icon: iconColor}).bindPopup(
       "<b>Place</b><br/>" + "Name: " + 
-      businesses[i].name + "<br> Rating: " + businesses[i].rating + "<br>" + "<br>" + "<b>Address </b>" + "<br>" + businesses[i].location.address1 + "<br>" + businesses[i].location.city + ", " + businesses[i].location.state + " " + businesses[i].location.zip_code + "<br>" + "<br>" + "<button class='btn btn-primary btn-review' onclick='openModal(" + i +")' style='width:100%'>Reviews</button>");
+      businesses[i].name + "<br> Rating: " + businesses[i].rating + "<br>" + "<br>" + "<b>Address </b>" + "<br>" + businesses[i].location.address1 + "<br>" + businesses[i].location.city + ", " + businesses[i].location.state + " " + businesses[i].location.zip_code + "<br>" + "<br>" + "<button class='btn btn-primary btn-review' onclick='openModal(" + i +")' style='width:100%'>Reviews</button><br><br><button onclick='addPlace(" + i + ")' class='btn btn-default' style='width:100%'>+ Add to Favorites</button>");
 
     places[i] = businesses[i];
 
@@ -166,7 +167,7 @@ function placeMarkers(businesses) {
     
     if(i < 5) {
       document.getElementById("panel_info").innerHTML += 
-      "<tr id='panel_info'><td>" + places[i].name + "</td><td>" + places[i].review_count + "</td><td>" + places[i].rating + "</td><td>" + places[i].price + "</td><td>"+ places[i].categories[0].title +"</td><td><a href='#map'><button onclick='clickPlace(" + i + ")' class='btn btn-info'>View</button></a></td><td><button onclick='addPlace(" + i + ")' class='btn btn-primary'>Add</button></td></tr>";
+      "<tr id='panel_info'><td>" + places[i].name + "</td><td>" + places[i].review_count + "</td><td>" + places[i].rating + "</td><td>" + places[i].price + "</td><td>"+ places[i].categories[0].title +"</td><td><a href='#map'><button onclick='clickPlace(" + i + ")' class='btn btn-info'>View</button></a></td><td><button onclick='addPlace(" + i + ")' class='btn btn-primary'>+ Add</button></td></tr>";
     }
     markers_on_map.addLayer(marker);
     markersArray.push(marker);
@@ -200,7 +201,7 @@ var viewMore = function() {
   var limit_index = list_index + 5;
   for(var i=list_index; (i<limit_index && i<places.length); i++){
     document.getElementById("panel_info").innerHTML += 
-      "<tr id='panel_info'><td>" + places[i].name + "</td><td>" + places[i].review_count + "</td><td>" + places[i].rating + "</td><td>" + places[i].price + "</td><td>"+ places[i].categories[0].title +"</td><td><a href='#map'><button onclick='clickPlace(" + i + ")' class='btn btn-info'>View</button></a></td><td><button onclick='addPlace(" + i + ")' class='btn btn-primary'>Add</button></td></tr>";
+      "<tr id='panel_info'><td>" + places[i].name + "</td><td>" + places[i].review_count + "</td><td>" + places[i].rating + "</td><td>" + places[i].price + "</td><td>"+ places[i].categories[0].title +"</td><td><a href='#map'><button onclick='clickPlace(" + i + ")' class='btn btn-info'>View</button></a></td><td><button onclick='addPlace(" + i + ")' class='btn btn-primary'>+ Add</button></td></tr>";
   }
   list_index = i;
 
@@ -312,11 +313,20 @@ var clickPlace = function(index) {
 }
 
 var clickSavedPlace = function(index) {
-  console.log(index);
+  console.log(myPlaces[index]);
+
+  markers_on_map.clearLayers();
+  console.log(myPlaces[index].review_count);
+  console.log(myPlaces[index].coordinates.latitude);
   var iconColor = colorIcon(myPlaces[index].review_count);
 
+  markers_on_map.addLayer(savedMarkersArray[index]);
+  mymap.addLayer(markers_on_map);
   mymap.setView(new L.LatLng(myPlaces[index].coordinates.latitude, myPlaces[index].coordinates.longitude), 20);
+
+  savedMarkersArray[index].openPopup();
   //TODO: Show markers & open the popup!
+  // savedMarkersArray array / 
 }
 
 var addPlace = function(index) {
@@ -349,9 +359,20 @@ var displaySavedList = function() {
 
   document.getElementById("stored_list").innerHTML = "";
   var doc = "";
+  savedMarkersArray = [];
+
+  /* Create markers to show in Favorite list */
 
   console.log("length?" + myPlaces.length);
   for(var i = 0; i<myPlaces.length; i++) {
+    console.log(myPlaces[i]);
+    var marker = L.marker([parseFloat(myPlaces[i].coordinates.latitude), parseFloat(myPlaces[i].coordinates.longitude)]).bindPopup(
+      "<b>Place</b><br/>" + "Name: " + 
+      myPlaces[i].name + "<br> Rating: " + myPlaces[i].rating + "<br>" + "<br>" + "<b>Address </b>" + "<br>" + myPlaces[i].location.address1 + "<br>" + myPlaces[i].location.city + ", " + myPlaces[i].location.state + " " + myPlaces[i].location.zip_code);
+
+    savedMarkersArray.push(marker);
+
+
     doc += "<button class='btn' onclick='clickSavedPlace(" + i + ")' style='display: inline-block;'>"+ myPlaces[i].name + "<span onclick='removePlace(" + i + ")' style='display: inline-block; color: white; margin-left: 8px;'> x</span>" + "</button>" + "<div style='height: 5px;'></div>";
   }
   document.getElementById("stored_list").innerHTML = doc;
