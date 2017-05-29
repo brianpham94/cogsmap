@@ -60,7 +60,7 @@
       <i class="material-icons">flight</i>
       <i class="material-icons">local_dining</i>
     </h2> 
-    <p>Find popular places near you, or wherever you want to travel!</p> 
+    <p>Discover popular places to explore near you, or your next destination!</p> 
 
     <!-- Search Bar -->
     <form id="searchID" class="navbar-form">
@@ -518,9 +518,9 @@ function filterMarkers(businesses, category) {
           iconColor = yellowIcon;
         }
 
+
         var marker = L.marker([businesses[i].coordinates.latitude, businesses[i].coordinates.longitude], {icon: iconColor}).bindPopup(
-          "<b>Place</b><br/>" + "Name: " + 
-          businesses[i].name + "<br> Rating: " + businesses[i].rating + "<br>" + "<button class='btn btn-primary btn-review' onclick='openModal(" + i +")' style='width:100%'>Reviews</button>");
+          "<b>Place</b><br/>" + "Name: " + businesses[i].name + "<br> Rating: " + businesses[i].rating + "<br>" + "<br>" + "<b>Address </b>" + "<br>" + businesses[i].location.address1 + "<br>" + businesses[i].location.city + ", " + businesses[i].location.state + " " + businesses[i].location.zip_code + "<br>" + "<br>" + "<button class='btn btn-primary btn-review' onclick='openModal(" + i +")' style='width:100%'>Reviews</button><br><br><button onclick='addPlace(" + i + ")' class='btn btn-default' style='width:100%'>+ Add to Favorites</button>");
 
         places[i] = businesses[i];
         /* Show informations to info panel on the bottom */
