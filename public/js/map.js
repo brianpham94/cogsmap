@@ -368,7 +368,7 @@ var displaySavedList = function() {
     console.log(myPlaces[i]);
     var marker = L.marker([parseFloat(myPlaces[i].coordinates.latitude), parseFloat(myPlaces[i].coordinates.longitude)]).bindPopup(
       "<b>Place</b><br/>" + "Name: " + 
-      myPlaces[i].name + "<br> Rating: " + myPlaces[i].rating + "<br>" + "<br>" + "<b>Address </b>" + "<br>" + myPlaces[i].location.address1 + "<br>" + myPlaces[i].location.city + ", " + myPlaces[i].location.state + " " + myPlaces[i].location.zip_code);
+      myPlaces[i].name + "<br> Rating: " + myPlaces[i].rating + "<br>" + "<br>" + "<b>Address </b>" + "<br>" + myPlaces[i].location.address1 + "<br>" + myPlaces[i].location.city + ", " + myPlaces[i].location.state + " " + myPlaces[i].location.zip_code  + "<br>" + "<br>" + "<button class='btn btn-primary btn-review' onclick='openModal(" + i +")' style='width:100%'>Reviews</button>");
 
     savedMarkersArray.push(marker);
 
