@@ -18,6 +18,7 @@ exports.yelpSearch = function(req, res) {
 		//these will be filled in by the request body
 		var termN = req.body.search.term;
 		var locationN = req.body.search.location;
+		console.log(req.body.search.current);
 		var currentLoc = JSON.parse(req.body.search.current);
 		console.log("entering search callback");
 		console.log("term: " + termN);

@@ -498,13 +498,15 @@ function filterMarkers(businesses, category) {
       document.getElementById("panel_info").innerHTML = '';
       // document.getElementById("categories_info").innerHTML = '';
 
+      var j = 0;
       for(var i = 0; i < businesses.length; i++) {
         var iconColor;
         var reviews = businesses[i].review_count;
 
-        if(businesses[i].categories[0].title != category) {
+        if(businesses[i].categories[0].title != category && category != 'All Categories') {
           continue;
         }
+
 
         if(reviews > 200) {
           iconColor = redIcon;
@@ -520,12 +522,12 @@ function filterMarkers(businesses, category) {
 
 
         var marker = L.marker([businesses[i].coordinates.latitude, businesses[i].coordinates.longitude], {icon: iconColor}).bindPopup(
-          "<b>Place</b><br/>" + "Name: " + businesses[i].name + "<br> Rating: " + businesses[i].rating + "<br>" + "<br>" + "<b>Address </b>" + "<br>" + businesses[i].location.address1 + "<br>" + businesses[i].location.city + ", " + businesses[i].location.state + " " + businesses[i].location.zip_code + "<br>" + "<br>" + "<button class='btn btn-primary btn-review' onclick='openModal(" + i +")' style='width:100%'>Reviews</button><br><br><button onclick='addPlace(" + i + ")' class='btn btn-default' style='width:100%'>+ Add to Favorites</button>");
+          "<b>Place</b><br/>" + "Name: " + businesses[i].name + "<br> Rating: " + businesses[i].rating + "<br>" + "<br>" + "<b>Address </b>" + "<br>" + businesses[i].location.address1 + "<br>" + businesses[i].location.city + ", " + businesses[i].location.state + " " + businesses[i].location.zip_code + "<br>" + "<br>" + "<button class='btn btn-primary btn-review' onclick='openModal(" + j +")' style='width:100%'>Reviews</button><br><br><button onclick='addPlace(" + j + ")' class='btn btn-default' style='width:100%'>+ Add to Favorites</button>");
 
-        places[i] = businesses[i];
+        places[j] = businesses[i];
         /* Show informations to info panel on the bottom */
         document.getElementById("panel_info").innerHTML += 
-        "<tr id='panel_info'><td>" + places[i].name + "</td><td>" + places[i].review_count + "</td><td>" + places[i].rating + "</td><td>" + places[i].price + "</td><td>"+ places[i].categories[0].title +"</td><td><a href='#map'><button onclick='clickPlace(" + i + ")' class='btn btn-info'>View</button></a></td><td><button onclick='addPlace(" + i + ")' class='btn btn-primary'>+ Add</button></td></tr>";
+        "<tr id='panel_info'><td>" + places[j].name + "</td><td>" + places[j].review_count + "</td><td>" + places[j].rating + "</td><td>" + places[j].price + "</td><td>"+ places[j].categories[0].title +"</td><td><a href='#map'><button onclick='clickPlace(" + j + ")' class='btn btn-info'>View</button></a></td><td><button onclick='addPlace(" + j + ")' class='btn btn-primary'>+ Add</button></td></tr>";
         markers_on_map.addLayer(marker);
         markersArray.push(marker);
 
@@ -535,8 +537,9 @@ function filterMarkers(businesses, category) {
         // }
 
         /* Store charts array */
-        chart_reviews.push([places[i].name,places[i].review_count]);
-        chart_ratings.push([places[i].name,places[i].rating]);
+        chart_reviews.push([places[j].name,places[j].review_count]);
+        chart_ratings.push([places[j].name,places[j].rating]);
+        j++;
 
       }
 

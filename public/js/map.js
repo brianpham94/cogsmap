@@ -128,7 +128,7 @@ function placeMarkers(businesses) {
 
   markers_on_map.clearLayers();
   saved_markers_on_map.clearLayers();
-  
+
   /* Clear all arrays */
   markersArray = [];
   places = [];
@@ -194,6 +194,7 @@ function placeMarkers(businesses) {
   google.charts.setOnLoadCallback(drawChart);
   
   /* Show categories on the left */
+  document.getElementById("categories_info").innerHTML = "<button class='list-group-item btn-info'>All Categories</button>";
   for(var i = 0; i < categories.length; i++) {
     document.getElementById("categories_info").innerHTML += "<button class='list-group-item'>"+ categories[i] +"</button>";
   }
@@ -311,6 +312,7 @@ var clickPlace = function(index) {
   var iconColor = colorIcon(places[index].review_count);
 
   mymap.setView(new L.LatLng(places[index].coordinates.latitude, places[index].coordinates.longitude), 20);
+  console.log("clickckkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk");
   markersArray[index].openPopup();
 }
 
