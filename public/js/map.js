@@ -375,7 +375,7 @@ var displaySavedList = function() {
     console.log(myPlaces[i]);
     var marker = L.marker([parseFloat(myPlaces[i].coordinates.latitude), parseFloat(myPlaces[i].coordinates.longitude)]).bindPopup(
       "<b>Place</b><br/>" + "Name: " + 
-      myPlaces[i].name + "<br> Rating: " + myPlaces[i].rating + "<br>" + "<br>" + "<b>Address </b>" + "<br>" + myPlaces[i].location.address1 + "<br>" + myPlaces[i].location.city + ", " + myPlaces[i].location.state + " " + myPlaces[i].location.zip_code  + "<br>" + "<br>" + "<button class='btn btn-primary btn-review' onclick='openModal(" + i +")' style='width:100%'>Reviews</button>");
+      myPlaces[i].name + "<br> Rating: " + myPlaces[i].rating + "<br>" + "<br>" + "<b>Address </b>" + "<br>" + myPlaces[i].location.address1 + "<br>" + myPlaces[i].location.city + ", " + myPlaces[i].location.state + " " + myPlaces[i].location.zip_code  + "<br>" + "<br>" + "<button class='btn btn-primary btn-review' onclick='openSavedModal(" + i +")' style='width:100%'>Reviews</button>");
 
     savedMarkersArray.push(marker);
 
@@ -443,6 +443,14 @@ var openModal = function(index) {
   modalContent.innerHTML = searchReviews(places[index].id);
   var modalHeader = document.getElementById("modal-header");
   modalHeader.innerHTML = "<h2 style='padding-left: 30px;'> Reviews for " + places[index].name + "</h2>";
+}
+
+var openSavedModal = function(index) {
+  modal.style.display = "block";
+  var modalContent = document.getElementById("modal-body");
+  modalContent.innerHTML = searchReviews(myPlaces[index].id);
+  var modalHeader = document.getElementById("modal-header");
+  modalHeader.innerHTML = "<h2 style='padding-left: 30px;'> Reviews for " + myPlaces[index].name + "</h2>";
 }
 
 /* Search Function */
