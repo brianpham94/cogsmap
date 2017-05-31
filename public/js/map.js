@@ -93,6 +93,7 @@ var categories = new Array;
 
 /* Markers to be displayed on the map */
 var markers_on_map = new L.MarkerClusterGroup();
+var saved_markers_on_map = new L.layerGroup();
 
 /* Markers - to open & close popup freely */
 var markersArray = new Array;
@@ -126,7 +127,8 @@ function colorIcon(reviews) {
 function placeMarkers(businesses) {
 
   markers_on_map.clearLayers();
-
+  saved_markers_on_map.clearLayers();
+  
   /* Clear all arrays */
   markersArray = [];
   places = [];
@@ -315,17 +317,20 @@ var clickPlace = function(index) {
 var clickSavedPlace = function(index) {
   console.log(myPlaces[index]);
 
-  markers_on_map.clearLayers();
-  console.log(myPlaces[index].review_count);
-  console.log(myPlaces[index].coordinates.latitude);
+  // markers_on_map.clearLayers();
+  saved_markers_on_map.clearLayers();
+
+  // console.log(myPlaces[index].review_count);
+  // console.log(myPlaces[index].coordinates.latitude);
   var iconColor = colorIcon(myPlaces[index].review_count);
 
-  markers_on_map.addLayer(savedMarkersArray[index]);
-  mymap.addLayer(markers_on_map);
+  //markers_on_map.addLayer(savedMarkersArray[index]);
+  //mymap.addLayer(markers_on_map);
+  saved_markers_on_map.addLayer(savedMarkersArray[index]);
+  mymap.addLayer(saved_markers_on_map);
   mymap.setView(new L.LatLng(myPlaces[index].coordinates.latitude, myPlaces[index].coordinates.longitude), 20);
 
   savedMarkersArray[index].openPopup();
-  //TODO: Show markers & open the popup!
   // savedMarkersArray array / 
 }
 
