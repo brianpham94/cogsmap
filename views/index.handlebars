@@ -60,7 +60,7 @@
       <i class="material-icons">flight</i>
       <i class="material-icons">local_dining</i>
     </h2> 
-    <p>Discover popular places to explore near you, or your next destination!</p> 
+    <p>Discover popular places to explore near you or your next destination!</p> 
 
     <!-- Search Bar -->
     <form id="searchID" class="navbar-form">
@@ -86,7 +86,7 @@
 
   <div class="container-fluid bg-1 text-left" id="map">
     <div class="col-sm-2"><br/>
-      <button id="btn_current" class="btn btn-default" value="gray"><i class="material-icons">my_location</i><span>Current Location</span></button><br/>
+      <button id="btn_current" class="btn btn-default" value="gray"><i class="material-icons" style="vertical-align: middle;">my_location</i><span> Current Location</span></button><br/>
 
       <div class="alert alert-info">
         <strong>Note!</strong> You need to search first!
@@ -100,7 +100,7 @@
 
 
       <div class="panel panel-default">
-        <div class="panel-body"><span class="glyphicon glyphicon-star"></span> Favorited Places</div>
+        <div class="panel-body"><div style="text-align: center"><span class="glyphicon glyphicon-star"></span> Favorited Places</div></div>
       </div>
 
       <div id="stored_list"></div><br/>
@@ -135,7 +135,7 @@
                   <th id="toggle-sort2">Rating <i class="fa fa-caret-up toggle-arrow" aria-hidden="true" onclick="sortRating(2)"></i></th>
                   <th id="toggle-sort3">Price <i class="fa fa-caret-up toggle-arrow" aria-hidden="true" onclick="sortPrice(3)"></i></th>
                   <th id="toggle-sort4">Category <i class="fa fa-caret-up toggle-arrow" aria-hidden="true" onclick="sortCategory(4)"></i></th>
-                  <th>View more reviews</th>
+                  <th>View Location</th>
                   <th>Add to Favorites</th>
                 </tr>
               </thead>

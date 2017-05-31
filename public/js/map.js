@@ -222,11 +222,11 @@ function drawChart() {
    var dataRatings = google.visualization.arrayToDataTable(chart_ratings);
 
    var optionsReviews = {
-    title: 'Reviews Ranks'   
+    title: 'Compare Reviews'   
   }; 
 
   var optionsRatings = {
-    title: 'Ratings Ranks'   
+    title: 'Compare Ratings'   
   }; 
 
   document.getElementById('chart_review').style.height = '400px';
